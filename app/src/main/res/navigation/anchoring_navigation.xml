@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/edit_profile_navigation"
+    app:startDestination="@id/anchoring1Fragment">
+
+
+    <fragment
+        android:id="@+id/anchoring1Fragment"
+        android:name="com.brainoptimax.peakstate.ui.fragment.anchoring.Anchoring1Fragment"
+        android:label="fragment_anchoring1"
+        tools:layout="@layout/fragment_anchoring1" >
+        <action
+            android:id="@+id/action_anchoring1Fragment_to_anchoring2Fragment2"
+            app:destination="@id/anchoring2Fragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_slide_left_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/anchoring2Fragment"
+        android:name="com.brainoptimax.peakstate.ui.fragment.anchoring.Anchoring2Fragment"
+        android:label="fragment_anchoring2"
+        tools:layout="@layout/fragment_anchoring2" >
+        <action
+            android:id="@+id/action_anchoring2Fragment_to_anchoring3Fragment"
+            app:destination="@id/anchoring3Fragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_slide_left_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/anchoring3Fragment"
+        android:name="com.brainoptimax.peakstate.ui.fragment.anchoring.Anchoring3Fragment"
+        android:label="fragment_anchoring3"
+        tools:layout="@layout/fragment_anchoring3" >
+        <action
+            android:id="@+id/action_anchoring3Fragment_to_anchoring4Fragment"
+            app:destination="@id/anchoring4Fragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_slide_left_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/anchoring4Fragment"
+        android:name="com.brainoptimax.peakstate.ui.fragment.anchoring.Anchoring4Fragment"
+        android:label="fragment_anchoring4"
+        tools:layout="@layout/fragment_anchoring4" >
+        <action
+            android:id="@+id/action_anchoring4Fragment_to_anchoring5Fragment"
+            app:destination="@id/anchoring5Fragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_slide_left_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/anchoring5Fragment"
+        android:name="com.brainoptimax.peakstate.ui.fragment.anchoring.Anchoring5Fragment"
+        android:label="fragment_anchoring5"
+        tools:layout="@layout/fragment_anchoring5" >
+        <action
+            android:id="@+id/action_anchoring5Fragment_to_anchoring6Fragment"
+            app:destination="@id/anchoring6Fragment"
+            app:enterAnim="@anim/animate_swipe_left_enter"
+            app:exitAnim="@anim/animate_slide_left_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/anchoring6Fragment"
+        android:name="com.brainoptimax.peakstate.ui.fragment.anchoring.Anchoring6Fragment"
+        android:label="fragment_anchoring6"
+        tools:layout="@layout/fragment_anchoring6" />
+</navigation>

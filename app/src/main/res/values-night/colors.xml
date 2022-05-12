@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#039BE5</color>
+    <color name="purple_500">#039BE5</color>
+    <color name="purple_700">#039BE5</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    // custom color
+    <color name="bg_layout">#1C1B1F</color>
+    <color name="bg_layout_2">#1F1F1F</color>
+    <color name="color_primary">#1660A5</color>
+    <color name="txt_bottom_nav">#82B1FF</color>
+    <color name="text_color">#ECECEC</color>
+    <color name="bg_card">#272529</color>
+    <color name="bg_card_blue">#00478A</color>
+    <color name="bg_card_orange">#FF9800</color>
+    <color name="bg_card_dark_tosca">#19647E</color>
+    <color name="indicator_tab">#BBDEFB</color>
+    <color name="colorShimmer">#3a3a3a</color>
+    <color name="text_blue">#82B1FF</color>
+    <color name="bg_breathing">#0C1E31</color>
+    <color name="text_white_grey">#707070</color>
+    <color name="text_grey_white">#C1C1C1</color>
+    <color name="bg_breathing_btn">#B70F4970</color>
+    <color name="bg_circle_breathing1">#02386E</color>
+    <color name="bg_circle_breathing2">#D500264D</color>
+    <color name="bg_circle_breathing3">#80021727</color>
+    <color name="bg_circle_breathing_complete_1">#02386E</color>
+    <color name="bg_circle_breathing_complete_2">#D500264D</color>
+    <color name="bg_circle_breathing_complete_3">#80021727</color>
+    <color name="circle_grey">#424242</color>
+    <color name="bg_btn_grey_black">#424242</color>
+    <color name="cyan_primary">#00838F</color>
+</resources>

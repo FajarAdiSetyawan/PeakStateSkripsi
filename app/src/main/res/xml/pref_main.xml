@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+
+        app:title="@string/pref_display_group_title_profile">
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_key_accout"
+            app:icon="@drawable/ic_baseline_account_circle_24"
+            app:summary="@string/pref_account_summary"
+            app:title="@string/pref_account_title" />
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_key_energy"
+            app:icon="@drawable/ic_baseline_quiz_1_24"
+            app:summary="@string/pref_energy_summary"
+            app:title="@string/pref_energy_title" />
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_key_peak"
+            app:icon="@drawable/ic_baseline_quiz_24"
+            app:summary="@string/pref_peak_summary"
+            app:title="@string/pref_peak_title"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/pref_display_group_title">
+
+        <ListPreference
+            app:defaultValue="@string/pref_theme_entry_auto"
+            app:entries="@array/pref_themes_label"
+            app:entryValues="@array/pref_themes_entry"
+            app:icon="@drawable/ic_themes"
+            app:key="@string/pref_key_theme"
+            app:title="@string/pref_theme_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_key_lang"
+            app:icon="@drawable/ic_language"
+            app:summary="@string/english"
+            app:title="@string/pref_lang_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/pref_display_group_title_application">
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_key_feedback"
+            app:icon="@drawable/ic_baseline_feedback_24"
+            app:summary="@string/pref_feedback_summary"
+            app:title="@string/pref_feedback_title" />
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_key_share"
+            app:icon="@drawable/ic_baseline_share"
+            app:summary="@string/pref_share_summary"
+            app:title="@string/pref_share_title" />
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="pref_key_logout"
+            app:icon="@drawable/ic_baseline_logout_24"
+            app:summary="@string/pref_logout_summary"
+            app:title="@string/pref_logout_title" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

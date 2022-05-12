@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.emotion.PositiveEmotionActivity"
+    android:background="@color/bg_layout">
+
+    <RelativeLayout
+        android:id="@+id/tab_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tv_positive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="@string/positive"
+            android:textColor="@color/yellow"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppins"
+            android:layout_marginStart="80dp"
+            android:textAllCaps="true"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_negative"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/negative"
+            android:textAllCaps="true"
+            android:layout_marginStart="100dp"
+            android:textColor="#E4E8EB"
+            android:fontFamily="@font/poppins"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/iv_back_add_emo_pos"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="30dp"
+            android:src="@drawable/ic_arrow_down"
+            android:layout_alignParentEnd="true"
+            />
+
+        <TextView
+            android:id="@+id/tv_example"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tab_lay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="80dp">
+
+            <LinearLayout
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/layout_excited"
+                android:onClick="recordEmotion"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="73dp"
+                    android:layout_height="73dp"
+                    android:src="@drawable/ic_exited"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/excited"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                app:layout_constraintStart_toEndOf="@+id/layout_excited"
+                app:layout_constraintEnd_toStartOf="@+id/layout_happy"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/layout_enthusiastic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="recordEmotion"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="73dp"
+                    android:layout_height="73dp"
+                    android:src="@drawable/ic_enthusiastic"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/enthusiastic"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_happy"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:onClick="recordEmotion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="50dp"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="73dp"
+                    android:layout_height="73dp"
+                    android:src="@drawable/ic_happy"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/happy"
+                    android:fontFamily="@font/poppins"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_grateful"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="50dp"
+                android:onClick="recordEmotion"
+                app:layout_constraintTop_toBottomOf="@+id/layout_happy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="73dp"
+                    android:layout_height="73dp"
+                    android:src="@drawable/ic_grateful"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/grateful"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                app:layout_constraintTop_toBottomOf="@+id/layout_happy"
+                app:layout_constraintStart_toEndOf="@+id/layout_grateful"
+                app:layout_constraintEnd_toStartOf="@+id/layout_joyful"
+                android:id="@+id/layout_passionate"
+                android:layout_width="wrap_content"
+                android:onClick="recordEmotion"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="73dp"
+                    android:layout_height="73dp"
+                    android:src="@drawable/ic_passionate"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/passionate"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_joyful"
+                app:layout_constraintTop_toBottomOf="@id/layout_happy"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:onClick="recordEmotion"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="50dp"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="73dp"
+                    android:layout_height="73dp"
+                    android:src="@drawable/ic_joyful"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/joyful"
+                    android:fontFamily="@font/poppins"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_brave"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="50dp"
+                app:layout_constraintTop_toBottomOf="@+id/layout_joyful"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="recordEmotion"
+                android:orientation="vertical"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="73dp"
+                    android:layout_height="73dp"
+                    android:src="@drawable/ic_brave"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/brave"
+                    android:fontFamily="@font/poppins"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                app:layout_constraintTop_toBottomOf="@id/layout_joyful"
+                app:layout_constraintStart_toEndOf="@+id/layout_brave"
+                app:layout_constraintEnd_toStartOf="@+id/layout_proud"
+                android:id="@+id/layout_confident"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="recordEmotion"
+                android:orientation="vertical"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="73dp"
+                    android:layout_height="73dp"
+                    android:src="@drawable/ic_confident"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/confident"
+                    android:fontFamily="@font/poppins"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_proud"
+                app:layout_constraintTop_toBottomOf="@+id/layout_joyful"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="recordEmotion"
+                android:orientation="vertical"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="50dp"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="73dp"
+                    android:layout_height="73dp"
+                    android:src="@drawable/ic_proud"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/proud"
+                    android:fontFamily="@font/poppins"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_hopeful"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="50dp"
+                app:layout_constraintTop_toBottomOf="@+id/layout_proud"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="recordEmotion"
+                android:orientation="vertical"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="73dp"
+                    android:layout_height="73dp"
+                    android:src="@drawable/ic_hopeful"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/hopeful"
+                    android:fontFamily="@font/poppins"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                app:layout_constraintTop_toBottomOf="@id/layout_proud"
+                app:layout_constraintStart_toEndOf="@+id/layout_hopeful"
+                app:layout_constraintEnd_toStartOf="@+id/layout_proud"
+                android:id="@+id/layout_optimistic"
+                android:layout_width="wrap_content"
+                android:onClick="recordEmotion"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="73dp"
+                    android:layout_height="73dp"
+                    android:src="@drawable/ic_optimistic"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/optimistic"
+                    android:fontFamily="@font/poppins"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_calm"
+                app:layout_constraintTop_toBottomOf="@+id/layout_proud"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:onClick="recordEmotion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="50dp"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="73dp"
+                    android:layout_height="73dp"
+                    android:src="@drawable/ic_calm"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/calm"
+                    android:fontFamily="@font/poppins"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_fun"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="50dp"
+                android:onClick="recordEmotion"
+                app:layout_constraintTop_toBottomOf="@+id/layout_calm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="73dp"
+                    android:layout_height="73dp"
+                    android:src="@drawable/ic_fun"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/fun"
+                    android:fontFamily="@font/poppins"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                app:layout_constraintTop_toBottomOf="@id/layout_calm"
+                app:layout_constraintStart_toEndOf="@+id/layout_hopeful"
+                app:layout_constraintEnd_toStartOf="@+id/layout_good"
+                android:id="@+id/layout_awful"
+                android:onClick="recordEmotion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="73dp"
+                    android:layout_height="73dp"
+                    android:src="@drawable/ic_awful"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/awful"
+                    android:fontFamily="@font/poppins"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_good"
+                app:layout_constraintTop_toBottomOf="@+id/layout_calm"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="recordEmotion"
+                android:orientation="vertical"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="50dp"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="73dp"
+                    android:layout_height="73dp"
+                    android:src="@drawable/ic_good"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/good"
+                    android:fontFamily="@font/poppins"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

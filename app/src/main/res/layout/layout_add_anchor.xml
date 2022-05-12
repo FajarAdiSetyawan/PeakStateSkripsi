@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_anchoring"
+    style="@style/Widget.Material3.CardView.Filled"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="5dp"
+    app:cardCornerRadius="10dp"
+    app:cardUseCompatPadding="true"
+    app:cardBackgroundColor="@color/bg_card"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/tv_title">
+
+    <TextView
+        android:id="@+id/tv_list_anchor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Happy"
+        android:padding="15dp"
+        android:fontFamily="@font/poppins"
+        android:textSize="16sp"/>
+
+</com.google.android.material.card.MaterialCardView>

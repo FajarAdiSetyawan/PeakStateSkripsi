@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "175191691077",
+    "project_id": "peakstate-be063",
+    "storage_bucket": "peakstate-be063.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:175191691077:android:7330f84098eecc6bd5f82c",
+        "android_client_info": {
+          "package_name": "com.brainoptimax.peakstate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "175191691077-irmal03rdfnrfhi7v6jvnegk6qhhhcv0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.brainoptimax.peakstate",
+            "certificate_hash": "83a9c638ac4ab50124844edccc090e20c50c5a69"
+          }
+        },
+        {
+          "client_id": "175191691077-0hnmeufojr4daa5866vkho2ll9c4kpts.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMVL69_IaSFBYwFGOVDHpmienf4KnKdDc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "175191691077-0hnmeufojr4daa5866vkho2ll9c4kpts.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

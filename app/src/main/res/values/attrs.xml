@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="colorBackground" format="color" />
+    <attr name="colorTintedBackground" format="color" />
+    <attr name="colorColor68" format="color" />
+    <attr name="colorOnColor68" format="color" />
+    <attr name="colorColor68Container" format="color" />
+    <attr name="colorOnColor68Container" format="color" />
+    <attr name="harmonizeColor68" format="boolean" />
+</resources>
+

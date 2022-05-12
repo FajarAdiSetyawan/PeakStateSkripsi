@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/auth_navigation"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.brainoptimax.peakstate.ui.fragment.auth.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment"
+            app:enterAnim="@anim/animate_slide_left_enter"
+            app:exitAnim="@anim/animate_slide_left_exit"/>
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/animate_slide_left_enter"
+            app:exitAnim="@anim/animate_slide_left_exit"/>
+        <action
+            android:id="@+id/action_loginFragment_to_introSliderActivity"
+            app:destination="@id/introSliderActivity"
+            app:enterAnim="@anim/animate_zoom_enter"
+            app:exitAnim="@anim/animate_zoom_exit"/>
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.brainoptimax.peakstate.ui.fragment.auth.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/animate_slide_in_left"
+            app:exitAnim="@anim/animate_slide_out_right"/>
+        <action
+            android:id="@+id/action_registerFragment_to_introSliderActivity"
+            app:destination="@id/introSliderActivity"
+            app:enterAnim="@anim/animate_zoom_enter"
+            app:exitAnim="@anim/animate_zoom_exit"/>
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.brainoptimax.peakstate.ui.fragment.auth.ForgotPasswordFragment"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" >
+        <action
+            android:id="@+id/action_forgotPasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/animate_slide_in_left"
+            app:exitAnim="@anim/animate_slide_out_right"/>
+    </fragment>
+    <activity
+        android:id="@+id/introSliderActivity"
+        android:name="com.brainoptimax.peakstate.ui.activity.intro.IntroSliderActivity"
+        android:label="IntroSliderActivity" />
+</navigation>

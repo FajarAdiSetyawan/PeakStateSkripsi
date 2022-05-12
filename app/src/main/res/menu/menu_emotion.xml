@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menuDaily"
+        android:icon="@drawable/ic_baseline_today_24"
+        android:title="@string/daily" />
+
+    <item
+        android:id="@+id/menuaddEmotion"
+        android:title="" />
+
+    <item
+        android:id="@+id/menuWeekly"
+        android:icon="@drawable/ic_weekly"
+        android:title="@string/weekly" />
+
+
+
+
+</menu>

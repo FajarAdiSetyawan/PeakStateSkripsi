@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_remainders"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/bg_card"
+    app:cardCornerRadius="18dp"
+    app:cardElevation="3dp"
+    app:cardUseCompatPadding="true"
+    style="@style/Widget.Material3.CardView.Elevated"
+    android:orientation="vertical">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <io.github.florent37.shapeofview.shapes.RoundRectView
+            android:id="@+id/shape_more"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="1dp"
+            android:visibility="visible"
+            app:shape_roundRect_bottomLeftRadius="10dp"
+            app:shape_roundRect_bottomRightRadius="10dp"
+            app:shape_roundRect_topLeftRadius="10dp"
+            app:shape_roundRect_topRightRadius="10dp"
+            app:shape_roundRect_borderColor="@android:color/black"
+            >
+
+            <ImageView
+                android:id="@+id/iv_more_remainder"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:src="@drawable/ic_sleep_medi" />
+
+        </io.github.florent37.shapeofview.shapes.RoundRectView>
+
+        <TextView
+            android:id="@+id/tv_title_remainder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Morning routine"
+            android:textColor="#F4D35E"
+            card_view:layout_constraintStart_toEndOf="@+id/shape_more"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:fontFamily="@font/poppins_semibold"
+            android:layout_marginStart="20dp"
+            card_view:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_subtitle_remainder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sub title"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            card_view:layout_constraintStart_toEndOf="@+id/shape_more"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppins"
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_title_remainder"/>
+
+        <TextView
+            android:id="@+id/tv_desc_remainder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            card_view:layout_constraintTop_toBottomOf="@+id/shape_more"
+            android:layout_marginTop="10dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins"
+            android:maxLines="3"
+            android:justificationMode="inter_word"
+            card_view:layout_constraintStart_toStartOf="parent"
+            android:text="Every morning I’ll write a journal entry and review my affirmations."/>
+
+        <TextView
+            android:layout_gravity="end"
+            android:id="@+id/tv_datetime_remainder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Monday, 27 January 2020 - 08.00am"
+            android:textSize="10sp"
+            android:fontFamily="@font/poppins"
+            android:layout_marginTop="5dp"
+            card_view:layout_constraintTop_toBottomOf="@id/tv_desc_remainder"
+            card_view:layout_constraintEnd_toEndOf="parent"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</com.google.android.material.card.MaterialCardView>
+

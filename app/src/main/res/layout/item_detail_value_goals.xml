@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_anchoring"
+    style="@style/Widget.Material3.CardView.Filled"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="5dp"
+    app:cardCornerRadius="10dp"
+    app:cardUseCompatPadding="true"
+    app:cardBackgroundColor="@color/bg_card">
+
+    <CheckBox
+        android:id="@+id/cb_goals_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Happy"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:padding="15dp"
+        android:textColor="@color/text_color"
+        android:fontFamily="@font/poppins"
+        style="@style/CheckBoxOrange"
+        android:buttonTint="@color/md_deep_orange_500"
+        android:textSize="16sp"/>
+
+</com.google.android.material.card.MaterialCardView>

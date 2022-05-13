@@ -20,12 +20,10 @@ import androidx.preference.PreferenceManager
 import com.airbnb.lottie.LottieAnimationView
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.ActivityEmotionGaugeBinding
-import com.brainoptimax.peakstate.ui.activity.auth.RegisterActivity
 import com.brainoptimax.peakstate.ui.activity.intro.IntroEmotionActivity
 import com.brainoptimax.peakstate.utils.Animatoo
 import com.brainoptimax.peakstate.utils.ConnectionType
 import com.brainoptimax.peakstate.utils.NetworkMonitorUtil
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class EmotionGaugeActivity : AppCompatActivity() {
 

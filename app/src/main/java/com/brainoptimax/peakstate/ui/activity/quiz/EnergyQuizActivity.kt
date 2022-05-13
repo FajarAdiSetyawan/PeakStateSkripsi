@@ -2,7 +2,6 @@ package com.brainoptimax.peakstate.ui.activity.quiz
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -22,12 +21,9 @@ import androidx.core.content.ContextCompat
 import com.airbnb.lottie.LottieAnimationView
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.ActivityEnergyQuizBinding
-import com.brainoptimax.peakstate.ui.activity.MainActivity
-import com.brainoptimax.peakstate.ui.activity.auth.RegisterActivity
 import com.brainoptimax.peakstate.utils.Animatoo
 import com.brainoptimax.peakstate.utils.ConnectionType
 import com.brainoptimax.peakstate.utils.NetworkMonitorUtil
-import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference

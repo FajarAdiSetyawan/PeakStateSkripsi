@@ -22,6 +22,7 @@ import androidx.preference.PreferenceManager
 import com.airbnb.lottie.LottieAnimationView
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.ActivityMainBinding
+import com.brainoptimax.peakstate.ui.activity.auth.AuthActivity
 import com.brainoptimax.peakstate.ui.fragment.bottomnav.ActivatorFragment
 import com.brainoptimax.peakstate.ui.fragment.bottomnav.HomeFragment
 import com.brainoptimax.peakstate.ui.fragment.bottomnav.ProfileFragment
@@ -30,9 +31,6 @@ import com.brainoptimax.peakstate.utils.ConnectionType
 import com.brainoptimax.peakstate.utils.NetworkMonitorUtil
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
-import com.brainoptimax.peakstate.ui.activity.auth.LoginActivity
-
-import androidx.annotation.NonNull
 
 
 class MainActivity : AppCompatActivity() {
@@ -62,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         authStateListener = AuthStateListener {
             val user = FirebaseAuth.getInstance().currentUser
             if (user == null) {
-                val intent = Intent(this, LoginActivity::class.java)
+                val intent = Intent(this, AuthActivity::class.java)
                 startActivity(intent)
                 Animatoo.animateSlideDown(this)
                 finish()

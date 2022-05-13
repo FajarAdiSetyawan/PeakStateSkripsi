@@ -1,21 +1,16 @@
 package com.brainoptimax.peakstate.ui.fragment.auth
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.FragmentForgotPasswordBinding
-import com.brainoptimax.peakstate.ui.activity.auth.LoginActivity
-import com.brainoptimax.peakstate.utils.Animatoo
 import com.brainoptimax.peakstate.viewmodel.auth.ForgotPasswordViewModel
-import com.brainoptimax.peakstate.viewmodel.auth.LoginViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 

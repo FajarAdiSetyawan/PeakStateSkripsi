@@ -58,7 +58,7 @@ class ForgotPasswordViewModel : ViewModel() {
         alertDialogLoading.show()
     }
 
-    fun closeLoadingDialog() {
+    private fun closeLoadingDialog() {
         alertDialogLoading.dismiss()
     }
 }

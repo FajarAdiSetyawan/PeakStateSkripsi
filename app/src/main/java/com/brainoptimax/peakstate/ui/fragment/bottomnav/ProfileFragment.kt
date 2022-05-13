@@ -24,6 +24,8 @@ import com.airbnb.lottie.LottieAnimationView
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.FragmentProfileBinding
 import com.brainoptimax.peakstate.ui.fragment.PreferenceFragment
+import com.brainoptimax.peakstate.utils.Preferences
+import com.bumptech.glide.Glide
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
@@ -52,7 +54,7 @@ class ProfileFragment : Fragment() {
     private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
     var currentUserID: String? = null
-
+    private lateinit var preferences: Preferences
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -72,39 +74,19 @@ class ProfileFragment : Fragment() {
 
         currentUserID = auth.currentUser?.uid
 
-        showLoading()
-        databaseReference.child("Users").child(auth.currentUser!!.uid).child("photoUrl")
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists()) {
-                        goneLoading()
-                        val photoUrl = snapshot.value.toString()
-                        Picasso.get().load(photoUrl).into(binding.ivAvatarProfile)
-                    } else {
-                        val ref = storage.reference.child("users/$currentUserID/profile.jpg")
-                        ref.downloadUrl.addOnSuccessListener(OnSuccessListener<Uri?> { uri ->
-                            goneLoading()
-                            Picasso.get().load(uri).into(binding.ivAvatarProfile)
-                        }).addOnFailureListener {
-                            goneLoading()
-                            binding.ivAvatarProfile.setImageResource(R.drawable.ic_baseline_account_circle_24)
-                        }
-                    }
+        // Initialize Shared Preferences
+        preferences = Preferences(activity!!)
 
-                }
+        binding.tvUsername.text = preferences.getValues("username")
 
-                override fun onCancelled(error: DatabaseError) {}
-            })
-
-        databaseReference.child("Users").child(currentUserID!!).child("username")
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val username = snapshot.value.toString()
-                    binding.tvUsername.text = username
-                }
-
-                override fun onCancelled(error: DatabaseError) {}
-            })
+        val imgUrl = preferences.getValues("imgUrl")
+        if (imgUrl!!.isEmpty()){
+            binding.ivAvatarProfile.setImageResource(R.drawable.ic_profile)
+        }else{
+            Glide.with(this)
+                .load(imgUrl)
+                .into(binding.ivAvatarProfile)
+        }
 
         binding.ivChangeAvatar.setOnClickListener {
             val openGallery =

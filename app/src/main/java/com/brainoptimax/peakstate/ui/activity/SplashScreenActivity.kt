@@ -12,11 +12,9 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.ActivitySplashScreenBinding
 import com.brainoptimax.peakstate.ui.activity.auth.AuthActivity
-import com.brainoptimax.peakstate.ui.activity.auth.RegisterActivity
 import com.brainoptimax.peakstate.utils.Animatoo
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.firebase.auth.FirebaseAuth
-import render.animations.Fade
 import render.animations.Render
 import render.animations.Zoom
 

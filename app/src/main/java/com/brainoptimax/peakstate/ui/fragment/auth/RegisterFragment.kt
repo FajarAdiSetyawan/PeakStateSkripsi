@@ -13,6 +13,9 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.FragmentRegisterBinding
+import com.brainoptimax.peakstate.model.Users
+import com.brainoptimax.peakstate.utils.Preferences
+import com.brainoptimax.peakstate.utils.PreferencesKey
 import com.brainoptimax.peakstate.viewmodel.auth.LoginViewModel
 import com.brainoptimax.peakstate.viewmodel.auth.RegisterViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -24,6 +27,8 @@ import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 
 class RegisterFragment : Fragment() {
@@ -33,10 +38,11 @@ class RegisterFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var mGoogleSignInClient: GoogleSignInClient
+    private lateinit var databaseReference: DatabaseReference
 
     private val viewModel = RegisterViewModel()
     private lateinit var nav : NavController
-
+    private lateinit var preferences: Preferences
     companion object {
         private const val RC_SIGN_IN = 123
     }
@@ -52,6 +58,11 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Initialize Firebase
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users")
+
+        // Initialize Shared Preferences
+        preferences = Preferences(activity!!)
 
         auth = FirebaseAuth.getInstance()
         nav = Navigation.findNavController(requireView())
@@ -118,11 +129,17 @@ class RegisterFragment : Fragment() {
 
                 viewModel.openLoadingDialog(requireActivity())
                 viewModel.registerWithEmail(username, email, password, auth, nav, view)
-
+                preferences.setValues(PreferencesKey.STATUS, "1")
+                preferences.setValues(PreferencesKey.UID, auth.uid.toString())
+                preferences.setValues(PreferencesKey.EMAIL, email)
+                preferences.setValues(PreferencesKey.FULLNAME, "Fullname")
+                preferences.setValues(PreferencesKey.IMGURL, "")
+                preferences.setValues(PreferencesKey.USERNAME, username)
             }
 
         }
     }
+
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -159,12 +176,25 @@ class RegisterFragment : Fragment() {
                     if (!isNew) {
                         // jika tidak user baru
                         viewModel.closeLoadingDialog()  // tutup dialog
-                        nav.navigate(R.id.action_registerFragment_to_introSliderActivity)  // pindah ke intro
+                        nav.navigate(R.id.action_registerFragment_to_introSliderActivity)
+                        preferences.setValues(PreferencesKey.STATUS, "1")
+                        preferences.setValues(PreferencesKey.UID, auth.uid.toString())
+                        preferences.setValues(PreferencesKey.EMAIL, account.email.toString())
+                        preferences.setValues(PreferencesKey.FULLNAME, account.familyName.toString())
+                        preferences.setValues(PreferencesKey.IMGURL, account.photoUrl.toString())
+                        preferences.setValues(PreferencesKey.USERNAME, account.displayName.toString())
+                        // pindah ke intro
                         Toast.makeText(activity, "" + resources.getString(R.string.welcome) + "\n" + account.displayName.toString(), Toast.LENGTH_LONG).show()
                     } else {
                         // jika user baru
                         viewModel.saveNewAccountGoogle(auth.currentUser?.uid, account.email.toString(), account.displayName.toString(), account.familyName.toString(), account.photoUrl.toString(), nav, view)
                         Toast.makeText(activity, "" + resources.getString(R.string.welcome) + "\n" + account.displayName.toString(), Toast.LENGTH_LONG).show()
+                        preferences.setValues(PreferencesKey.STATUS, "1")
+                        preferences.setValues(PreferencesKey.UID, auth.uid.toString())
+                        preferences.setValues(PreferencesKey.EMAIL, account.email.toString())
+                        preferences.setValues(PreferencesKey.FULLNAME, account.familyName.toString())
+                        preferences.setValues(PreferencesKey.IMGURL, account.photoUrl.toString())
+                        preferences.setValues(PreferencesKey.USERNAME, account.displayName.toString())
                         nav.navigate(R.id.action_registerFragment_to_introSliderActivity)   //--> you can navigate to your main page
                         viewModel.closeLoadingDialog()
                     }

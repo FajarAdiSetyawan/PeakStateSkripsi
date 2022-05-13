@@ -8,16 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.FragmentEditProfileBinding
 import com.brainoptimax.peakstate.ui.activity.MainActivity
-import com.brainoptimax.peakstate.ui.activity.auth.LoginActivity
+import com.brainoptimax.peakstate.ui.activity.auth.AuthActivity
 import com.brainoptimax.peakstate.utils.Animatoo
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import kotlinx.coroutines.MainScope
 
 class EditProfileFragment : Fragment() {
 
@@ -97,7 +95,7 @@ class EditProfileFragment : Fragment() {
                 if (it.isSuccessful) {
                     Toast.makeText(context, R.string.email_verif_send, Toast.LENGTH_SHORT).show()
                     auth.signOut() // fungsi dari firebase auth untuk logout
-                    startActivity(Intent(context, LoginActivity::class.java)) // pindah ke login
+                    startActivity(Intent(context, AuthActivity::class.java)) // pindah ke login
                     Animatoo.animateSlideUp(context!!)
                     Toast.makeText(context, "Success Logout", Toast.LENGTH_SHORT)
                         .show() //

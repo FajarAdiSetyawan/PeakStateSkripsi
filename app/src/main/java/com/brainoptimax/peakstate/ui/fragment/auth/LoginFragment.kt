@@ -8,10 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.FragmentLoginBinding
+import com.brainoptimax.peakstate.utils.Preferences
 import com.brainoptimax.peakstate.viewmodel.auth.LoginViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -22,6 +24,14 @@ import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.brainoptimax.peakstate.utils.PreferencesKey.UID
+import com.brainoptimax.peakstate.utils.PreferencesKey.STATUS
+import com.brainoptimax.peakstate.utils.PreferencesKey.EMAIL
+import com.brainoptimax.peakstate.utils.PreferencesKey.FULLNAME
+import com.brainoptimax.peakstate.utils.PreferencesKey.USERNAME
+import com.brainoptimax.peakstate.utils.PreferencesKey.IMGURL
 
 class LoginFragment : Fragment() {
 
@@ -29,9 +39,16 @@ class LoginFragment : Fragment() {
     private val binding get() = fragmentLoginBinding!!
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var mDatabase: DatabaseReference
+
     private lateinit var mGoogleSignInClient: GoogleSignInClient
+
     private val viewModel = LoginViewModel()
+
     private lateinit var nav : NavController
+
+    private lateinit var preferences: Preferences
+
 
     companion object {
         private const val RC_SIGN_IN = 123
@@ -48,7 +65,15 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        auth = FirebaseAuth.getInstance()
+        // Initialize Firebase
+        mDatabase = FirebaseDatabase.getInstance().getReference("Users")
+
+        // Initialize Shared Preferences
+        preferences = Preferences(activity!!)
+
+        // Initialize Firebase Auth
+        auth = FirebaseAuth.getInstance();
+
         nav = Navigation.findNavController(requireView())
 
         // Configure Google Sign In inside onCreate mentod
@@ -91,7 +116,19 @@ class LoginFragment : Fragment() {
                 binding.outlinedTextFieldPass.error = null
 
                 viewModel.openLoadingDialog(requireActivity())
-                viewModel.loginWithEmail(email, password, auth, nav, view)
+                viewModel.loginWithEmail(mDatabase, email, password, auth, nav, view)
+                    .observe(this, Observer { signIn ->
+                        if (signIn != null) {
+                            // Set value logged user information and login status to 1 (true)
+                            preferences.setValues(STATUS, "1")
+                            preferences.setValues(UID, auth.uid.toString())
+                            preferences.setValues(EMAIL, signIn.email.toString())
+                            preferences.setValues(FULLNAME, signIn.fullname.toString())
+                            preferences.setValues(IMGURL, signIn.photoUrl.toString())
+                            preferences.setValues(USERNAME, signIn.username.toString())
+                            nav.navigate(R.id.action_loginFragment_to_introSliderActivity)
+                        }
+                    })
             }
         }
 
@@ -139,15 +176,27 @@ class LoginFragment : Fragment() {
                     if (!isNew) {
                         // jika tidak user baru
                         viewModel.closeLoadingDialog()  // tutup dialog
-                        nav.navigate(R.id.action_loginFragment_to_introSliderActivity)  // pindah ke intro
+                        nav.navigate(R.id.action_loginFragment_to_introSliderActivity)
+                        preferences.setValues(STATUS, "1")
+                        preferences.setValues(UID, auth.uid.toString())
+                        preferences.setValues(EMAIL, account.email.toString())
+                        preferences.setValues(FULLNAME, account.familyName.toString())
+                        preferences.setValues(IMGURL, account.photoUrl.toString())
+                        preferences.setValues(USERNAME, account.displayName.toString())
+                        // pindah ke intro
                         Toast.makeText(activity, "" + resources.getString(R.string.welcome) + "\n" + account.displayName.toString(), Toast.LENGTH_LONG).show()
-                        //
                     } else {
                         // jika user baru
                         viewModel.saveNewAccountGoogle(auth.currentUser?.uid, account.email.toString(), account.displayName.toString(), account.familyName.toString(), account.photoUrl.toString(), nav, view)
                         Toast.makeText(activity, "" + resources.getString(R.string.welcome) + "\n" + account.displayName.toString(), Toast.LENGTH_LONG).show()
                         nav.navigate(R.id.action_loginFragment_to_introSliderActivity)   //--> you can navigate to your main page
                         viewModel.closeLoadingDialog()
+                        preferences.setValues(STATUS, "1")
+                        preferences.setValues(UID, auth.uid.toString())
+                        preferences.setValues(EMAIL, account.email.toString())
+                        preferences.setValues(FULLNAME, account.familyName.toString())
+                        preferences.setValues(IMGURL, account.photoUrl.toString())
+                        preferences.setValues(USERNAME, account.displayName.toString())
                     }
                 } else {
                     viewModel.closeLoadingDialog()

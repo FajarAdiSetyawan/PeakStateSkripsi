@@ -10,44 +10,60 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.model.Users
+import com.brainoptimax.peakstate.utils.Preferences
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import java.net.ProtocolFamily
 
 class LoginViewModel : ViewModel() {
 
     private lateinit var alertDialogLoading: AlertDialog
+    lateinit var preferences: Preferences
 
     fun loginWithEmail(
+        mDatabaseReference: DatabaseReference,
         email: String,
         password: String,
         auth: FirebaseAuth,
         nav: NavController,
         view: View?
-    ) {
+    ) : LiveData<Users> {
+        val signInResult = MutableLiveData<Users>()
+
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 closeLoadingDialog()
                 if (task.isSuccessful) {
-                    val user = auth.currentUser
-                    nav.navigate(R.id.action_loginFragment_to_introSliderActivity)
+                    mDatabaseReference.child(auth.uid.toString())
+                        .addValueEventListener(object : ValueEventListener {
+                            override fun onCancelled(p0: DatabaseError) {
+                                Log.d("Error Get Data: ", p0.message)
+                            }
+
+                            override fun onDataChange(p0: DataSnapshot) {
+                                val user = p0.getValue(Users::class.java)
+                                signInResult.postValue(user!!)
+                            }
+                        })
+
                 } else {
                     // tampilkan dialog error
-
                     val message: String =
                         task.exception!!.message.toString() // mengambil pesan error
                     Snackbar.make(view!!,message, Snackbar.LENGTH_LONG)
                         .show()
                 }
             }
-
+        return signInResult
     }
 
     fun saveNewAccountGoogle(
@@ -66,8 +82,10 @@ class LoginViewModel : ViewModel() {
             // jika berhasil disimpan
             if (it.isSuccessful) {
                 nav.navigate(R.id.action_loginFragment_to_introSliderActivity)
-                Snackbar.make(view!!,view.resources.getString(R.string.welcome) + "\n" + displayName, Snackbar.LENGTH_LONG)
-                    .show()
+                preferences.setValues("fullname", familyName.toString())
+                preferences.setValues("username",displayName.toString())
+                preferences.setValues("imgUrl",photoUrl.toString())
+                preferences.setValues("email", email.toString())
             } else {
                 // tampilkan dialog error
                 val message: String =

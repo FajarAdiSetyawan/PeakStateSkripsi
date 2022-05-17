@@ -1,14 +1,33 @@
 package com.brainoptimax.peakstate.model
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.io.Serializable
 
-class Reminders(
-    var id: Long = 0,
-    var title: String = " ",
-    var subtitle: String = " ",
-    var description: String = " ",
-    var time: String = " ",
-    var date: String = " ",
-    var createdTime: Long = 0,
-    var modifiedTime: Long = 0
-) : Serializable
+
+@Entity(tableName = "reminder_table")
+class Reminders: Serializable {
+
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0
+
+    @ColumnInfo(name = "reminder_title")
+    var title: String = ""
+
+    @ColumnInfo(name = "reminder_subtitle")
+    var subtitle: String = ""
+
+    @ColumnInfo(name = "description")
+    var description: String = ""
+
+    @ColumnInfo(name = "datetime")
+    var datetime = ""
+
+    @ColumnInfo(name = "date")
+    var date = ""
+
+    @ColumnInfo(name = "time")
+    var time = ""
+}
+

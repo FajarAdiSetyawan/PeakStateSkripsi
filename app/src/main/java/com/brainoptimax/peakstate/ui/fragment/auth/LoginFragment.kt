@@ -1,5 +1,6 @@
 package com.brainoptimax.peakstate.ui.fragment.auth
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
@@ -63,16 +64,17 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Initialize Firebase
         mDatabase = FirebaseDatabase.getInstance().getReference("Users")
 
         // Initialize Shared Preferences
-        preferences = Preferences(activity!!)
+        preferences = Preferences(requireActivity())
 
         // Initialize Firebase Auth
-        auth = FirebaseAuth.getInstance();
+        auth = FirebaseAuth.getInstance()
 
         nav = Navigation.findNavController(requireView())
 
@@ -83,7 +85,7 @@ class LoginFragment : Fragment() {
             .build()
 
         // getting the value of gso inside the GoogleSigninClient
-        mGoogleSignInClient = GoogleSignIn.getClient(activity!!, gso)
+        mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
 
 
         binding.btnGoogleLogin.setOnClickListener {
@@ -117,18 +119,25 @@ class LoginFragment : Fragment() {
 
                 viewModel.openLoadingDialog(requireActivity())
                 viewModel.loginWithEmail(mDatabase, email, password, auth, nav, view)
-                    .observe(this, Observer { signIn ->
+                    .observe(this) { signIn ->
                         if (signIn != null) {
                             // Set value logged user information and login status to 1 (true)
                             preferences.setValues(STATUS, "1")
                             preferences.setValues(UID, auth.uid.toString())
                             preferences.setValues(EMAIL, signIn.email.toString())
                             preferences.setValues(FULLNAME, signIn.fullname.toString())
-                            preferences.setValues(IMGURL, signIn.photoUrl.toString())
+
+                            val imgUrl = signIn.photoUrl.toString()
+
+                            if (imgUrl.isEmpty() || imgUrl == "" || imgUrl.equals("") || imgUrl.isBlank()) {
+                                preferences.setValues(IMGURL, "blank")
+                            } else {
+                                preferences.setValues(IMGURL, imgUrl)
+                            }
                             preferences.setValues(USERNAME, signIn.username.toString())
                             nav.navigate(R.id.action_loginFragment_to_introSliderActivity)
                         }
-                    })
+                    }
             }
         }
 
@@ -169,7 +178,7 @@ class LoginFragment : Fragment() {
         viewModel.openLoadingDialog(requireActivity())  // show dialog
         // function sign in with google
         auth.signInWithCredential(credential)
-            .addOnCompleteListener() { task ->
+            .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     // check user baru
                     val isNew = task.result.additionalUserInfo!!.isNewUser

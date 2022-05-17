@@ -69,40 +69,7 @@ class RegisterViewModel : ViewModel() {
 
     }
 
-    @SuppressLint("NullSafeMutableLiveData")
-     fun setRegisterWithEmail(
-        mDatabase: DatabaseReference,
-        auth: FirebaseAuth,
-        user: Users,
-        password: String,
-        view: View?
-    ): LiveData<Users> {
-        val signUpResult = MutableLiveData<Users>()
 
-        auth.createUserWithEmailAndPassword(user.email!!, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    mDatabase.child(auth.uid.toString()).setValue(user).addOnSuccessListener {
-                        signUpResult.postValue(user)
-                    }.addOnFailureListener {
-                        // tampilkan dialog error
-                        val message: String =
-                            task.exception!!.message.toString() // mengambil pesan error
-                        Snackbar.make(view!!, message, Snackbar.LENGTH_LONG)
-                            .show()
-                    }
-
-                } else {
-                    // tampilkan dialog error
-                    val message: String =
-                        task.exception!!.message.toString() // mengambil pesan error
-                    Snackbar.make(view!!, message, Snackbar.LENGTH_LONG)
-                        .show()
-                }
-            }
-
-        return signUpResult
-    }
 
     fun saveNewAccountGoogle(
         uid: String?,

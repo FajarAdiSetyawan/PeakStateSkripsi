@@ -23,7 +23,6 @@ class SaveEmotionsActivity : AppCompatActivity() {
     private var emotionsSelected: String? = null
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
 
     companion object {
@@ -38,7 +37,6 @@ class SaveEmotionsActivity : AppCompatActivity() {
         setContentView(view)
 
         auth = FirebaseAuth.getInstance()
-        firebaseDatabase = FirebaseDatabase.getInstance()
         databaseReference = FirebaseDatabase.getInstance().reference
 
         val refEmotion =
@@ -290,7 +288,7 @@ class SaveEmotionsActivity : AppCompatActivity() {
         refEmotion.child("total").setValue(total).addOnSuccessListener {
             refEmotion.child("EmotionName").child(condition!!)
                 .child(emotionsSelected!!)
-                .setValue(Emotion(emotionsSelected, totalEmotion))
+                .setValue(Emotion(emotionsSelected, totalEmotion, total))
                 .addOnSuccessListener {
                     refEmotion.child("daily").child(dateFormat!!)
                         .child(timeFormat!!).setValue(

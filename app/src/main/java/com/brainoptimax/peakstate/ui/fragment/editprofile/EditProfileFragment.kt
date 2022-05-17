@@ -1,5 +1,6 @@
 package com.brainoptimax.peakstate.ui.fragment.editprofile
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
@@ -8,89 +9,86 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.FragmentEditProfileBinding
 import com.brainoptimax.peakstate.ui.activity.MainActivity
 import com.brainoptimax.peakstate.ui.activity.auth.AuthActivity
 import com.brainoptimax.peakstate.utils.Animatoo
+import com.brainoptimax.peakstate.utils.Preferences
+import com.brainoptimax.peakstate.utils.PreferencesKey
+import com.brainoptimax.peakstate.viewmodel.auth.RegisterViewModel
+import com.brainoptimax.peakstate.viewmodel.profile.EditProfileViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
 class EditProfileFragment : Fragment() {
 
-    private var binding: FragmentEditProfileBinding? = null
+    private var fragmentEditProfileBinding: FragmentEditProfileBinding? = null
+    private val binding get() = fragmentEditProfileBinding!!
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var currentUserId: String
-    private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
+    private lateinit var nav : NavController
+    private lateinit var preferences: Preferences
+    private val viewModel = EditProfileViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentEditProfileBinding.inflate(inflater, container, false)
-        return binding?.root
+        fragmentEditProfileBinding = FragmentEditProfileBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         auth = FirebaseAuth.getInstance()
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(auth.currentUser!!.uid)
 
         val user = auth.currentUser
 
-        firebaseDatabase = FirebaseDatabase.getInstance()
-        databaseReference = FirebaseDatabase.getInstance().reference
+        // Initialize Shared Preferences
+        preferences = Preferences(activity!!)
 
-        databaseReference.child("Users").child(auth.currentUser!!.uid).child("fullname")
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists()) {
-                        val fullname = snapshot.value.toString()
-                        binding?.tietFullname?.setText(fullname)
-                    } else {
-                        binding?.tietFullname?.setText(resources.getString(R.string.full_name))
-                    }
-                }
+        nav = Navigation.findNavController(requireView())
 
-                override fun onCancelled(error: DatabaseError) {
-                    binding?.tietFullname?.setText(resources.getString(R.string.full_name))
-                }
-            })
+        binding.tietUsername.setText(preferences.getValues("username"))
+        binding.tietEmailEdit.setText(preferences.getValues("email"))
 
+        val fullname = preferences.getValues("fullname")
 
-        databaseReference.child("Users").child(auth.currentUser!!.uid).child("username")
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val username = snapshot.value.toString()
-                    binding?.tietUsername?.setText(username)
-                }
-
-                override fun onCancelled(error: DatabaseError) {}
-            })
+        if (fullname!!.isEmpty()){
+            binding.tietFullname.setText("Full name")
+        }else{
+            binding.tietFullname.setText(fullname)
+        }
 
         if (user != null) {
-            binding?.tietEmailEdit?.setText(user.email)
-
+            binding.tietEmailEdit.setText(user.email)
+            // cek email sudah verifikasi
             if (user.isEmailVerified) {
-                binding?.tvSendVerif?.visibility = View.INVISIBLE
-                binding?.outlinedTextFieldEmail?.helperText = resources.getString(R.string.verified)
+                binding.tvSendVerif.visibility = View.INVISIBLE
+                binding.outlinedTextFieldEmail.helperText = resources.getString(R.string.verified)
                 val colorInt = resources.getColor(R.color.md_green_400)
                 val csl = ColorStateList.valueOf(colorInt)
-                binding?.outlinedTextFieldEmail?.setHelperTextColor(csl)
+                binding.outlinedTextFieldEmail.setHelperTextColor(csl)
             } else {
+                // email belum diverifikasi
                 val colorInt = resources.getColor(R.color.md_red_400)
                 val csl = ColorStateList.valueOf(colorInt)
-                binding?.outlinedTextFieldEmail?.helperText =
+                binding.outlinedTextFieldEmail.helperText =
                     resources.getString(R.string.not_verified)
-                binding?.outlinedTextFieldEmail?.setHelperTextColor(csl)
+                binding.outlinedTextFieldEmail.setHelperTextColor(csl)
             }
         }
 
-        binding?.tvSendVerif?.setOnClickListener {
+        binding.tvSendVerif.setOnClickListener {
             user?.sendEmailVerification()?.addOnCompleteListener {
                 if (it.isSuccessful) {
                     Toast.makeText(context, R.string.email_verif_send, Toast.LENGTH_SHORT).show()
@@ -105,77 +103,59 @@ class EditProfileFragment : Fragment() {
             }
         }
 
-        binding?.btnSave?.setOnClickListener {
-            val username = binding?.tietUsername?.text.toString().trim()
-            val fullname = binding?.tietFullname?.text.toString().trim()
+        binding.btnSave.setOnClickListener {
+            val username = binding.tietUsername.text.toString().trim()
+            val fullname = binding.tietFullname.text.toString().trim()
 
             when {
                 username.isEmpty() -> {
-                    binding?.outlinedTextFieldUsername?.error =
+                    binding.outlinedTextFieldUsername.error =
                         resources.getString(R.string.username_blank)
-                    binding?.outlinedTextFieldUsername?.requestFocus()
+                    binding.outlinedTextFieldUsername.requestFocus()
                 }
                 fullname.isEmpty() -> {
-                    binding?.outlinedTextFieldFullName?.error =
+                    binding.outlinedTextFieldFullName.error =
                         resources.getString(R.string.fullname_blank)
-                    binding?.outlinedTextFieldFullName?.requestFocus()
+                    binding.outlinedTextFieldFullName.requestFocus()
                 }
                 else -> {
-                    binding?.outlinedTextFieldFullName?.error = null
-                    binding?.outlinedTextFieldUsername?.error = null
-                    save(username, fullname)
+                    binding.outlinedTextFieldFullName.error = null
+                    binding.outlinedTextFieldUsername.error = null
+
+                    MaterialAlertDialogBuilder(context!!, R.style.MaterialAlertDialogRounded)
+                        .setTitle("UPDATE PROFILE")
+                        .setMessage("Are you sure want to Update Profile ?")
+                        .setPositiveButton("Ok") { _, _ ->
+                            viewModel.saveProfile(databaseReference, username, fullname, nav, view)
+
+                            preferences.setValues(PreferencesKey.USERNAME, username)
+                            preferences.setValues(PreferencesKey.FULLNAME, fullname)
+
+                            viewModel.status.observe(this, { status ->
+                                status?.let {
+                                    //Reset status value at first to prevent multitriggering
+                                    //and to be available to trigger action again
+                                    viewModel.status.value = null
+                                    //Display Toast or snackbar
+                                    Toast.makeText(activity, "Success Edit Profile", Toast.LENGTH_SHORT).show()
+                                }
+                            })
+                        }
+                        .setNegativeButton(
+                            "Cancel"
+                        ) { _, _ -> }
+                        .show()
                 }
             }
         }
 
-        binding?.tietEmailEdit?.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction().also { fragmentTransaction ->
-                fragmentTransaction?.replace(R.id.fragment_container, UpdateEmailFragment())?.commit()
-            }
+        binding.tietEmailEdit.setOnClickListener {
+            nav.navigate(R.id.action_editProfileFragment_to_updateEmailFragment)   //--> you can navigate to your main page
         }
 
-        binding?.tvChangePass?.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction().also { fragmentTransaction ->
-                fragmentTransaction?.replace(R.id.fragment_container, UpdatePasswordFragment())?.commit()
-            }
+        binding.tvChangePass.setOnClickListener {
+            nav.navigate(R.id.action_editProfileFragment_to_updatePasswordFragment)   //--> you can navigate to your main page
         }
-    }
-
-    private fun save(username: String, fullname: String) {
-        MaterialAlertDialogBuilder(context!!, R.style.MaterialAlertDialogRounded)
-            .setTitle("UPDATE PROFILE")
-            .setMessage("Are you sure want to Update Profile ?")
-            .setPositiveButton("Ok") { _, _ ->
-                databaseReference.child("Users").child(auth.currentUser!!.uid).child("username")
-                    .setValue(username).addOnSuccessListener {
-                        Toast.makeText(
-                            context,
-                            "Success Update Account!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        startActivity(Intent(context, MainActivity::class.java)) // pindah ke login
-                        Animatoo.animateSwipeRight(context!!)
-                    }.addOnFailureListener {
-                        Toast.makeText(
-                            context,
-                            "Error Update!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                databaseReference.child("Users").child(auth.currentUser!!.uid).child("fullname")
-                    .setValue(fullname).addOnSuccessListener { }
-                    .addOnFailureListener {
-                        Toast.makeText(
-                            context,
-                            "Error Update!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-            }
-            .setNegativeButton(
-                "Cancel"
-            ) { _, _ -> }
-            .show()
     }
 
 }

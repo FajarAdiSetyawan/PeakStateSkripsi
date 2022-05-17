@@ -47,9 +47,9 @@ class ResultNegativeAdapter(private val emotionList: ArrayList<Emotion>) :
                     override fun onDataChange(snapshot: DataSnapshot) {
                         if (snapshot.exists()) {
                             val total = snapshot.value.toString()
-                            binding.pbEmotions.progress = 0; // call these two methods before setting progress.
-                            binding.pbEmotions.max = total.toInt();
-                            binding.pbEmotions.progress = totalEmotion!!;
+                            binding.pbEmotions.progress = 0 // call these two methods before setting progress.
+                            binding.pbEmotions.max = total.toInt()
+                            binding.pbEmotions.progress = totalEmotion!!
                         } else {
                             binding.pbEmotions.max = 0
                         }

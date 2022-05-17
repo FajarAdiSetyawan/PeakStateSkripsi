@@ -234,7 +234,7 @@
                 <Button
                     android:id="@+id/btnAnchor"
                     android:layout_width="0dp"
-                    android:layout_height="180dp"
+                    android:layout_height="210dp"
                     android:layout_row="0"
                     android:layout_rowWeight="1"
                     android:layout_column="0"
@@ -251,7 +251,7 @@
                 <Button
                     android:id="@+id/btnVisual"
                     android:layout_width="0dp"
-                    android:layout_height="180dp"
+                    android:layout_height="210dp"
                     android:layout_row="0"
                     android:layout_rowWeight="1"
                     android:layout_column="1"
@@ -269,7 +269,7 @@
                 <Button
                     android:id="@+id/btnGoals"
                     android:layout_width="0dp"
-                    android:layout_height="180dp"
+                    android:layout_height="210dp"
                     android:layout_row="1"
                     android:layout_rowWeight="1"
                     android:layout_column="0"
@@ -286,7 +286,7 @@
                 <Button
                     android:id="@+id/btnBreathing"
                     android:layout_width="0dp"
-                    android:layout_height="180dp"
+                    android:layout_height="210dp"
                     android:layout_row="1"
                     android:layout_rowWeight="1"
                     android:layout_column="1"

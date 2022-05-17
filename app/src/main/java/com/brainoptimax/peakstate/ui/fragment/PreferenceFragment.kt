@@ -14,10 +14,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.brainoptimax.peakstate.R
+import com.brainoptimax.peakstate.ui.activity.EditProfileActivity
 import com.brainoptimax.peakstate.ui.activity.auth.AuthActivity
 import com.brainoptimax.peakstate.ui.activity.intro.IntroEnergyTensionActivity
 import com.brainoptimax.peakstate.ui.activity.intro.IntroPeakStateQuizActivity
@@ -26,6 +29,7 @@ import com.brainoptimax.peakstate.ui.activity.quiz.ResultPSRQuizActivity
 import com.brainoptimax.peakstate.ui.fragment.bottomnav.HomeFragment
 import com.brainoptimax.peakstate.ui.fragment.editprofile.EditProfileFragment
 import com.brainoptimax.peakstate.utils.Animatoo
+import com.brainoptimax.peakstate.utils.Preferences
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -45,10 +49,10 @@ class PreferenceFragment : PreferenceFragmentCompat() {
     private lateinit var prefFeedback: Preference
     private lateinit var prefLogout: Preference
 
+    private lateinit var preferences: Preferences
 
     // memanggil firebase auth (user yg login)
     private lateinit var auth: FirebaseAuth
-    private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
     private lateinit var mGoogleSignInClient: GoogleSignInClient
 
@@ -59,8 +63,7 @@ class PreferenceFragment : PreferenceFragmentCompat() {
         initComponents()
 
         auth = FirebaseAuth.getInstance()
-        firebaseDatabase = FirebaseDatabase.getInstance()
-        databaseReference = FirebaseDatabase.getInstance().reference
+        databaseReference = FirebaseDatabase.getInstance().reference.child("Users").child(auth.currentUser!!.uid)
 
         // Configure Google Sign In inside onCreate mentod
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -69,7 +72,15 @@ class PreferenceFragment : PreferenceFragmentCompat() {
             .build()
 
         // getting the value of gso inside the GoogleSigninClient
-        mGoogleSignInClient = GoogleSignIn.getClient(activity!!, gso)
+        mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Initialize Shared Preferences
+        preferences = Preferences(requireActivity())
+
     }
 
     private fun initComponents() {
@@ -156,21 +167,15 @@ class PreferenceFragment : PreferenceFragmentCompat() {
 
     private fun onPreferenceProfile(): Preference.OnPreferenceClickListener =
         Preference.OnPreferenceClickListener {
-            activity?.supportFragmentManager?.beginTransaction().also { fragmentTransaction ->
-                fragmentTransaction?.replace(R.id.fragment_container, EditProfileFragment())?.commit()
-            }
-
-            // ubah icon ke icon home
-            val bottomNavigationView: BottomNavigationView =
-                activity?.findViewById(R.id.navigation) as BottomNavigationView
-            bottomNavigationView.menu.findItem(R.id.nav_profile).isChecked = true
+            startActivity(Intent(requireActivity(), EditProfileActivity::class.java)) // pindah ke login
+            Animatoo.animateSwipeLeft(requireActivity())
             true
         }
 
     private fun onPreferenceEnergy(): Preference.OnPreferenceClickListener =
         Preference.OnPreferenceClickListener {
-
-            databaseReference.child("Users").child(auth.currentUser!!.uid).child("Tension")
+            // mengambil data hasil quiz energi tension
+            databaseReference.child("Tension")
                 .addListenerForSingleValueEvent(object : ValueEventListener {
                     @SuppressLint("CutPasteId")
                     override fun onDataChange(snapshot: DataSnapshot) {
@@ -220,7 +225,9 @@ class PreferenceFragment : PreferenceFragmentCompat() {
                             alertDialog.show()
                         }
                     }
+
                     override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
                     }
                 })
 
@@ -229,11 +236,14 @@ class PreferenceFragment : PreferenceFragmentCompat() {
 
     private fun onPreferencePeak(): Preference.OnPreferenceClickListener =
         Preference.OnPreferenceClickListener {
-            databaseReference.child("Users").child(auth.currentUser!!.uid).child("PSR")
+
+            // mengambil hasil quiz psr
+            databaseReference.child("PSR")
                 .addListenerForSingleValueEvent(object : ValueEventListener {
                     @SuppressLint("CutPasteId")
                     override fun onDataChange(snapshot: DataSnapshot) {
                         if (snapshot.exists()) {
+                            // kalau ada data
                             startActivity(Intent(activity!!, ResultPSRQuizActivity::class.java)) // pindah ke login
                             Animatoo.animateSwipeLeft(activity!!)
                         } else {
@@ -302,13 +312,13 @@ class PreferenceFragment : PreferenceFragmentCompat() {
 
     private fun onPreferenceShare(): Preference.OnPreferenceClickListener =
         Preference.OnPreferenceClickListener {
-            val appPackageName = activity!!.packageName
+            val appPackageName = requireActivity().packageName
             val sendIntent = Intent()
             sendIntent.action = Intent.ACTION_SEND
             sendIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             sendIntent.putExtra(
                 Intent.EXTRA_TEXT,
-                "\n\n For more weather updates, check this cool Weather app at: https://play.google.com/store/apps/details?id=$appPackageName"
+                "\n\n Lorem Ipsum, check this cool app at: https://play.google.com/store/apps/details?id=$appPackageName"
             )
             sendIntent.type = "text/plain"
             this.startActivity(sendIntent)
@@ -343,14 +353,19 @@ class PreferenceFragment : PreferenceFragmentCompat() {
             tvYes.setOnClickListener {
                 auth.signOut() // fungsi dari firebase auth untuk logout
                 startActivity(Intent(context, AuthActivity::class.java)) // pindah ke login
-                Animatoo.animateSlideUp(context!!)
+                Animatoo.animateSlideUp(requireContext())
                 Toast.makeText(context, "Success Logout", Toast.LENGTH_SHORT)
                     .show() // menambah toast
 
                 mGoogleSignInClient.signOut().addOnCompleteListener {
                     startActivity(Intent(context, AuthActivity::class.java)) // pindah ke login
-                    Animatoo.animateSlideUp(context!!)
+                    Animatoo.animateSlideUp(requireContext())
                 }
+
+
+                // menghapus preference data user yg login
+                preferences.toLogout()
+
             }
 
             val ivDismiss = promptsView.findViewById<View>(R.id.iv_dismiss_logout) as ImageView

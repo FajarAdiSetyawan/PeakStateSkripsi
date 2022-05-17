@@ -169,7 +169,7 @@ class RegisterFragment : Fragment() {
         viewModel.openLoadingDialog(requireActivity())  // show dialog
         // function sign in with google
         auth.signInWithCredential(credential)
-            .addOnCompleteListener() { task ->
+            .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     // check user baru
                     val isNew = task.result.additionalUserInfo!!.isNewUser

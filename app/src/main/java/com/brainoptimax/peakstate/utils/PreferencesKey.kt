@@ -7,4 +7,5 @@ object PreferencesKey {
     const val FULLNAME = "fullname"
     const val USERNAME = "username"
     const val IMGURL = "imgUrl"
+    const val TOTALEMOTION = "total_emotion"
 }

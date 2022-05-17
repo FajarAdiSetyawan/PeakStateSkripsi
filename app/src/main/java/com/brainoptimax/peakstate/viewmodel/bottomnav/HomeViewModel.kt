@@ -8,7 +8,4 @@ import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import kotlin.math.log
 
-class HomeViewModel: ViewModel() {
-
-
-}
+class HomeViewModel: ViewModel()

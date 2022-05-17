@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_update_password" >
         <action
             android:id="@+id/action_updatePasswordFragment_to_editProfileFragment"
-            app:destination="@id/editProfileFragment" />
+            app:destination="@id/editProfileFragment"
+            app:enterAnim="@anim/animate_slide_in_left"
+            app:exitAnim="@anim/animate_slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
@@ -21,10 +23,24 @@
         tools:layout="@layout/fragment_edit_profile" >
         <action
             android:id="@+id/action_editProfileFragment_to_updateEmailFragment"
-            app:destination="@id/updateEmailFragment" />
+            app:destination="@id/updateEmailFragment"
+            app:enterAnim="@anim/animate_slide_left_enter"
+            app:exitAnim="@anim/animate_slide_left_exit"/>
         <action
             android:id="@+id/action_editProfileFragment_to_updatePasswordFragment"
-            app:destination="@id/updatePasswordFragment" />
+            app:destination="@id/updatePasswordFragment"
+            app:enterAnim="@anim/animate_slide_left_enter"
+            app:exitAnim="@anim/animate_slide_left_exit"/>
+        <action
+            android:id="@+id/action_editProfileFragment_to_authActivity"
+            app:destination="@id/authActivity"
+            app:enterAnim="@anim/animate_slide_down_enter"
+            app:exitAnim="@anim/animate_slide_down_exit"/>
+        <action
+            android:id="@+id/action_editProfileFragment_to_mainActivity"
+            app:destination="@id/mainActivity"
+            app:enterAnim="@anim/animate_slide_in_left"
+            app:exitAnim="@anim/animate_slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/updateEmailFragment"
@@ -33,6 +49,17 @@
         tools:layout="@layout/fragment_update_email" >
         <action
             android:id="@+id/action_updateEmailFragment_to_editProfileFragment"
-            app:destination="@id/editProfileFragment" />
+            app:destination="@id/editProfileFragment"
+            app:enterAnim="@anim/animate_slide_in_left"
+            app:exitAnim="@anim/animate_slide_out_right"/>
     </fragment>
+    <activity
+        android:id="@+id/authActivity"
+        android:name="com.brainoptimax.peakstate.ui.activity.auth.AuthActivity"
+        android:label="activity_auth"
+        tools:layout="@layout/activity_auth" />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.brainoptimax.peakstate.ui.activity.MainActivity"
+        android:label="MainActivity" />
 </navigation>

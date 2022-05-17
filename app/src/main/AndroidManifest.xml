@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-feature
         android:name="android.hardware.camera.any"
         android:required="true" />
@@ -27,6 +27,10 @@
         android:roundIcon="@mipmap/ic_icon_apps"
         android:supportsRtl="true"
         android:theme="@style/Theme.PeakState">
+
+        <activity
+            android:name=".ui.activity.EditProfileActivity"
+            android:exported="true" />
         <activity
             android:name=".ui.activity.auth.AuthActivity"
             android:exported="true" />
@@ -127,12 +131,6 @@
             android:name=".ui.activity.emotion.ResultEmotionActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.emotion.NegativeEmotionActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.activity.emotion.PositiveEmotionActivity"
-            android:exported="true" />
-        <activity
             android:name=".ui.activity.emotion.EmotionGaugeActivity"
             android:exported="true" />
         <activity
@@ -151,15 +149,6 @@
             android:name=".ui.activity.DetailActivatorActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.auth.ForgotPasswordActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.activity.auth.RegisterActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.activity.auth.LoginActivity"
-            android:exported="true" />
-        <activity
             android:name=".ui.activity.intro.IntroSliderActivity"
             android:exported="true" />
         <activity
@@ -176,11 +165,7 @@
             android:exported="true" /> <!-- <activity -->
         <!-- android:name="com.theartofdev.edmodo.cropper.CropImageActivity" -->
         <!-- android:theme="@style/Base.Theme.AppCompat" /> &lt;!&ndash; Notification Reminder &ndash;&gt; -->
-        <service
-            android:name=".services.ReminderService"
-            android:enabled="true"
-            android:exported="false"
-            android:process=":ReminderServiceProcess" />
+
 
         <receiver
             android:name=".services.AlarmReceiverReminder"

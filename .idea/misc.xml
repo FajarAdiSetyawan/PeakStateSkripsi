@@ -66,6 +66,7 @@
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_list_reminders.xml" value="0.264" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_main.xml" value="0.176" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_main20.xml" value="0.14166666666666666" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_main_anchoring.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_main_breathing.xml" value="0.264" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_negative_emotion.xml" value="0.25729166666666664" />
@@ -104,7 +105,7 @@
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_daily_emotion.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_edit_profile.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_forgot_password.xml" value="0.27239583333333334" />
-        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_home.xml" value="0.14904109589041095" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_home.xml" value="0.264" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_intro_slider.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_login.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_negative_emotion.xml" value="0.25729166666666664" />

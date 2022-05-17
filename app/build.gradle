@@ -3,9 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
-//    id 'dagger.hilt.android.plugin'
     id 'com.google.gms.google-services'
-
 }
 
 android {
@@ -76,7 +74,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:24.1.0'
 
 
-
     // Declare the dependencies for the desired Firebase products without specifying versions
     implementation 'com.google.firebase:firebase-firestore-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
@@ -124,9 +121,6 @@ dependencies {
     // Gson
     implementation 'com.google.code.gson:gson:2.8.9'
 
-    // Dagger Hilt
-//    implementation "com.google.dagger:hilt-android:$hilt_version"
-//    kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
     // DataStore
     implementation "androidx.datastore:datastore-preferences:1.0.0"

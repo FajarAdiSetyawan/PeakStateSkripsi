@@ -25,6 +25,17 @@
         android:backgroundTint="@color/color_primary"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
+    <ImageView
+        android:id="@+id/backMain"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/ic_arrow_back_ios_new_24"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        app:tint="@color/white" />
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_account"
         android:layout_width="match_parent"
@@ -34,7 +45,7 @@
         android:layout_marginEnd="15dp"
         style="@style/Widget.Material3.CardView.Filled"
         app:cardBackgroundColor="@color/bg_card"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="45dp"
         app:cardElevation="4dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintStart_toStartOf="parent"

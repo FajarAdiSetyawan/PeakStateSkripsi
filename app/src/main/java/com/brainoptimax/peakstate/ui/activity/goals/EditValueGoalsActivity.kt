@@ -1,26 +1,17 @@
 package com.brainoptimax.peakstate.ui.activity.goals
 
-import android.annotation.SuppressLint
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.adapter.valuegoals.EditGoalsAdapter
-import com.brainoptimax.peakstate.adapter.valuegoals.GoalsAdapter
 import com.brainoptimax.peakstate.databinding.ActivityEditValueGoalsBinding
-import com.brainoptimax.peakstate.model.Goals
-import com.brainoptimax.peakstate.model.ValueGoals
+import com.brainoptimax.peakstate.model.valuegoals.ToDo
 import com.brainoptimax.peakstate.utils.Animatoo
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import java.text.ParseException
-import java.text.SimpleDateFormat
 import java.util.*
 
 class EditValueGoalsActivity : AppCompatActivity() {
@@ -32,7 +23,7 @@ class EditValueGoalsActivity : AppCompatActivity() {
     private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
 
-    private lateinit var goals: ArrayList<Goals>
+    private lateinit var goals: ArrayList<ToDo>
     private lateinit var editGoalsAdapter: EditGoalsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +43,7 @@ class EditValueGoalsActivity : AppCompatActivity() {
         // creating new array list.
         goals = ArrayList()
         // initializing our adapter class with our array list and context.
-        editGoalsAdapter = EditGoalsAdapter(goals, valueID)
+//        editGoalsAdapter = EditGoalsAdapter(goals, valueID)
 
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
         binding.rvGoals.layoutManager = layoutManager
@@ -99,10 +90,10 @@ class EditValueGoalsActivity : AppCompatActivity() {
                         goals = arrayListOf()
 
                         for (item in dataSnapshot.children) {
-                            val goalsList = item.getValue(Goals::class.java)
-                            this@EditValueGoalsActivity.goals.add(goalsList!!)
+                            val toDoList = item.getValue(ToDo::class.java)
+                            this@EditValueGoalsActivity.goals.add(toDoList!!)
                         }
-                        binding.rvGoals.adapter = EditGoalsAdapter(goals, valueID)
+//                        binding.rvGoals.adapter = EditGoalsAdapter(goals, valueID)
                     }
 
                 }
@@ -125,7 +116,7 @@ class EditValueGoalsActivity : AppCompatActivity() {
         }
 
         binding.ivAdd.setOnClickListener {
-            addGoals()
+//            addGoals()
         }
 
         binding.btnSave.setOnClickListener {
@@ -161,36 +152,7 @@ class EditValueGoalsActivity : AppCompatActivity() {
                         Toast.makeText(this, resources.getString(R.string.goals_empty), Toast.LENGTH_SHORT)
                             .show()
                     }
-                    else -> {
-                        val dateTime = "$date $time"
-                        val dateFormat = SimpleDateFormat("d-M-yyyy h:mm")
-                        try {
-                            val d = dateFormat.parse(dateTime)
-                            val sdf =
-                                SimpleDateFormat("E, d MMMM yyyy - h:mm", Locale.getDefault())
-                            val dateTimes = sdf.format(d)
-                            databaseReference.child("Users").child(auth.currentUser!!.uid).child("ValueGoals").child(valueID).setValue(
-                                ValueGoals(valueID, value, stat, date, time, dateTimes, desc, "null", goals)
-                            ).addOnSuccessListener {
-                                Toast.makeText(
-                                    applicationContext,
-                                    "Value & Goals Saved",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                startActivity(Intent(this, ValueGoalsActivity::class.java))
-                                Animatoo.animateSlideUp(this)
-                                finish()
-                            }.addOnFailureListener {
-                                Toast.makeText(
-                                    applicationContext,
-                                    "Value & Goals Not Recorded",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        } catch (e: ParseException) {
-                            e.printStackTrace()
-                        }
-                    }
+
                 }
 
             }
@@ -198,33 +160,33 @@ class EditValueGoalsActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun addGoals() {
-        val goalsText = binding.etGoals.text.toString()
-        val valueID = binding.tvValueid.text.toString()
-
-        val position = goals.size
-        if (goalsText.isEmpty()) {
-            Toast.makeText(this, resources.getString(R.string.goals_empty), Toast.LENGTH_SHORT)
-                .show()
-        } else {
-            val goalsAdd = Goals(goalsText, "false")
-            databaseReference.child("Users").child(auth.currentUser!!.uid).child("ValueGoals")
-                .child(valueID).child("goals").child(position.toString()).setValue(goalsAdd).addOnSuccessListener {
-                    Toast.makeText(
-                        this, resources.getString(R.string.success_add_goals) + " " + goalsText,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }.addOnFailureListener {
-                    Toast.makeText(
-                        this,
-                        "Error Add",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            editGoalsAdapter.notifyDataSetChanged()
-        }
-    }
+//    @SuppressLint("NotifyDataSetChanged")
+//    fun addGoals() {
+//        val goalsText = binding.etGoals.text.toString()
+//        val valueID = binding.tvValueid.text.toString()
+//
+//        val position = goals.size
+//        if (goalsText.isEmpty()) {
+//            Toast.makeText(this, resources.getString(R.string.goals_empty), Toast.LENGTH_SHORT)
+//                .show()
+//        } else {
+//            val goalsAdd = Goals(goalsText, "false")
+//            databaseReference.child("Users").child(auth.currentUser!!.uid).child("ValueGoals")
+//                .child(valueID).child("goals").child(position.toString()).setValue(goalsAdd).addOnSuccessListener {
+//                    Toast.makeText(
+//                        this, resources.getString(R.string.success_add_goals) + " " + goalsText,
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }.addOnFailureListener {
+//                    Toast.makeText(
+//                        this,
+//                        "Error Add",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            editGoalsAdapter.notifyDataSetChanged()
+//        }
+//    }
 
     override fun onBackPressed() {
         super.onBackPressed()

@@ -7,10 +7,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.ItemAddGoalsBinding
-import com.brainoptimax.peakstate.model.Goals
+import com.brainoptimax.peakstate.model.valuegoals.ToDo
 
-class GoalsAdapter(private val goalsList: ArrayList<Goals>, var context: Context) :
-    RecyclerView.Adapter<GoalsAdapter.ViewHolder>() {
+class AddToDoAdapter() :
+    RecyclerView.Adapter<AddToDoAdapter.ViewHolder>() {
+
+    private var toDoList: List<ToDo>? = null
+
+    fun setTodo(todo: List<ToDo>?) {
+        this.toDoList = todo
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflate =
@@ -19,17 +25,23 @@ class GoalsAdapter(private val goalsList: ArrayList<Goals>, var context: Context
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(goalsList[position])
+        holder.bind(toDoList!![position])
     }
 
-    override fun getItemCount(): Int = goalsList.size
+    override fun getItemCount(): Int {
+        return if (toDoList != null) {
+            toDoList!!.size
+        } else {
+            0
+        }
+    }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = ItemAddGoalsBinding.bind(view)
 
-        fun bind(goals: Goals) {
+        fun bind(toDo: ToDo) {
             with(binding) {
-                tvListGoals.text = goals.goals
+                tvListGoals.text = toDo.goals
             }
 
         }

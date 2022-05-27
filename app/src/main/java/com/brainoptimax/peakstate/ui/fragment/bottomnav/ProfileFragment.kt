@@ -70,7 +70,7 @@ class ProfileFragment : Fragment() {
         storageReference = FirebaseStorage.getInstance().reference
 
         // Initialize Shared Preferences
-        preferences = Preferences(activity!!)
+        preferences = Preferences(requireActivity())
 
 
         viewModel = ViewModelProvider(
@@ -116,15 +116,15 @@ class ProfileFragment : Fragment() {
     private fun compressAndSetImage(result: Uri) {
         val job = Job()
         val uiScope = CoroutineScope(Dispatchers.IO + job)
-        val fileUri = getFilePathFromUri(result, context!!)
+        val fileUri = getFilePathFromUri(result, requireContext())
         uiScope.launch {
-            val compressedImageFile = Compressor.compress(context!!, File(fileUri!!.path)) {
+            val compressedImageFile = Compressor.compress(requireContext(), File(fileUri!!.path!!)) {
                 quality(50) // combine with compressor constraint
                 format(Bitmap.CompressFormat.JPEG)
             }
             pathUri = Uri.fromFile(compressedImageFile)
 
-            activity!!.runOnUiThread {
+            requireActivity().runOnUiThread {
                 uploadImageToFirebase(pathUri)
             }
         }
@@ -193,7 +193,7 @@ class ProfileFragment : Fragment() {
             auth.currentUser!!.uid,
             imgUri,
             view
-        ).observe(this, { url ->
+        ).observe(this) { url ->
             if (url != null) {
                 preferences.setValues(PreferencesKey.IMGURL, url)
                 binding.ivAvatarProfile.setImageURI(imgUri)
@@ -201,7 +201,7 @@ class ProfileFragment : Fragment() {
                 Snackbar.make(requireView(), "Upload Failed ", Snackbar.LENGTH_LONG)
                     .show()
             }
-        })
+        }
     }
 
     override fun onDestroyView() {
@@ -209,16 +209,5 @@ class ProfileFragment : Fragment() {
         fragmentProfileBinding = null
     }
 
-    fun goneLoading() {
-        binding.layoutProfile.visibility = View.VISIBLE
-        binding.shimmerImageProfile.stopShimmer()
-        binding.shimmerImageProfile.visibility = View.INVISIBLE
-    }
-
-    fun showLoading() {
-        binding.layoutProfile.visibility = View.INVISIBLE
-        binding.shimmerImageProfile.startShimmer()
-        binding.shimmerImageProfile.visibility = View.VISIBLE
-    }
 
 }

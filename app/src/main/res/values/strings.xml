@@ -73,7 +73,9 @@
     <string name="account">Account</string>
     <string name="arelogout">Are you sure <b>Logout ?</b></string>
     <string name="exitquiz">End the Quiz ?</string>
+    <string name="exitaddgoals">End Add Goal ?</string>
     <string name="msg_exitquiz">Are you sure <b>End the Quiz ?</b></string>
+    <string name="msg_exitgoal">Are you sure <b>End add goal ? \n Goals that have been filled will not be saved</b></string>
     <string name="msg_edit_profile">Are you sure to <b>Change Profile ?</b></string>
     <string name="msg_update_email">Are you sure to <b>Change Email ?</b></string>
     <string name="msg_update_password">Are you sure to <b>Change Password ?</b></string>
@@ -102,7 +104,7 @@
     <string name="pref_theme_title">Theme</string>
     <string name="pref_lang_title">Language</string>
     <string name="pref_account_title">Account</string>
-    <string name="pref_peak_title">Peak State Quaiz</string>
+    <string name="pref_peak_title">Peak State Quiz</string>
     <string name="pref_energy_title">Energy Quiz Tension</string>
     <string name="pref_feedback_title">Feedback</string>
     <string name="pref_share_title">Share</string>
@@ -226,15 +228,15 @@
     <string name="free_from_disctraction">Free from disctraction</string>
     <string name="planner">Planner</string>
     <string name="emotion_gauge">Emotion\nGauge</string>
-    <string name="emotion__gauge">Emotion Gauge</string>
+    <string name="emotion__gauge" translatable="false">Emotion Gauge</string>
     <string name="quizzes">Quizzes</string>
     <string name="reminders">Reminders</string>
     <string name="anchoring">Anchoring</string>
     <string name="visualization">Visualization</string>
     <string name="neurotunes">NeuroTunes</string>
     <string name="values_and_ngoals">Values and \nGoals</string>
-    <string name="values_and_goals">Values and Goals</string>
-    <string name="edit_values_and_goals">Edit Values and Goals</string>
+    <string name="values_and_goals" translatable="false">Values and Goals</string>
+    <string name="edit_values_and_goals" translatable="false">Edit Values and Goals</string>
     <string name="breathing_nexercise">Breathing \nExercise</string>
     <string name="academy">Academy</string>
     <string name="meditation_script">Meditation Script</string>
@@ -264,9 +266,12 @@
     <string name="goals_empty">Goals not blank</string>
     <string name="desc_goals_empty">Description Goals not blank</string>
     <string name="time_goals_empty">Time Goals not blank</string>
+    <string name="date_goals_empty">Date Goals not blank</string>
     <string name="value_empty">Value not blank</string>
     <string name="stat_empty">Statement Not Blank</string>
-    <string name="success_add_goals">Add Goals </string>
+    <string name="add_goals">Add To-Do </string>
+    <string name="todoblank">To-Do Goals Not Blank</string>
+    <string name="success_add_goals">Success Add Goals</string>
     <string name="memory_empty">Memory not blank</string>
     <string name="weekly">Weekly</string>
     <string name="daily">Daily</string>
@@ -319,7 +324,7 @@
     <string name="agree">Agree</string>
     <string name="neutral">Neutral</string>
     <string name="accept">Accept</string>
-    <string name="cancel">Batal</string>
+    <string name="cancel">Cancel</string>
     <string name="strongly_disagree">Strongly Disagree</string>
     <string name="peak_state_ready_quiz">PEAK STATE READY QUIZ</string>
     <string name="disagree">Disagree</string>
@@ -445,6 +450,34 @@
     <string name="complete">COMPLETE</string>
     <string name="edit">Edit</string>
     <string name="joyful">Joyful</string>
+
+    <!--  QUIZ  -->
+    <string name="energy_question_1">I generally keep active physically and mentally and take challenges in stride and actively pursue solutions to daily demands.</string>
+    <string name="energy_question_2">My energy level is generally high and well sustained throughout the day.</string>
+    <string name="energy_question_3">I am able to sustain a high level of alertness throughout the day, allowing me to be attentive and vigilant when performing my daily activities.</string>
+    <string name="energy_question_4">I have the tendency to experience drowsiness, feel sluggish during the day.</string>
+    <string name="energy_question_5">I tend to feel tired and lose energy rapidly as the day unfolds.</string>
+    <string name="energy_question_6">I tend to feel more sleepy and my alertness level declines significantly as the day progresses.</string>
+    <string name="energy_question_7">I experience tension, muscle stiffness, and tightening most of the time during my day.</string>
+    <string name="energy_question_8">I tend to experience significant level of nervousness and anxiety during the course of the day.</string>
+    <string name="energy_question_9">I usually have a nagging sense that something bad will eventually happen to me.</string>
+    <string name="energy_question_10">I am usually relaxed and approach most days with a sense of calm.</string>
+    <string name="energy_question_11">I am able to face my daily challenges composed and with a peaceful mind.</string>
+    <string name="energy_question_12">I am generally able to maintain a consistent state of calm physically and mentally</string>
+    <string name="select_choise">Please select choice answer</string>
+    <string name="psr_question_1">I am able to eventually bounce back after experiencing adversity or a bout of illness</string>
+    <string name="psr_question_2">I tend to persevere even when a situation looks hopeless or when conditions are bleak</string>
+    <string name="psr_question_3">I can work through and manage unpleasant feelings</string>
+    <string name="psr_question_4">I am able to maintain a reasonable level of focus and clarity even when I feel challenged and under pressure</string>
+    <string name="psr_question_5">I am mindful of what I am doing whenever I am working on a task</string>
+    <string name="psr_question_6">I am generally able to put into words to describe the emotions I experience when I am distressed or troubled</string>
+    <string name="psr_question_7">I am able to let go of distressing thoughts or images that enter my mind</string>
+    <string name="psr_question_8">I often mull over past events or preoccupy myself with thoughts about the future</string>
+    <string name="psr_question_9">I enjoy a lot of little things in life</string>
+    <string name="psr_question_10">There are people in my life, including family and/or friends that I can trust, and they in turn know they can trust me</string>
+    <string name="psr_question_11">I feel I have a responsibility to contribute to the community or group that I am a part of</string>
+    <string name="psr_question_12">I am able to find positivity even in adversity</string>
+
     <string-array name="pref_themes_label">
         <item>@string/pref_theme_label_auto</item>
         <item>@string/pref_theme_label_dark</item>
@@ -466,12 +499,7 @@
         <item>@string/pref_lang_entry_en</item>
         <item>@string/pref_lang_entry_in</item>
     </string-array>
-    <string name="title_activity_main2">MainActivity2</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="your_to_do_list">Your to-do list</string>
+
 </resources>

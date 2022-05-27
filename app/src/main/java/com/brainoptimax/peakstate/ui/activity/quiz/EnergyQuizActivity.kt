@@ -132,8 +132,7 @@ class EnergyQuizActivity : AppCompatActivity() {
                     binding.nomer.text = "Energy = $mEnergy"
                     selectAnswer()
                     binding.bulet2.setImageResource(R.drawable.circle_btn_orange)
-                    binding.tvQuestion.text =
-                        "My energy level is generally high and well sustained throughout the day."
+                    binding.tvQuestion.text = resources.getString(R.string.energy_question_2)
                 }
                 if (no == 3) {
                     animQuestion()
@@ -146,8 +145,7 @@ class EnergyQuizActivity : AppCompatActivity() {
                     binding.nomer.text = "Energy = $mEnergy"
                     selectAnswer()
                     binding.bulet3.setImageResource(R.drawable.circle_btn_orange)
-                    binding.tvQuestion.text =
-                        "I am able to sustain a high level of alertness throughout the day, allowing me to be attentive and vigilant when performing my daily activities."
+                    binding.tvQuestion.text = resources.getString(R.string.energy_question_3)
 
                 }
                 if (no == 4) {
@@ -161,8 +159,7 @@ class EnergyQuizActivity : AppCompatActivity() {
                     binding.nomer.text = "Energy = $mEnergy"
                     selectAnswer()
                     binding.bulet4.setImageResource(R.drawable.circle_btn_orange)
-                    binding.tvQuestion.text =
-                        "I have the tendency to experience drowsiness, feel sluggish during the day."
+                    binding.tvQuestion.text = resources.getString(R.string.energy_question_4)
                 }
                 if (no == 5) {
                     animQuestion()
@@ -175,7 +172,7 @@ class EnergyQuizActivity : AppCompatActivity() {
                     binding.nomer.text = "Energy = $mEnergy"
                     selectAnswer()
                     binding.bulet5.setImageResource(R.drawable.circle_btn_orange)
-                    binding.tvQuestion.text = "I tend to feel tired and lose energy rapidly as the day unfolds."
+                    binding.tvQuestion.text = resources.getString(R.string.energy_question_5)
                 }
                 if (no == 6) {
                     animQuestion()
@@ -188,7 +185,7 @@ class EnergyQuizActivity : AppCompatActivity() {
                     binding.nomer.text = "Energy = $mEnergy"
                     selectAnswer()
                     binding.bulet6.setImageResource(R.drawable.circle_btn_orange)
-                    binding.tvQuestion.text = "I tend to feel more sleepy and my alertness level declines significantly as the day progresses."
+                    binding.tvQuestion.text = resources.getString(R.string.energy_question_6)
                 }
                 if (no == 7) {
                     animQuestion()
@@ -201,7 +198,7 @@ class EnergyQuizActivity : AppCompatActivity() {
                     binding.nomer.text = "Energy = $mEnergy"
                     selectAnswer()
                     binding.bulet7.setImageResource(R.drawable.circle_btn_orange)
-                    binding.tvQuestion.text = "I experience tension, muscle stiffness, and tightening most of the time during my day."
+                    binding.tvQuestion.text = resources.getString(R.string.energy_question_7)
                     binding.nomer.text = "Nomor = $no"
                 }
                 if (no == 8) {
@@ -215,7 +212,7 @@ class EnergyQuizActivity : AppCompatActivity() {
                     binding.tension.text = "Tension = $mTension"
                     selectAnswer()
                     binding.bulet8.setImageResource(R.drawable.circle_btn_orange)
-                    binding.tvQuestion.text = "I tend to experience significant level of nervousness and anxiety during the course of the day."
+                    binding.tvQuestion.text = resources.getString(R.string.energy_question_8)
                     binding.nomer.text = "Nomor = $no"
                 }
                 if (no == 9) {
@@ -229,7 +226,7 @@ class EnergyQuizActivity : AppCompatActivity() {
                     binding.tension.text = "Tension = $mTension"
                     selectAnswer()
                     binding.bulet9.setImageResource(R.drawable.circle_btn_orange)
-                    binding.tvQuestion.text = "I usually have a nagging sense that something bad will eventually happen to me."
+                    binding.tvQuestion.text = resources.getString(R.string.energy_question_9)
                     binding.nomer.text = "Nomor = $no"
                 }
                 if (no == 10) {
@@ -243,7 +240,7 @@ class EnergyQuizActivity : AppCompatActivity() {
                     binding.tension.text = "Tension = $mTension"
                     selectAnswer()
                     binding.bulet10.setImageResource(R.drawable.circle_btn_orange)
-                    binding.tvQuestion.text = "I am usually relaxed and approach most days with a sense of calm."
+                    binding.tvQuestion.text = resources.getString(R.string.energy_question_10)
                     binding.nomer.text = "Nomor = $no"
                 }
                 if (no == 11) {
@@ -257,7 +254,7 @@ class EnergyQuizActivity : AppCompatActivity() {
                     binding.tension.text = "Tension = $mTension"
                     selectAnswer()
                     binding.bulet11.setImageResource(R.drawable.circle_btn_orange)
-                    binding.tvQuestion.text = "I am able to face my daily challenges composed and with a peaceful mind."
+                    binding.tvQuestion.text = resources.getString(R.string.energy_question_11)
                     binding.nomer.text = "Nomor = $no"
                 }
                 if (no == 12) {
@@ -271,7 +268,7 @@ class EnergyQuizActivity : AppCompatActivity() {
                     binding.tension.text = "Tension = $mTension"
                     selectAnswer()
                     binding.bulet12.setImageResource(R.drawable.circle_btn_orange)
-                    binding.tvQuestion.text = "I am generally able to maintain a consistent state of calm physically and mentally"
+                    binding.tvQuestion.text = resources.getString(R.string.energy_question_12)
                     binding.nomer.text = "Nomor = $no"
                 }
                 if (no == 13) {
@@ -296,7 +293,7 @@ class EnergyQuizActivity : AppCompatActivity() {
                 }
 
             } else {
-                Toast.makeText(this, "Please select choice answer", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, resources.getString(R.string.select_choise), Toast.LENGTH_SHORT).show()
             }
         }
     }

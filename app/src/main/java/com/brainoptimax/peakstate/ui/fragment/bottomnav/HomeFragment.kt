@@ -209,9 +209,6 @@ class HomeFragment : Fragment() {
             binding.rvHorizontalReminder.adapter = adapter
             adapter.notifyDataSetChanged()
         }
-
-
-
     }
 
 }

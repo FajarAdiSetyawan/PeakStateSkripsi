@@ -23,9 +23,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.brainoptimax.peakstate.R
-import com.brainoptimax.peakstate.adapter.valuegoals.DetailValueGoalsAdapter
 import com.brainoptimax.peakstate.databinding.ActivityDetailValueGoalsBinding
-import com.brainoptimax.peakstate.model.Goals
+import com.brainoptimax.peakstate.model.valuegoals.ToDo
 import com.brainoptimax.peakstate.utils.Animatoo
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -49,13 +48,11 @@ class DetailValueGoalsActivity : AppCompatActivity() {
     // memanggil firebase auth (user yg login)
     private lateinit var auth: FirebaseAuth
     private lateinit var storage: FirebaseStorage
-    private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
 
-    private lateinit var goals: ArrayList<Goals>
+    private lateinit var goals: ArrayList<ToDo>
     private lateinit var pathUri: Uri
 
-    var currentUserID: String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,8 +63,7 @@ class DetailValueGoalsActivity : AppCompatActivity() {
         setContentView(view)
 
         auth = FirebaseAuth.getInstance()
-        firebaseDatabase = FirebaseDatabase.getInstance()
-        databaseReference = FirebaseDatabase.getInstance().reference
+        databaseReference = FirebaseDatabase.getInstance().reference.child("Users").child(auth.currentUser!!.uid).child("ValueGoals")
         storage = FirebaseStorage.getInstance()
 
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
@@ -76,9 +72,8 @@ class DetailValueGoalsActivity : AppCompatActivity() {
         val intent = intent
         val valueID = intent.getStringExtra("valueId")
 
-        currentUserID = auth.currentUser?.uid
 
-        binding.tvValueid.text = valueID
+        binding.tvTitle.text = valueID
 
         showLoading()
 //        databaseReference.child("Users").child(auth.currentUser!!.uid).child("ValueGoals")
@@ -106,8 +101,7 @@ class DetailValueGoalsActivity : AppCompatActivity() {
 //            })
 
 
-        databaseReference.child("Users").child(auth.currentUser!!.uid).child("ValueGoals")
-            .child(valueID!!)
+        databaseReference.child(valueID!!)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     if (dataSnapshot.exists()) {
@@ -142,18 +136,16 @@ class DetailValueGoalsActivity : AppCompatActivity() {
                 }
             })
 
-        databaseReference.child("Users").child(auth.currentUser!!.uid).child("ValueGoals")
-            .child(valueID).child("goals")
+        databaseReference.child(valueID).child("goals")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     if (dataSnapshot.exists()) {
                         goals = arrayListOf()
 
                         for (item in dataSnapshot.children) {
-                            val goalsList = item.getValue(Goals::class.java)
-                            this@DetailValueGoalsActivity.goals.add(goalsList!!)
+                            val toDoList = item.getValue(ToDo::class.java)
+                            this@DetailValueGoalsActivity.goals.add(toDoList!!)
                         }
-                        binding.rvGoals.adapter = DetailValueGoalsAdapter(goals, valueID)
                     }
 
                 }
@@ -281,7 +273,7 @@ class DetailValueGoalsActivity : AppCompatActivity() {
         alertDialogLoading.show()
         showLoading()
         val valueID = binding.tvValueid.text.toString()
-        val ref = storage.reference.child("value/$currentUserID/$valueID/value.jpg")
+        val ref = storage.reference.child("value/${auth.currentUser!!.uid}/$valueID/value.jpg")
         ref.putFile(imgUri).addOnSuccessListener { taskSnapshot ->
             if (taskSnapshot.metadata != null) {
                 if (taskSnapshot.metadata!!.reference != null) {

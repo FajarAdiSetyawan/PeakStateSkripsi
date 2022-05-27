@@ -49,20 +49,20 @@ class AddValueActivity : AppCompatActivity() {
         // Obtain a handle for the RecyclerView
         // You may use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
-        binding.rvValue.setHasFixedSize(true)
-        // Use a linear layout manager
-        val llm = LinearLayoutManager(this)
-        binding.rvValue.layoutManager = llm
-        // Create an instance of ProgramAdapter. Pass context and all the array elements to the constructor
-        valueAdapter = ValueAdapter(this, valueName, valueImages)
-        // Finally, attach the adapter with the RecyclerView
-        binding.rvValue.adapter = valueAdapter
-
-        binding.backMain.setOnClickListener {
-            startActivity(Intent(this, ValueGoalsActivity::class.java))
-            Animatoo.animateSwipeLeft(this)
-            finish()
-        }
+//        binding.rvValue.setHasFixedSize(true)
+//        // Use a linear layout manager
+//        val llm = LinearLayoutManager(this)
+//        binding.rvValue.layoutManager = llm
+//        // Create an instance of ProgramAdapter. Pass context and all the array elements to the constructor
+//        valueAdapter = ValueAdapter(this, valueName, valueImages)
+//        // Finally, attach the adapter with the RecyclerView
+//        binding.rvValue.adapter = valueAdapter
+//
+//        binding.backMain.setOnClickListener {
+//            startActivity(Intent(this, ValueGoalsActivity::class.java))
+//            Animatoo.animateSwipeLeft(this)
+//            finish()
+//        }
     }
 
     override fun onBackPressed() {

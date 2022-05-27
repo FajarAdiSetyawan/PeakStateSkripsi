@@ -62,7 +62,7 @@ class RegisterFragment : Fragment() {
         databaseReference = FirebaseDatabase.getInstance().getReference("Users")
 
         // Initialize Shared Preferences
-        preferences = Preferences(activity!!)
+        preferences = Preferences(requireActivity())
 
         auth = FirebaseAuth.getInstance()
         nav = Navigation.findNavController(requireView())
@@ -74,7 +74,7 @@ class RegisterFragment : Fragment() {
             .build()
 
         // getting the value of gso inside the GoogleSigninClient
-        mGoogleSignInClient = GoogleSignIn.getClient(activity!!, gso)
+        mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
 
 
         binding.tvLoginSignup.setOnClickListener {
@@ -117,15 +117,19 @@ class RegisterFragment : Fragment() {
                 binding.outlinedTextFieldPass.error = null
                 binding.outlinedTextFieldUsername.error = null
 
-                viewModel.status.observe(this, { status ->
+                viewModel.status.observe(viewLifecycleOwner) { status ->
                     status?.let {
                         //Reset status value at first to prevent multitriggering
                         //and to be available to trigger action again
                         viewModel.status.value = null
                         //Display Toast or snackbar
-                        Toast.makeText(activity, "" + resources.getString(R.string.welcome) + "\n" + username, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            activity,
+                            "" + resources.getString(R.string.welcome) + "\n" + username,
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-                })
+                }
 
                 viewModel.openLoadingDialog(requireActivity())
                 viewModel.registerWithEmail(username, email, password, auth, nav, view)

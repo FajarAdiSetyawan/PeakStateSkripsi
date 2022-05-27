@@ -94,7 +94,7 @@ class EditProfileFragment : Fragment() {
                     Toast.makeText(context, R.string.email_verif_send, Toast.LENGTH_SHORT).show()
                     auth.signOut() // fungsi dari firebase auth untuk logout
                     startActivity(Intent(context, AuthActivity::class.java)) // pindah ke login
-                    Animatoo.animateSlideUp(context!!)
+                    Animatoo.animateSlideUp(requireContext())
                     Toast.makeText(context, "Success Logout", Toast.LENGTH_SHORT)
                         .show() //
                 } else {
@@ -122,7 +122,7 @@ class EditProfileFragment : Fragment() {
                     binding.outlinedTextFieldFullName.error = null
                     binding.outlinedTextFieldUsername.error = null
 
-                    MaterialAlertDialogBuilder(context!!, R.style.MaterialAlertDialogRounded)
+                    MaterialAlertDialogBuilder(requireContext(), R.style.MaterialAlertDialogRounded)
                         .setTitle("UPDATE PROFILE")
                         .setMessage("Are you sure want to Update Profile ?")
                         .setPositiveButton("Ok") { _, _ ->
@@ -131,15 +131,19 @@ class EditProfileFragment : Fragment() {
                             preferences.setValues(PreferencesKey.USERNAME, username)
                             preferences.setValues(PreferencesKey.FULLNAME, fullname)
 
-                            viewModel.status.observe(this, { status ->
+                            viewModel.status.observe(activity!!) { status ->
                                 status?.let {
                                     //Reset status value at first to prevent multitriggering
                                     //and to be available to trigger action again
                                     viewModel.status.value = null
                                     //Display Toast or snackbar
-                                    Toast.makeText(activity, "Success Edit Profile", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        activity,
+                                        "Success Edit Profile",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 }
-                            })
+                            }
                         }
                         .setNegativeButton(
                             "Cancel"

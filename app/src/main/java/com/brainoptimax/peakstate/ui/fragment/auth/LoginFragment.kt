@@ -129,7 +129,7 @@ class LoginFragment : Fragment() {
 
                             val imgUrl = signIn.photoUrl.toString()
 
-                            if (imgUrl.isEmpty() || imgUrl == "" || imgUrl.equals("") || imgUrl.isBlank()) {
+                            if (imgUrl.isEmpty() || imgUrl == "" || imgUrl.isBlank()) {
                                 preferences.setValues(IMGURL, "blank")
                             } else {
                                 preferences.setValues(IMGURL, imgUrl)

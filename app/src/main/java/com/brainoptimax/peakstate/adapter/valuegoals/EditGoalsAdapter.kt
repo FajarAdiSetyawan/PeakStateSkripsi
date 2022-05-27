@@ -7,24 +7,29 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.ItemEditGoalsBinding
-import com.brainoptimax.peakstate.model.Goals
+import com.brainoptimax.peakstate.model.valuegoals.ToDo
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
-class EditGoalsAdapter(private var goalsList: ArrayList<Goals>, val valueId: String?) :
+class EditGoalsAdapter(private val goalId: String?) :
     RecyclerView.Adapter<EditGoalsAdapter.ViewHolder>() {
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
-    private var valueid: String? = null
+    private var idGoals: String? = null
 
+    private var toDoList: List<ToDo>? = null
+
+    fun setTodo(todo: List<ToDo>?) {
+        this.toDoList = todo
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         auth = FirebaseAuth.getInstance()
-        firebaseDatabase = FirebaseDatabase.getInstance()
-        databaseReference = FirebaseDatabase.getInstance().reference
+        idGoals = goalId
+        databaseReference = FirebaseDatabase.getInstance().reference.child("Users").child(auth.currentUser!!.uid).child("ValueGoals").child(idGoals!!).child("ToDo")
 
         val inflate =
             LayoutInflater.from(parent.context)
@@ -33,29 +38,38 @@ class EditGoalsAdapter(private var goalsList: ArrayList<Goals>, val valueId: Str
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(goalsList[position])
+        holder.bind(toDoList!![position])
     }
 
-    override fun getItemCount(): Int = goalsList.size
+    override fun getItemCount(): Int {
+        return if (toDoList != null) {
+            toDoList!!.size
+        } else {
+            0
+        }
+    }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = ItemEditGoalsBinding.bind(view)
-        fun bind(goals: Goals) {
-            valueid = valueId
+        fun bind(toDo: ToDo) {
 
-            with(binding) {
-                binding.tvListGoals.text = goals.goals
+            binding.tvListGoals.text = toDo.goals
 
-                binding.ivRemoveGoals.setOnClickListener {
-                    databaseReference.child("Users").child(auth.currentUser!!.uid)
-                        .child("ValueGoals")
-                        .child(valueid!!).child("goals").child(adapterPosition.toString()).removeValue().addOnSuccessListener {
-                            Toast.makeText(itemView.context, "Success Delete Value", Toast.LENGTH_SHORT).show()
-                        }.addOnFailureListener {
-                            Toast.makeText(itemView.context, "Error Delete Value", Toast.LENGTH_SHORT).show()
-
+            binding.ivRemoveGoals.setOnClickListener {
+                MaterialAlertDialogBuilder(itemView.context, R.style.MaterialAlertDialogRounded)
+                    .setTitle("Confirm the action")
+                    .setMessage("Are you sure you delete Todo ${toDo.goals} ?")
+                    .setPositiveButton("Ok") { _, _ ->
+                        databaseReference.child(toDo.id!!).removeValue().addOnSuccessListener {
+                            Toast.makeText(itemView.context, "Success Delete", Toast.LENGTH_SHORT).show()
                         }
-                }
+                    }
+                    .setNegativeButton(
+                        "Cancel"
+                    ) { dialog, which -> }
+                    .show()
+
+
             }
         }
     }

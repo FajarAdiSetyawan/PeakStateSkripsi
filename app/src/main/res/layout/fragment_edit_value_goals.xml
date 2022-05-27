@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/bg_layout"
+    tools:context=".ui.fragment.valuegoals.EditValueGoalsFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:scrollbars="none"
+        android:scrollIndicators="none">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="30dp"
+            >
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_info_activator"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/values_and_goals"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/ll_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:orientation="horizontal">
+
+                <io.github.florent37.shapeofview.shapes.RoundRectView
+                    android:id="@+id/shape"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="4dp"
+                    app:shape_roundRect_bottomLeftRadius="10dp"
+                    app:shape_roundRect_bottomRightRadius="10dp"
+                    app:shape_roundRect_topLeftRadius="10dp"
+                    app:shape_roundRect_topRightRadius="10dp">
+
+
+                    <ImageView
+                        android:id="@+id/iv_icon_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_family_placeholder" />
+
+                    <ImageView
+                        android:id="@+id/iv_edit_img_value"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="end"
+                        android:elevation="4dp"
+                        android:src="@drawable/ic_baseline_edit_24" />
+                </io.github.florent37.shapeofview.shapes.RoundRectView>
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer_image_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        >
+
+                        <io.github.florent37.shapeofview.shapes.RoundRectView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:elevation="4dp"
+                            app:shape_roundRect_bottomLeftRadius="10dp"
+                            app:shape_roundRect_bottomRightRadius="10dp"
+                            app:shape_roundRect_topLeftRadius="10dp"
+                            app:shape_roundRect_topRightRadius="10dp">
+
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="150dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/bg_text_shimmer"
+                                />
+
+                        </io.github.florent37.shapeofview.shapes.RoundRectView>
+
+                    </LinearLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+            </LinearLayout>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_value"
+                style="@style/Widget.Material3.CardView.Filled"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:cardBackgroundColor="@color/bg_card"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="5dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_img">
+
+                <TextView
+                    android:layout_margin="5dp"
+                    android:id="@+id/tv_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/poppins"
+                    android:padding="6dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textSize="15sp"
+                    android:visibility="visible" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_statement"
+                style="@style/Widget.Material3.CardView.Filled"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:cardBackgroundColor="@color/bg_card"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="5dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card_value">
+
+                <EditText
+                    android:layout_margin="5dp"
+                    android:id="@+id/et_steatment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/poppins"
+                    android:inputType="textMultiLine"
+                    android:padding="6dp"
+                    android:textSize="15sp"
+                    android:visibility="visible" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:id="@+id/layout_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card_statement">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_date_goals"
+                    style="@style/Widget.Material3.CardView.Elevated"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="3dp"
+                    app:cardUseCompatPadding="true"
+                    app:cardBackgroundColor="@color/bg_card"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/card2r">
+
+                    <LinearLayout
+                        android:id="@+id/ll_date_reminder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_calendar" />
+
+                        <TextView
+                            android:id="@+id/tv_date_goals"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/poppins"
+                            android:text="@string/date" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_time_goals"
+                    style="@style/Widget.Material3.CardView.Elevated"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="3dp"
+                    app:cardUseCompatPadding="true"
+                    app:cardBackgroundColor="@color/bg_card"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/card2r">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_clock" />
+
+                        <TextView
+                            android:id="@+id/tv_time_goals"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/poppins"
+                            android:text="@string/time" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_goals"
+                style="@style/Widget.Material3.CardView.Filled"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:cardBackgroundColor="@color/bg_card"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="5dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_date">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="@string/write_your_goals" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/md_grey_400" />
+
+                    <EditText
+                        android:id="@+id/et_desc"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/poppins"
+                        android:hint="@string/hint_goals"
+                        android:inputType="textMultiLine"
+                        android:padding="6dp"
+                        android:textSize="15sp"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_goals"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
+                app:layout_constraintBottom_toTopOf="@+id/btn_save"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card_goals"
+                tools:listitem="@layout/item_add_goals" />
+
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="10sp"
+                android:layout_marginBottom="30dp"
+                android:backgroundTint="@color/md_orange_400"
+                app:layout_constraintTop_toBottomOf="@+id/rv_goals"
+                android:text="@string/next"
+                />
+
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="10sp"
+                android:layout_marginBottom="30dp"
+                android:backgroundTint="@color/md_red_700"
+                app:layout_constraintTop_toBottomOf="@+id/btn_save"
+                android:text="@string/delete"
+                />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_todo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="30dp"
+        android:src="@drawable/ic_baseline_add_24"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

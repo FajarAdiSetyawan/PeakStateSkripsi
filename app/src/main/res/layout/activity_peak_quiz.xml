@@ -162,7 +162,7 @@
             android:padding="15dp"
             android:textAlignment="center"
             android:fontFamily="@font/poppins"
-            android:text="I generally keep active physically and mentally and take challenges in stride and actively pursue solutions to daily demands."
+            android:text="@string/psr_question_1"
             android:textSize="15sp"
             />
 

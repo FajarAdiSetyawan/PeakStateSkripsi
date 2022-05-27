@@ -1,9 +1,14 @@
-package com.brainoptimax.peakstate.model
+package com.brainoptimax.peakstate.model.valuegoals
 
-data class Goals(
-    var goals: String? = null,
-    var isCompleted: String? = null
-)
+import com.google.firebase.database.PropertyName
+
+data class ToDo(
+    var id: String?,
+    var goals: String?,
+    var isCompleted: String?
+){
+    constructor(): this("", "", "")
+}
 
 
 //class Goals{

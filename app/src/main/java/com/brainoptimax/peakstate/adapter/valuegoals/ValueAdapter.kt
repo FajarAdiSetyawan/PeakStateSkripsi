@@ -6,9 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.ui.activity.goals.AddGoalsActivity
+import com.brainoptimax.peakstate.ui.fragment.valuegoals.AddGoalsFragment
 import com.brainoptimax.peakstate.utils.Animatoo
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
@@ -19,8 +22,12 @@ class ValueAdapter(// Declare variables to store data from the constructor
     var images: IntArray
 ) : RecyclerView.Adapter<ValueAdapter.ViewHolder>() {
 
+//    private lateinit var nav : NavController
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+
+
         val inflate =
             LayoutInflater.from(parent.context).inflate(R.layout.item_value_goals, parent, false)
         return ViewHolder(inflate)
@@ -67,12 +74,16 @@ class ValueAdapter(// Declare variables to store data from the constructor
                             Toast.makeText(context, "Statement Not Blank", Toast.LENGTH_SHORT).show()
                         }
                         else -> {
-                            val intent = Intent(context, AddGoalsActivity::class.java)
-                            intent.putExtra(AddGoalsActivity.EXTRA_VALUE, customValue)
-                            intent.putExtra(AddGoalsActivity.EXTRA_STAT, statement)
-                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                            holder.itemView.context.startActivity(intent)
-                            Animatoo.animateSlideLeft(context)
+                            val fragment: Fragment = AddGoalsFragment.newInstance(
+                                customValue,
+                                statement
+                            )
+                            val fm = (context as AppCompatActivity).supportFragmentManager
+                            val ft = fm.beginTransaction()
+                            ft.replace(R.id.frameLayoutVG, fragment)
+                            ft.commit()
+                            ft.addToBackStack(null)
+                            bottomSheetDialog.dismiss()
                         }
                     }
                 }else {
@@ -81,12 +92,22 @@ class ValueAdapter(// Declare variables to store data from the constructor
                             Toast.makeText(context, "Statement Not Blank", Toast.LENGTH_SHORT).show()
                         }
                         else -> {
-                            val intent = Intent(context, AddGoalsActivity::class.java)
-                            intent.putExtra(AddGoalsActivity.EXTRA_VALUE, valueFinal)
-                            intent.putExtra(AddGoalsActivity.EXTRA_STAT, statement)
-                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                            holder.itemView.context.startActivity(intent)
-                            Animatoo.animateSlideLeft(context)
+//                            val intent = Intent(context, AddGoalsActivity::class.java)
+//                            intent.putExtra(AddGoalsActivity.EXTRA_VALUE, valueFinal)
+//                            intent.putExtra(AddGoalsActivity.EXTRA_STAT, statement)
+//                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//                            holder.itemView.context.startActivity(intent)
+//                            Animatoo.animateSlideLeft(context)
+                            val fragment: Fragment = AddGoalsFragment.newInstance(
+                                valueFinal,
+                                statement
+                            )
+                            val fm = (context as AppCompatActivity).supportFragmentManager
+                            val ft = fm.beginTransaction()
+                            ft.replace(R.id.frameLayoutVG, fragment)
+                            ft.commit()
+                            ft.addToBackStack(null)
+                            bottomSheetDialog.dismiss()
                         }
                     }
                 }

@@ -36,8 +36,8 @@ class ActivatorFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         rows = mutableListOf()
-        activatorAdapter = ActivatorAdapter(activity!!, rows)
-        binding.rvMainActivator.layoutManager = LinearLayoutManager(activity!!, RecyclerView.VERTICAL, false)
+        activatorAdapter = ActivatorAdapter(requireActivity(), rows)
+        binding.rvMainActivator.layoutManager = LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
 
         binding.rvMainActivator.adapter = activatorAdapter
 
@@ -77,12 +77,12 @@ class ActivatorFragment : Fragment() {
         expandActivatorList6.add(ExpandActivator(resources.getString(R.string.mental_quiescence), resources.getString(R.string.to_quieten_a_chattery_mind_visualization_and_meditation), null))
 
 
-        rows.add(RowModel(RowModel.ACTIVATOR, Activator(resources.getString(R.string.feel_good), "https://firebasestorage.googleapis.com/v0/b/peakstate-be063.appspot.com/o/activator%2Fic_feel_good.png?alt=media&token=9a861083-6775-4e12-a9c0-24f07d65a7e7",expandActivatorList1)))
-        rows.add(RowModel(RowModel.ACTIVATOR, Activator(resources.getString(R.string.performance_boost), "https://firebasestorage.googleapis.com/v0/b/peakstate-be063.appspot.com/o/activator%2Fic_performance_boost.png?alt=media&token=67e3c114-b357-47ab-a2f7-87b07613fe18",expandActivatorList2)))
-        rows.add(RowModel(RowModel.ACTIVATOR, Activator(resources.getString(R.string.brain_boost_focus), "https://firebasestorage.googleapis.com/v0/b/peakstate-be063.appspot.com/o/activator%2Fic_brain_foc.png?alt=media&token=ef586de5-01b7-4267-9d0f-4cf9c7ae1c78",expandActivatorList3)))
-        rows.add(RowModel(RowModel.ACTIVATOR, Activator(resources.getString(R.string.brain_boost_visualization), "https://firebasestorage.googleapis.com/v0/b/peakstate-be063.appspot.com/o/activator%2Fic_brain_vis.png?alt=media&token=b987ce09-686c-4b59-9e43-17d1c00421b7",expandActivatorList4)))
-        rows.add(RowModel(RowModel.ACTIVATOR, Activator(resources.getString(R.string.relax_and_creative_pursuits), "https://firebasestorage.googleapis.com/v0/b/peakstate-be063.appspot.com/o/activator%2Fic_relax_cre.png?alt=media&token=21a21070-df8c-4228-907d-f7a2ad772ba2",expandActivatorList5)))
-        rows.add(RowModel(RowModel.ACTIVATOR, Activator(resources.getString(R.string.sleep_and_meditation), "https://firebasestorage.googleapis.com/v0/b/peakstate-be063.appspot.com/o/activator%2Fic_sleep_medi.png?alt=media&token=4dbe6b16-d30e-4db3-81f3-86b07ac6bd28",expandActivatorList6)))
+        rows.add(RowModel(RowModel.ACTIVATOR, Activator(resources.getString(R.string.feel_good), R.drawable.ic_feel_good,expandActivatorList1)))
+        rows.add(RowModel(RowModel.ACTIVATOR, Activator(resources.getString(R.string.performance_boost), R.drawable.ic_performance_boost,expandActivatorList2)))
+        rows.add(RowModel(RowModel.ACTIVATOR, Activator(resources.getString(R.string.brain_boost_focus), R.drawable.ic_brain_foc,expandActivatorList3)))
+        rows.add(RowModel(RowModel.ACTIVATOR, Activator(resources.getString(R.string.brain_boost_visualization), R.drawable.ic_brain_vis,expandActivatorList4)))
+        rows.add(RowModel(RowModel.ACTIVATOR, Activator(resources.getString(R.string.relax_and_creative_pursuits), R.drawable.ic_relax_cre,expandActivatorList5)))
+        rows.add(RowModel(RowModel.ACTIVATOR, Activator(resources.getString(R.string.sleep_and_meditation), R.drawable.ic_sleep_medi,expandActivatorList6)))
 
         activatorAdapter.notifyDataSetChanged()
     }

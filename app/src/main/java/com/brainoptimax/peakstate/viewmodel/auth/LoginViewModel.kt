@@ -27,7 +27,6 @@ import java.net.ProtocolFamily
 class LoginViewModel : ViewModel() {
 
     private lateinit var alertDialogLoading: AlertDialog
-    lateinit var preferences: Preferences
 
     fun loginWithEmail(
         mDatabaseReference: DatabaseReference,
@@ -82,10 +81,6 @@ class LoginViewModel : ViewModel() {
             // jika berhasil disimpan
             if (it.isSuccessful) {
                 nav.navigate(R.id.action_loginFragment_to_introSliderActivity)
-                preferences.setValues("fullname", familyName.toString())
-                preferences.setValues("username",displayName.toString())
-                preferences.setValues("imgUrl",photoUrl.toString())
-                preferences.setValues("email", email.toString())
             } else {
                 // tampilkan dialog error
                 val message: String =

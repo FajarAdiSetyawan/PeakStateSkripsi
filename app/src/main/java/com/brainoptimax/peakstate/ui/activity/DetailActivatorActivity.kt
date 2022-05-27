@@ -1,11 +1,14 @@
 package com.brainoptimax.peakstate.ui.activity
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.ActivityDetailActivatorBinding
 import com.brainoptimax.peakstate.model.activator.DetailActivator
+import com.brainoptimax.peakstate.ui.activity.anchoring.Anchoring1Activity
+import com.brainoptimax.peakstate.ui.activity.breathing.MainBreathingActivity
 import com.brainoptimax.peakstate.utils.Animatoo
 
 class DetailActivatorActivity : AppCompatActivity() {
@@ -136,6 +139,18 @@ class DetailActivatorActivity : AppCompatActivity() {
                 binding.tvActivatorBreath.text = "Breathing - 5-7 BPM"
                 binding.tvActivatorSuggest.text = resources.getString(R.string.free_from_worrying_thoughts)
             }
+        }
+
+        binding.cardBreath.setOnClickListener {
+            startActivity(Intent(this, MainBreathingActivity::class.java))
+            Animatoo.animateSlideUp(this)
+            finish()
+        }
+
+        binding.cardAnchoring.setOnClickListener {
+            startActivity(Intent(this, Anchoring1Activity::class.java))
+            Animatoo.animateSlideUp(this)
+            finish()
         }
 
     }

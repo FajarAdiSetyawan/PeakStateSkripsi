@@ -152,7 +152,7 @@ class PeakQuizActivity : AppCompatActivity() {
                     binding.tvResult.text = "Result = $mResult"
                     selectAnswer()
                     binding.bulet2.setImageResource(R.drawable.circle_btn_dark_tosca)
-                    binding.tvQuestion.text = "I tend to persevere even when a situation looks hopeless or when conditions are bleak"
+                    binding.tvQuestion.text = resources.getString(R.string.psr_question_2)
                     binding.nomer.text = "Nomor = $no"
                 }
                 if (no == 3) {
@@ -167,7 +167,7 @@ class PeakQuizActivity : AppCompatActivity() {
                     binding.tvResult.text = "Result = $mResult"
                     selectAnswer()
                     binding.bulet3.setImageResource(R.drawable.circle_btn_dark_tosca)
-                    binding.tvQuestion.text = "I can work through and manage unpleasant feelings"
+                    binding.tvQuestion.text = resources.getString(R.string.psr_question_3)
                     binding.nomer.text = "Nomor = $no"
                 }
                 if (no == 4) {
@@ -182,7 +182,7 @@ class PeakQuizActivity : AppCompatActivity() {
                     binding.tvResult.text = "Result = $mResult"
                     selectAnswer()
                     binding.bulet4.setImageResource(R.drawable.circle_btn_dark_tosca)
-                    binding.tvQuestion.text = "I am able to maintain a reasonable level of focus and clarity even when I feel challenged and under pressure"
+                    binding.tvQuestion.text = resources.getString(R.string.psr_question_4)
                     binding.nomer.text = "Nomor = $no"
                 }
                 if (no == 5) {
@@ -197,7 +197,7 @@ class PeakQuizActivity : AppCompatActivity() {
                     binding.tvResult.text = "Result = $mResult"
                     selectAnswer()
                     binding.bulet5.setImageResource(R.drawable.circle_btn_dark_tosca)
-                    binding.tvQuestion.text = "I am mindful of what I am doing whenever I am working on a task"
+                    binding.tvQuestion.text = resources.getString(R.string.psr_question_5)
                     binding.nomer.text = "Nomor = $no"
                 }
                 if (no == 6) {
@@ -212,7 +212,7 @@ class PeakQuizActivity : AppCompatActivity() {
                     binding.tvResult.text = "Result = $mResult"
                     selectAnswer()
                     binding.bulet6.setImageResource(R.drawable.circle_btn_dark_tosca)
-                    binding.tvQuestion.text = "I am generally able to put into words to describe the emotions I experience when I am distressed or troubled"
+                    binding.tvQuestion.text = resources.getString(R.string.psr_question_6)
                     binding.nomer.text = "Nomor = $no"
                 }
                 if (no == 7) {
@@ -227,7 +227,7 @@ class PeakQuizActivity : AppCompatActivity() {
                     binding.tvResult.text = "Result = $mResult"
                     selectAnswer()
                     binding.bulet7.setImageResource(R.drawable.circle_btn_dark_tosca)
-                    binding.tvQuestion.text = "I am able to let go of distressing thoughts or images that enter my mind"
+                    binding.tvQuestion.text = resources.getString(R.string.psr_question_7)
                     binding.nomer.text = "Nomor = $no"
                 }
                 if (no == 8) {
@@ -242,7 +242,7 @@ class PeakQuizActivity : AppCompatActivity() {
                     binding.tvResult.text = "Result = $mResult"
                     selectAnswer()
                     binding.bulet8.setImageResource(R.drawable.circle_btn_dark_tosca)
-                    binding.tvQuestion.text = "I often mull over past events or preoccupy myself with thoughts about the future"
+                    binding.tvQuestion.text = resources.getString(R.string.psr_question_8)
                     binding.nomer.text = "Nomor = $no"
                 }
                 if (no == 9) {
@@ -257,7 +257,7 @@ class PeakQuizActivity : AppCompatActivity() {
                     binding.tvResult.text = "Result = $mResult"
                     selectAnswer()
                     binding.bulet9.setImageResource(R.drawable.circle_btn_dark_tosca)
-                    binding.tvQuestion.text = "I enjoy a lot of little things in life"
+                    binding.tvQuestion.text = resources.getString(R.string.psr_question_9)
                     binding.nomer.text = "Nomor = $no"
                 }
                 if (no == 10) {
@@ -272,7 +272,7 @@ class PeakQuizActivity : AppCompatActivity() {
                     binding.tvResult.text = "Result = $mResult"
                     selectAnswer()
                     binding.bulet10.setImageResource(R.drawable.circle_btn_dark_tosca)
-                    binding.tvQuestion.text = "There are people in my life, including family and/or friends that I can trust, and they in turn know they can trust me"
+                    binding.tvQuestion.text = resources.getString(R.string.psr_question_10)
                     binding.nomer.text = "Nomor = $no"
                 }
                 if (no == 11) {
@@ -287,7 +287,7 @@ class PeakQuizActivity : AppCompatActivity() {
                     binding.tvResult.text = "Result = $mResult"
                     selectAnswer()
                     binding.bulet11.setImageResource(R.drawable.circle_btn_dark_tosca)
-                    binding.tvQuestion.text = "I feel I have a responsibility to contribute to the community or group that I am a part of"
+                    binding.tvQuestion.text = resources.getString(R.string.psr_question_11)
                     binding.nomer.text = "Nomor = $no"
                 }
                 if (no == 12) {
@@ -302,7 +302,7 @@ class PeakQuizActivity : AppCompatActivity() {
                     binding.tvResult.text = "Result = $mResult"
                     selectAnswer()
                     binding.bulet12.setImageResource(R.drawable.circle_btn_dark_tosca)
-                    binding.tvQuestion.text = "I am able to find positivity even in adversity"
+                    binding.tvQuestion.text = resources.getString(R.string.psr_question_12)
                     binding.nomer.text = "Nomor = $no"
                 }
                 if (no == 13) {
@@ -322,7 +322,7 @@ class PeakQuizActivity : AppCompatActivity() {
                     saveResult()
                 }
             } else {
-                Toast.makeText(this, "Please select choice answer", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, resources.getString(R.string.select_choise), Toast.LENGTH_SHORT).show()
             }
         }
     }

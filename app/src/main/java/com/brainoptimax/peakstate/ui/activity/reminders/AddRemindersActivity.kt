@@ -161,7 +161,6 @@ class AddRemindersActivity : AppCompatActivity() {
             setDate()
         }
 
-
         binding.btnSaveRemainder.setOnClickListener {
             val getTime: String = binding.tvTimeReminder.text.toString().trim()
             val getDate: String = binding.tvDateReminder.text.toString().trim()

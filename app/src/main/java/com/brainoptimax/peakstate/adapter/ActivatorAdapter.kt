@@ -35,9 +35,6 @@ class ActivatorAdapter(val context: Context, var rowModels: MutableList<RowModel
      * flag to restrict expand / collapse action it is already expanding / collapsing
      */
     private var actionLock = false
-    private lateinit var storage: FirebaseStorage
-    private lateinit var firebaseDatabase: FirebaseDatabase
-    private lateinit var databaseReference: DatabaseReference
 
     class MainActivatorViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = ItemActivatorBinding.bind(view)
@@ -47,19 +44,7 @@ class ActivatorAdapter(val context: Context, var rowModels: MutableList<RowModel
                 tvMainActivator.text = rowModel.activator.name
 //                Picasso.get().load(rowModel.activator.img).into(ivIconActivator)
 
-                val options: RequestOptions = RequestOptions()
-                    .centerCrop()
-                    .placeholder(R.drawable.loading_activator)
-                    .error(R.drawable.bg_text_shimmer)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .priority(Priority.HIGH)
-                    .dontAnimate()
-                    .dontTransform()
-
-                Glide.with(itemView.context)
-                    .load(rowModel.activator.img)
-                    .apply(options)
-                    .into(ivIconActivator)
+                ivIconActivator.setImageResource(rowModel.activator.images)
             }
         }
     }

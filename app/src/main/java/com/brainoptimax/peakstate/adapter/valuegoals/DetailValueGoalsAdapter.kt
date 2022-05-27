@@ -7,25 +7,30 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.ItemDetailValueGoalsBinding
-import com.brainoptimax.peakstate.model.Goals
+import com.brainoptimax.peakstate.model.valuegoals.ToDo
+import com.brainoptimax.peakstate.model.valuegoals.ValueGoals
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
 
-class DetailValueGoalsAdapter(private val goalsList: ArrayList<Goals>, val valueId: String?) :
+class DetailValueGoalsAdapter(val goalsID: String?) :
     RecyclerView.Adapter<DetailValueGoalsAdapter.ViewHolder>() {
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
-    private var valueid: String? = null
+    private var idGoals: String? = null
 
+    private var toDoList: List<ToDo>? = null
+
+    fun setTodo(todo: List<ToDo>?) {
+        this.toDoList = todo
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         auth = FirebaseAuth.getInstance()
-        firebaseDatabase = FirebaseDatabase.getInstance()
-        databaseReference = FirebaseDatabase.getInstance().reference
+        idGoals = goalsID
+        databaseReference = FirebaseDatabase.getInstance().reference.child("Users").child(auth.currentUser!!.uid).child("ValueGoals").child(idGoals!!).child("ToDo")
 
         val inflate =
             LayoutInflater.from(parent.context)
@@ -34,37 +39,39 @@ class DetailValueGoalsAdapter(private val goalsList: ArrayList<Goals>, val value
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(goalsList[position])
+        holder.bind(toDoList!![position])
     }
 
-    override fun getItemCount(): Int = goalsList.size
+    override fun getItemCount(): Int {
+        return if (toDoList != null) {
+            toDoList!!.size
+        } else {
+            0
+        }
+    }
 
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = ItemDetailValueGoalsBinding.bind(view)
-        fun bind(goals: Goals) {
-            valueid = valueId
+        fun bind(toDo: ToDo) {
 
             with(binding) {
-                cbGoalsList.text = goals.goals
-                val checked = goals.isCompleted.toString()
+                cbGoalsList.text = toDo.goals
+                val checked = toDo.isCompleted.toString()
                 cbGoalsList.isChecked = checked == "true"
+
+                val idTodo = toDo.id
+                val dbTodo = databaseReference.child(idTodo!!).child("completed")
 
                 cbGoalsList.setOnCheckedChangeListener { _, _ ->
                     if (cbGoalsList.isChecked) {
-                        //status = true;
-                        databaseReference.child("Users").child(auth.currentUser!!.uid)
-                            .child("ValueGoals")
-                            .child(valueid!!).child("goals").child(adapterPosition.toString())
-                            .child("completed").setValue("true").addOnSuccessListener {
+                        dbTodo.setValue("true").addOnSuccessListener {
                                 Toast.makeText(itemView.context, "Done", Toast.LENGTH_SHORT).show()
                             }
                     } else {
-                        databaseReference.child("Users").child(auth.currentUser!!.uid)
-                            .child("ValueGoals")
-                            .child(valueid!!).child("goals").child(adapterPosition.toString())
-                            .child("completed").setValue("false").addOnSuccessListener {
-                                Toast.makeText(itemView.context, "Not Done", Toast.LENGTH_SHORT).show()
+                        dbTodo.setValue("false").addOnSuccessListener {
+                                Toast.makeText(itemView.context, "Not Done", Toast.LENGTH_SHORT)
+                                    .show()
                             }
                     }
                 }

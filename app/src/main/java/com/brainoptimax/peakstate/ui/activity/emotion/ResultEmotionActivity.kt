@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.ActivityResultEmotionBinding
@@ -23,7 +24,7 @@ class ResultEmotionActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        viewModel = ViewModelProviders.of(this)[EmotionViewModel::class.java]
         window.statusBarColor = ContextCompat.getColor(this, R.color.md_yellow_600)
 
         activityResultEmotionBinding = ActivityResultEmotionBinding.inflate(layoutInflater)

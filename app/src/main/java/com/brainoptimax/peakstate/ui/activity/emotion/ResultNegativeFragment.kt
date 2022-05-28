@@ -55,7 +55,7 @@ class ResultNegativeFragment : Fragment() {
                 binding.rvEmotionsNegative.visibility = View.INVISIBLE
             } else {
                 binding.layoutEmpty.visibility = View.INVISIBLE
-                resultNegativeAdapter = ResultNegativeAdapter(emotions)
+                resultNegativeAdapter = ResultNegativeAdapter(emotions, requireActivity())
                 binding.rvEmotionsNegative.adapter = resultNegativeAdapter
                 resultNegativeAdapter!!.notifyDataSetChanged()
                 binding.rvEmotionsNegative.visibility = View.VISIBLE

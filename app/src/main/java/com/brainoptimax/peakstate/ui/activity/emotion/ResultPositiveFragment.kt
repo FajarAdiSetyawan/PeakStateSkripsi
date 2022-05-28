@@ -51,7 +51,7 @@ class ResultPositiveFragment : Fragment() {
                 binding.rvEmotionsPositive.visibility = View.INVISIBLE
             } else {
                 binding.layoutEmpty.visibility = View.INVISIBLE
-                resultPositiveAdapter = ResultPositiveAdapter(emotions)
+                resultPositiveAdapter = ResultPositiveAdapter(emotions, requireActivity())
                 binding.rvEmotionsPositive.adapter = resultPositiveAdapter
                 resultPositiveAdapter!!.notifyDataSetChanged()
                 binding.rvEmotionsPositive.visibility = View.VISIBLE

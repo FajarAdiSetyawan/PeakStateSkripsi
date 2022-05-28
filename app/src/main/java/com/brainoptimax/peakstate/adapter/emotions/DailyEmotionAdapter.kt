@@ -12,7 +12,7 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DailyEmotionAdapter(var emotionsList: ArrayList<Emotion>) : RecyclerView.Adapter<DailyEmotionAdapter.ViewHolder>() {
+class DailyEmotionAdapter(var emotionsList: List<Emotion>?) : RecyclerView.Adapter<DailyEmotionAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflate =
@@ -21,10 +21,16 @@ class DailyEmotionAdapter(var emotionsList: ArrayList<Emotion>) : RecyclerView.A
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(emotionsList[position])
+        holder.bind(emotionsList!![position])
     }
 
-    override fun getItemCount(): Int = emotionsList.size
+    override fun getItemCount(): Int {
+        return if (emotionsList != null) {
+            emotionsList!!.size
+        } else {
+            0
+        }
+    }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = ItemEmotionDailyBinding.bind(view)

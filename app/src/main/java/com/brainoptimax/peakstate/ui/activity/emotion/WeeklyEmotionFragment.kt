@@ -3,15 +3,15 @@ package com.brainoptimax.peakstate.ui.activity.emotion
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.lifecycle.ViewModelProviders
 import com.brainoptimax.peakstate.databinding.FragmentWeeklyEmotionBinding
 import com.brainoptimax.peakstate.utils.Animatoo
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import com.brainoptimax.peakstate.viewmodel.emotion.EmotionViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -19,54 +19,40 @@ class WeeklyEmotionFragment : Fragment() {
 
     private var fragmentWeeklyEmotionBinding: FragmentWeeklyEmotionBinding? = null
     private val binding get() = fragmentWeeklyEmotionBinding!!
-
-    private lateinit var auth: FirebaseAuth
-    private lateinit var firebaseDatabase: FirebaseDatabase
-    private lateinit var databaseReference: DatabaseReference
-    private var countEmotion = 0
+    private lateinit var viewModel: EmotionViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         fragmentWeeklyEmotionBinding = FragmentWeeklyEmotionBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        auth = FirebaseAuth.getInstance()
-        firebaseDatabase = FirebaseDatabase.getInstance()
-        databaseReference = FirebaseDatabase.getInstance().reference
+        viewModel = ViewModelProviders.of(this)[EmotionViewModel::class.java]
 
         val sdf = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
-        val currentDateandTime = sdf.format(Date())
-        binding.tvMonthEmotion.text = currentDateandTime
+        val currentDateAndTime = sdf.format(Date())
+        binding.tvMonthEmotion.text = currentDateAndTime
 
-        val refEmotion = databaseReference.child("Users").child(auth.currentUser!!.uid).child("Emotion")
+        viewModel.totalAllEmotion
+        viewModel.totalAllEmotionMutableLiveData.observe(requireActivity()) { totalAllEmotion ->
+            Log.d("TAG", "totalAllEmotion: $totalAllEmotion")
 
-        refEmotion.child("total")
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists()) {
-                        val total = snapshot.value.toString()
-                        binding.tvTotalEmotion.text = "$total Emotions"
-                    } else {
-                        binding.tvTotalEmotion.text = "0 Emotions"
-                    }
-                }
-                override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
-                }
-            })
-
-
+            if (totalAllEmotion!!.isEmpty() || totalAllEmotion.equals(null) || totalAllEmotion == "null") {
+                binding.tvTotalEmotion.text = "0 Emotion"
+            } else {
+                binding.tvTotalEmotion.text = "$totalAllEmotion Emotions"
+            }
+        }
 
         binding.cardWeek.setOnClickListener {
-            val choose = Intent(activity!!, ResultEmotionActivity::class.java)
+            val choose = Intent(requireActivity(), ResultEmotionActivity::class.java)
             startActivity(choose)
-            Animatoo.animateSlideUp(activity!!)
+            Animatoo.animateSlideUp(requireActivity())
         }
     }
 

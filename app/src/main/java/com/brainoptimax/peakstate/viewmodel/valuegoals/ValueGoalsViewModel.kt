@@ -19,6 +19,7 @@ import com.brainoptimax.peakstate.model.valuegoals.ValueGoals
 import com.brainoptimax.peakstate.repository.ValueGoalsRepository
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 
 
@@ -124,6 +125,29 @@ class ValueGoalsViewModel: ViewModel(), ValueGoalsRepository.OnRealtimeDbTaskCom
                     it.exception!!.message.toString() // mengambil pesan error
                 Snackbar.make(view!!, message, Snackbar.LENGTH_LONG)
                     .show()
+            }
+        }
+    }
+
+    fun deleteGoal(
+        ref: DatabaseReference,
+        view: View,
+        storage: FirebaseStorage,
+        url: String
+    ){
+        storage.getReferenceFromUrl(url).delete().addOnCompleteListener {
+            if (it.isSuccessful){
+                ref.removeValue().addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        status.value = true
+                    } else {
+                        // tampilkan dialog error
+                        val message: String =
+                            it.exception!!.message.toString() // mengambil pesan error
+                        Snackbar.make(view, message, Snackbar.LENGTH_LONG)
+                            .show()
+                    }
+                }
             }
         }
     }

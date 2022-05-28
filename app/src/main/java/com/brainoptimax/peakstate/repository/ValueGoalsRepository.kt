@@ -33,23 +33,6 @@ class ValueGoalsRepository(
                     onRealtimeDbTaskComplete.onFailure(task.exception!!.message.toString())
                 }
             }
-
-//        databaseReference.addValueEventListener(object : ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                val goals: MutableList<ValueGoals> = ArrayList()
-//
-//                for (item in snapshot.children) {
-//                    val goalsList = item.getValue(ValueGoals::class.java)
-//                    goals.add(goalsList!!)
-//                }
-//                Log.d("TAG", "onDataChange: $goals")
-//                onRealtimeDbTaskComplete.onSuccess(goals)
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                onRealtimeDbTaskComplete.onFailure(error)
-//            }
-//        })
     }
 
     fun getAllTodo(idGoals: String) {

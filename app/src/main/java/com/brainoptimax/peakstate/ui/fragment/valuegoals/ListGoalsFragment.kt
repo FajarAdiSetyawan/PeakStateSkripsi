@@ -55,9 +55,6 @@ class ListGoalsFragment : Fragment() {
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
         binding.rvValue.layoutManager = layoutManager
 
-//        initRecyclerView()
-//        initViewModel()
-
         binding.backMain.setOnClickListener {
             startActivity(Intent(context, MainActivity::class.java)) // pindah ke login
             Animatoo.animateSlideUp(requireContext())

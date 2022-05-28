@@ -343,7 +343,7 @@
                 android:layout_marginBottom="30dp"
                 android:backgroundTint="@color/md_orange_400"
                 app:layout_constraintTop_toBottomOf="@+id/rv_goals"
-                android:text="@string/next"
+                android:text="@string/update"
                 />
 
             <Button

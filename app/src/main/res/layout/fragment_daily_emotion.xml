@@ -7,8 +7,6 @@
     android:background="@color/bg_layout"
     tools:context=".ui.activity.emotion.DailyEmotionFragment">
 
-
-
     <com.github.jhonnyx2012.horizontalpicker.HorizontalPicker
         android:id="@+id/datePicker"
         android:layout_width="match_parent"

@@ -4,15 +4,15 @@ class Emotion{
     var emotionName: String? = null
     var emotionNote: String? = null
     var emotionDate: String? = null
-    var emotionTotal: Int? = null
-    var totalEmotion: Int? = null
+    var totalAllEmotion: Int? = null
+    var totalPerEmotion: Int? = null
 
     constructor()
 
-    constructor(emotionName: String?, emotionTotal: Int?, totalEmotion: Int?) {
+    constructor(emotionName: String?, totalAllEmotion: Int?, totalPerEmotion: Int?) {
         this.emotionName = emotionName
-        this.emotionTotal = emotionTotal
-        this.totalEmotion = totalEmotion
+        this.totalAllEmotion = totalAllEmotion
+        this.totalPerEmotion = totalPerEmotion
     }
 
     constructor(emotionName: String?, emotionNote: String?, emotionDate: String?) {

@@ -2,14 +2,14 @@ package com.brainoptimax.peakstate.ui.activity.emotion
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import com.brainoptimax.peakstate.R
-import com.brainoptimax.peakstate.adapter.emotions.ResultPositiveAdapter
 import com.brainoptimax.peakstate.databinding.ActivitySaveEmotionsBinding
-import com.brainoptimax.peakstate.model.Emotion
 import com.brainoptimax.peakstate.utils.Animatoo
+import com.brainoptimax.peakstate.viewmodel.emotion.EmotionViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -25,6 +25,8 @@ class SaveEmotionsActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var databaseReference: DatabaseReference
 
+    private lateinit var viewModel: EmotionViewModel
+
     companion object {
         const val EXTRA_EMOTION = "extra_emotion"
         const val EXTRA_CONDITION = "extra_condition"
@@ -35,6 +37,8 @@ class SaveEmotionsActivity : AppCompatActivity() {
         activitySaveEmotionsBinding = ActivitySaveEmotionsBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        viewModel = ViewModelProviders.of(this)[EmotionViewModel::class.java]
 
         auth = FirebaseAuth.getInstance()
         databaseReference = FirebaseDatabase.getInstance().reference
@@ -47,23 +51,16 @@ class SaveEmotionsActivity : AppCompatActivity() {
 
         binding.tvEmotion.text = emotions
 
-        refEmotion.child("total")
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists()) {
-                        val total = snapshot.value.toString()
-                        binding.tvTotal.text = total
-                    } else {
-                        binding.tvTotal.text = "0"
-                    }
-                }
+        viewModel.totalAllEmotion
+        viewModel.totalAllEmotionMutableLiveData.observe(this) { totalAllEmotion ->
+            Log.d("TAG", "totalAllEmotion: $totalAllEmotion")
 
-                override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(this@SaveEmotionsActivity, error.message, Toast.LENGTH_SHORT)
-                        .show()
-                }
-            })
-
+            if (totalAllEmotion!!.isEmpty() || totalAllEmotion.equals(null) || totalAllEmotion == "null") {
+                binding.tvTotal.text = "0"
+            } else {
+                binding.tvTotal.text = totalAllEmotion
+            }
+        }
 
         when (emotions) {
             resources.getString(R.string.excited) -> {
@@ -180,23 +177,15 @@ class SaveEmotionsActivity : AppCompatActivity() {
             }
         }
 
-        refEmotion.child("EmotionName").child(condition!!).child(emotionsSelected!!)
-            .child("emotionTotal")
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists()) {
-                        val total = snapshot.value.toString()
-                        binding.tvTotalEmotion.text = total
-                    } else {
-                        binding.tvTotalEmotion.text = "0"
-                    }
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(this@SaveEmotionsActivity, error.message, Toast.LENGTH_SHORT)
-                        .show()
-                }
-            })
+        viewModel.totalPerEmotion(condition!!, emotionsSelected!!)
+        viewModel.totalPerEmotionMutableLiveData.observe(this) { totalPerEmotion ->
+            Log.d("TAG", "totalPerEmotion: $totalPerEmotion")
+            if (totalPerEmotion!!.isEmpty() || totalPerEmotion.equals(null) || totalPerEmotion == "null") {
+                binding.tvTotalEmotion.text = "0"
+            } else {
+                binding.tvTotalEmotion.text = totalPerEmotion
+            }
+        }
 
         val sdf = SimpleDateFormat("E, d MMMM yyyy - h:mm ", Locale.getDefault())
         val currentDateTime = sdf.format(Date())
@@ -209,26 +198,32 @@ class SaveEmotionsActivity : AppCompatActivity() {
 
 
         binding.btnSaveEmotion.setOnClickListener {
-            val emotionNote = binding.tietNote.text.toString().trim()
+            val emotionNote = binding.etNote.text.toString().trim()
 
-            var total = binding.tvTotal.text.toString().toInt()
-            total++
+            var totalAllEmotion = binding.tvTotal.text.toString().toInt()
+            totalAllEmotion++
 
-            var totalEmotion = binding.tvTotalEmotion.text.toString().toInt()
-            totalEmotion++
+            var totalPerEmotion = binding.tvTotalEmotion.text.toString().toInt()
+            totalPerEmotion++
 
             when {
                 emotionNote.isEmpty() -> {
-                    binding.tilDescEmotion.error = resources.getString(R.string.note_blank)
-                    binding.tilDescEmotion.requestFocus()
+                    binding.etNote.error = resources.getString(R.string.note_blank)
+                    binding.etNote.requestFocus()
                     Toast.makeText(
                         this,
                         resources.getString(R.string.note_blank),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
+                totalAllEmotion == 0 ->{
+
+                }
+                totalPerEmotion == 0 ->{
+
+                }
                 else -> {
-                    binding.tilDescEmotion.error = null
+                    binding.etNote.error = null
 
                     MaterialAlertDialogBuilder(this, R.style.MaterialAlertDialogRounded)
                         .setTitle("Confirm the action")
@@ -238,13 +233,41 @@ class SaveEmotionsActivity : AppCompatActivity() {
                                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                                     when {
                                         dataSnapshot.exists() -> {
-                                            addEmotion(total, condition, totalEmotion, emotionNote, currentDateTime, dateFormat, timeFormat)
+                                            viewModel.addEmotion(
+                                                refEmotion,
+                                                view,
+                                                totalAllEmotion,
+                                                totalPerEmotion,
+                                                condition,
+                                                emotionsSelected!!,
+                                                emotionNote,
+                                                currentDateTime,
+                                                dateFormat,
+                                                timeFormat
+                                            )
+
+                                            intentToMain()
                                         }
                                         else -> {
-                                            refEmotion.child("timestamp").setValue(System.currentTimeMillis()).addOnSuccessListener {
-                                                addEmotion(total, condition, totalEmotion, emotionNote, currentDateTime, dateFormat, timeFormat)
-                                            }.addOnFailureListener {
-                                                Toast.makeText(applicationContext, "Emotion Not Recorded",
+                                            refEmotion.child("timestamp")
+                                                .setValue(System.currentTimeMillis())
+                                                .addOnSuccessListener {
+                                                    viewModel.addEmotion(
+                                                        refEmotion,
+                                                        view,
+                                                        totalAllEmotion,
+                                                        totalPerEmotion,
+                                                        condition,
+                                                        emotionsSelected!!,
+                                                        emotionNote,
+                                                        currentDateTime,
+                                                        dateFormat,
+                                                        timeFormat
+                                                    )
+                                                    intentToMain()
+                                                }.addOnFailureListener {
+                                                Toast.makeText(
+                                                    applicationContext, "Emotion Not Recorded",
                                                     Toast.LENGTH_SHORT
                                                 ).show()
                                             }
@@ -280,61 +303,10 @@ class SaveEmotionsActivity : AppCompatActivity() {
         finish()
     }
 
-
-    private fun addEmotion(total: Int?, condition: String?, totalEmotion: Int?, emotionNote: String?, currentDateTime: String?, dateFormat: String?, timeFormat: String?){
-        val refEmotion =
-            databaseReference.child("Users").child(auth.currentUser!!.uid).child("Emotion")
-
-        refEmotion.child("total").setValue(total).addOnSuccessListener {
-            refEmotion.child("EmotionName").child(condition!!)
-                .child(emotionsSelected!!)
-                .setValue(Emotion(emotionsSelected, totalEmotion, total))
-                .addOnSuccessListener {
-                    refEmotion.child("daily").child(dateFormat!!)
-                        .child(timeFormat!!).setValue(
-                            Emotion(
-                                emotionsSelected,
-                                emotionNote,
-                                currentDateTime
-                            )
-                        )
-                        .addOnSuccessListener {
-                            Toast.makeText(
-                                this,
-                                "Emotion Recorded",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            startActivity(
-                                Intent(
-                                    this,
-                                    EmotionGaugeActivity::class.java
-                                )
-                            )
-                            Animatoo.animateSlideDown(this)
-                            finish()
-                        }.addOnFailureListener {
-                            Toast.makeText(
-                                applicationContext,
-                                "Emotion Not Recorded",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                }.addOnFailureListener {
-                    Toast.makeText(
-                        this,
-                        "Emotion Not Recorded",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-        }.addOnFailureListener {
-            Toast.makeText(
-                this,
-                "Error Update!",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-
-
+    private fun intentToMain() {
+        Toast.makeText(this, "Emotion Recorded", Toast.LENGTH_SHORT).show()
+        startActivity(Intent(this, EmotionGaugeActivity::class.java))
+        Animatoo.animateSlideDown(this)
+        finish()
     }
-
 }

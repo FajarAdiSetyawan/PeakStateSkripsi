@@ -22,9 +22,9 @@ class ValueGoalsActivity : AppCompatActivity() {
         super.onBackPressed()
 
         if (fragmentManager.backStackEntryCount > 0) {
-            fragmentManager.popBackStack();
+            fragmentManager.popBackStack()
         } else {
-            super.onBackPressed();
+            super.onBackPressed()
         }
     }
 }

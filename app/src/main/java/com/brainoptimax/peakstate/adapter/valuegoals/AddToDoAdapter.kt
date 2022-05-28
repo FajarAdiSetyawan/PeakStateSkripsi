@@ -9,7 +9,7 @@ import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.ItemAddGoalsBinding
 import com.brainoptimax.peakstate.model.valuegoals.ToDo
 
-class AddToDoAdapter() :
+class AddToDoAdapter :
     RecyclerView.Adapter<AddToDoAdapter.ViewHolder>() {
 
     private var toDoList: List<ToDo>? = null

@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.text.format.DateFormat
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -29,7 +30,6 @@ import com.brainoptimax.peakstate.databinding.FragmentEditValueGoalsBinding
 import com.brainoptimax.peakstate.model.valuegoals.ToDo
 import com.brainoptimax.peakstate.ui.activity.goals.ValueGoalsActivity
 import com.brainoptimax.peakstate.utils.Animatoo
-import com.brainoptimax.peakstate.utils.PreferencesKey
 import com.brainoptimax.peakstate.viewmodel.valuegoals.ValueGoalsViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -50,6 +50,7 @@ import kotlinx.coroutines.launch
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,6 +83,8 @@ class EditValueGoalsFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var databaseReference: DatabaseReference
     private lateinit var storageReference: StorageReference
+    private lateinit var firebaseStorage: FirebaseStorage
+
     private lateinit var pathUri: Uri
 
     var datePickerDialog: DatePickerDialog? = null
@@ -157,6 +160,7 @@ class EditValueGoalsFragment : Fragment() {
             FirebaseDatabase.getInstance().reference.child("Users").child(auth.currentUser!!.uid)
                 .child("ValueGoals").child(id!!)
         // Initialize Firebase Storage
+        firebaseStorage = FirebaseStorage.getInstance()
         storageReference = FirebaseStorage.getInstance().reference
 
         viewModel = ViewModelProviders.of(this)[ValueGoalsViewModel::class.java]
@@ -358,11 +362,17 @@ class EditValueGoalsFragment : Fragment() {
                 .setTitle("Confirm the action")
                 .setMessage("Are you sure you delete $value ?")
                 .setPositiveButton("Ok") { _, _ ->
-                    databaseReference.removeValue().addOnSuccessListener {
-                        Toast.makeText(requireActivity(), "Success Delete $value", Toast.LENGTH_SHORT).show()
+                    viewModel.deleteGoal(databaseReference, view, firebaseStorage, img!!)
+                    viewModel.status.observe(viewLifecycleOwner) { status ->
+                        status?.let {
+                            //Reset status value at first to prevent multitriggering
+                            //and to be available to trigger action again
+                            viewModel.status.value = null
+                            Toast.makeText(requireActivity(), "Success Delete $value", Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(context, ValueGoalsActivity::class.java)) // pindah ke login
+                            Animatoo.animateSlideUp(requireContext())
+                        }
                     }
-                    startActivity(Intent(context, ValueGoalsActivity::class.java)) // pindah ke login
-                    Animatoo.animateSlideUp(requireContext())
                 }
                 .setNegativeButton(
                     "Cancel"

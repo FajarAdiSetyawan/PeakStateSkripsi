@@ -28,7 +28,6 @@
         android:roundIcon="@mipmap/ic_icon_apps"
         android:supportsRtl="true"
         android:theme="@style/Theme.PeakState">
-
         <activity
             android:name=".ui.activity.EditProfileActivity"
             android:exported="true" />
@@ -42,46 +41,10 @@
             android:name=".ui.activity.emotion.ChooseEmotionsActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.goals.EditValueGoalsActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.activity.goals.DetailValueGoalsActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.activity.goals.AddGoalsActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.activity.goals.AddValueActivity"
-            android:exported="true" />
-        <activity
             android:name=".ui.activity.intro.IntroValueGoalsActivity"
             android:exported="true" />
         <activity
             android:name=".ui.activity.goals.ValueGoalsActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.activity.anchoring.MainAnchoringActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.activity.anchoring.ResultAnchoringActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.activity.anchoring.Anchoring6Activity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.activity.anchoring.Anchoring5Activity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.activity.anchoring.Anchoring4Activity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.activity.anchoring.Anchoring3Activity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.activity.anchoring.Anchoring2Activity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.activity.anchoring.Anchoring1Activity"
             android:exported="true" />
         <activity
             android:name=".ui.activity.anchoring.AnchoringActivity"

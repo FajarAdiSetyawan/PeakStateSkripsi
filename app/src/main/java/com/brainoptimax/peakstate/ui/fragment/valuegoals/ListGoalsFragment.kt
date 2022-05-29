@@ -49,8 +49,8 @@ class ListGoalsFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         nav = Navigation.findNavController(requireView())
+
         viewModel = ViewModelProviders.of(this)[ValueGoalsViewModel::class.java]
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
         binding.rvValue.layoutManager = layoutManager

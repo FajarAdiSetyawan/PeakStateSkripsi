@@ -39,7 +39,7 @@
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_add_reminders.xml" value="0.264" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_add_value.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_anchoring.xml" value="0.2" />
-        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_anchoring1.xml" value="0.27239583333333334" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_anchoring1.xml" value="0.264" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_anchoring2.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_anchoring3.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_anchoring4.xml" value="0.27239583333333334" />
@@ -65,6 +65,7 @@
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_intro_slider_energy_tension.xml" value="0.264" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_intro_value_goals.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_list_reminders.xml" value="0.264" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_list_result_anchoring.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_main.xml" value="0.176" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_main20.xml" value="0.14166666666666666" />
@@ -101,13 +102,14 @@
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_add_emotion.xml" value="0.2" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_add_goals.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_add_value.xml" value="0.27239583333333334" />
-        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_anchoring1.xml" value="0.27239583333333334" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_anchoring1.xml" value="0.2" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_anchoring2.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_anchoring3.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_anchoring4.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_anchoring5.xml" value="0.264" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_anchoring6.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_anchoring7.xml" value="0.27239583333333334" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_anchoring_menu.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_bottom_sheet_goals.xml" value="0.25729166666666664" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_daily_emotion.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_detail_goals.xml" value="0.264" />
@@ -116,12 +118,15 @@
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_forgot_password.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_home.xml" value="0.264" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_intro_slider.xml" value="0.27239583333333334" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_list_anchoring.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_list_goals.xml" value="0.27239583333333334" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_list_result_anchoring.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_login.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_negative_emotion.xml" value="0.25729166666666664" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_positive_emotion.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_profile.xml" value="0.2" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_register.xml" value="0.27239583333333334" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_result_anchoring.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_result_negative.xml" value="0.264" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_result_positive.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_update_email.xml" value="0.27239583333333334" />
@@ -129,6 +134,7 @@
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/fragment_weekly_emotion.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/include_detail_reminder.xml" value="0.25729166666666664" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/include_loading_activator.xml" value="0.27239583333333334" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/include_loading_anchoring.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/include_loading_profile_home.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/include_loading_profile_menuprofile.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/include_loading_reminders.xml" value="0.27239583333333334" />
@@ -141,8 +147,10 @@
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/item_emotions.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/item_expand_activator.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/item_label_reminder.xml" value="0.27239583333333334" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/item_list_result_anchoring.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/item_reminders.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/item_reminders_home.xml" value="0.27239583333333334" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/item_resourceful.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/item_result_emotions.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/item_value_goals.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/item_value_goals_list.xml" value="0.264" />

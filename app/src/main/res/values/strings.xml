@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Peak State</string>
+    <string name="app_name">Peak Up Me</string>
 
     <string name="web_client_id" translatable="false">175191691077-ugjndbtbjvp9joh36aub8d6gn13u9r2b.apps.googleusercontent.com</string>
 
@@ -261,8 +261,10 @@
     <string name="write_journal">Write Journal</string>
     <string name="delete">Delete</string>
     <string name="data_for_remainder_empty">Data For Remainder Empty</string>
+    <string name="data_for_anchoring_empty">Data For Anchoring Empty</string>
     <string name="data_for_value_empty">Data For Value &amp; Goals Empty</string>
     <string name="anchoring_empty">Anchoring not blank</string>
+    <string name="resourceful_empty">Resourceful not blank</string>
     <string name="goals_empty">Goals not blank</string>
     <string name="desc_goals_empty">Description Goals not blank</string>
     <string name="time_goals_empty">Time Goals not blank</string>
@@ -501,5 +503,6 @@
     </string-array>
 
     <string name="your_to_do_list">Your to-do list</string>
+    <string name="board_presentation">Board Presentation</string>
 
 </resources>

@@ -54,17 +54,6 @@
         android:name="com.brainoptimax.peakstate.ui.fragment.valuegoals.AddGoalsFragment"
         android:label="fragment_add_goals"
         tools:layout="@layout/fragment_add_goals" >
-        <action
-            android:id="@+id/action_addGoalsFragment_to_successAddGoalsActivity2"
-            app:destination="@id/successAddGoalsActivity2"
-            app:enterAnim="@anim/animate_slide_left_enter"
-            app:exitAnim="@anim/animate_slide_left_exit"
-            app:popUpToInclusive="true"
-            app:popUpTo="@id/successAddGoalsActivity2"/>
     </fragment>
-    <activity
-        android:id="@+id/successAddGoalsActivity2"
-        android:name="com.brainoptimax.peakstate.ui.activity.goals.SuccessAddGoalsActivity"
-        android:label="activity_success_add_goals"
-        tools:layout="@layout/activity_success_add_goals" />
+
 </navigation>

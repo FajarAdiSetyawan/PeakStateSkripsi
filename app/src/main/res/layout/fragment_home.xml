@@ -249,7 +249,7 @@
                     app:backgroundTint="@null" />
 
                 <Button
-                    android:id="@+id/btnVisual"
+                    android:id="@+id/btnNeuro"
                     android:layout_width="0dp"
                     android:layout_height="210dp"
                     android:layout_row="0"

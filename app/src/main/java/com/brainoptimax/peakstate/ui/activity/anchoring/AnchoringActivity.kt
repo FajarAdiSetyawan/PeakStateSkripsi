@@ -24,27 +24,6 @@ class AnchoringActivity : AppCompatActivity() {
 
         window.statusBarColor = ContextCompat.getColor(this, R.color.cyan_primary)
 
-        binding.btnStart.setOnClickListener {
-            val intent =
-                Intent(this, Anchoring1Activity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-            Animatoo.animateSlideLeft(this)
-        }
 
-        binding.ivInfo.setOnClickListener {
-            val intent =
-                Intent(this, IntroAnchoringActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-            Animatoo.animateSwipeRight(this)
-        }
-
-        binding.btnLast.setOnClickListener {
-            startActivity(Intent(this, ResultAnchoringActivity::class.java))
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            Animatoo.animateSlideLeft(this)
-            finish()
-        }
     }
 }

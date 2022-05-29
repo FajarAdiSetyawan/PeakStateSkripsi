@@ -1,7 +1,6 @@
-package com.brainoptimax.peakstate.ui.fragment.valuegoals
+package com.brainoptimax.peakstate.ui.fragment.valuegoals.bottomsheet
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +9,8 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import com.brainoptimax.peakstate.R
-import com.brainoptimax.peakstate.databinding.EditTodoBottomSheetBinding
+import com.brainoptimax.peakstate.databinding.BottomSheetBinding
 import com.brainoptimax.peakstate.model.valuegoals.ToDo
-import com.brainoptimax.peakstate.ui.activity.goals.ValueGoalsActivity
-import com.brainoptimax.peakstate.utils.Animatoo
 import com.brainoptimax.peakstate.viewmodel.valuegoals.ValueGoalsViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -23,8 +20,8 @@ import com.google.firebase.database.*
 
 class EditBottomSheetGoals: BottomSheetDialogFragment() {
 
-    private var editTodoBottomSheetBinding: EditTodoBottomSheetBinding? = null
-    private val binding get() = editTodoBottomSheetBinding!!
+    private var bottomSheet: BottomSheetBinding? = null
+    private val binding get() = bottomSheet!!
 
     private lateinit var viewModel: ValueGoalsViewModel
 
@@ -39,7 +36,7 @@ class EditBottomSheetGoals: BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View { // TODO: memanggil bottomsheetgoals menggunakan viewbinding
-        editTodoBottomSheetBinding = EditTodoBottomSheetBinding.inflate(layoutInflater, container, false)
+        bottomSheet = BottomSheetBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -69,7 +66,7 @@ class EditBottomSheetGoals: BottomSheetDialogFragment() {
         //TODO: tambah todo list
         binding.ivAdd.setOnClickListener {
             // TODO: mengambil text dari etgoals
-            val txtToDo = binding.etGoals.text.toString().trim()
+            val txtToDo = binding.editText.text.toString().trim()
             // TODO: cek text isi/kosong
             if (txtToDo.isEmpty()){
                 Toast.makeText(requireActivity(), resources.getString(R.string.todoblank), Toast.LENGTH_SHORT).show()
@@ -81,7 +78,7 @@ class EditBottomSheetGoals: BottomSheetDialogFragment() {
 
                 binding.btnSetGoals.visibility = View.VISIBLE
 
-                binding.etGoals.setText("")
+                binding.editText.setText("")
                 dialog?.dismiss()
             }
         }
@@ -89,12 +86,12 @@ class EditBottomSheetGoals: BottomSheetDialogFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        editTodoBottomSheetBinding = null
+        bottomSheet = null
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        editTodoBottomSheetBinding = null
+        bottomSheet = null
     }
 
 }

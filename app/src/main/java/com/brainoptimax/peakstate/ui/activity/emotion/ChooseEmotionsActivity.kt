@@ -10,7 +10,6 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.ActivityChooseEmotionsBinding
-import com.brainoptimax.peakstate.ui.activity.goals.AddValueActivity
 import com.brainoptimax.peakstate.utils.Animatoo
 
 class ChooseEmotionsActivity : AppCompatActivity() {

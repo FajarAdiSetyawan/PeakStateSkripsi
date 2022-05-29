@@ -16,21 +16,27 @@ import com.brainoptimax.peakstate.adapter.reminder.HomeReminderAdapter
 import com.brainoptimax.peakstate.adapter.reminder.ReminderClickListener
 import com.brainoptimax.peakstate.databinding.FragmentHomeBinding
 import com.brainoptimax.peakstate.model.Reminders
+import com.brainoptimax.peakstate.ui.activity.anchoring.AnchoringActivity
 import com.brainoptimax.peakstate.ui.activity.breathing.IntroBreathingActivity
 import com.brainoptimax.peakstate.ui.activity.emotion.EmotionGaugeActivity
 import com.brainoptimax.peakstate.ui.activity.goals.ValueGoalsActivity
 import com.brainoptimax.peakstate.ui.activity.intro.IntroAnchoringActivity
 import com.brainoptimax.peakstate.ui.activity.intro.IntroEmotionActivity
+import com.brainoptimax.peakstate.ui.activity.intro.IntroValueGoalsActivity
 import com.brainoptimax.peakstate.ui.activity.quiz.QuizActivity
 import com.brainoptimax.peakstate.ui.activity.reminders.AddRemindersActivity
 import com.brainoptimax.peakstate.ui.activity.reminders.DetailReminderActivity
 import com.brainoptimax.peakstate.ui.activity.reminders.ListRemindersActivity
 import com.brainoptimax.peakstate.utils.Animatoo
 import com.brainoptimax.peakstate.utils.Preferences
+import com.brainoptimax.peakstate.viewmodel.anchoring.AnchoringViewModel
 import com.brainoptimax.peakstate.viewmodel.bottomnav.HomeViewModel
+import com.brainoptimax.peakstate.viewmodel.emotion.EmotionViewModel
 import com.brainoptimax.peakstate.viewmodel.reminder.ReminderViewModel
+import com.brainoptimax.peakstate.viewmodel.valuegoals.ValueGoalsViewModel
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
@@ -47,9 +53,10 @@ class HomeFragment : Fragment() {
     private lateinit var databaseReference: DatabaseReference
 
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var viewModel: HomeViewModel
     private lateinit var adapter: HomeReminderAdapter
     private lateinit var viewModelReminder: ReminderViewModel
+    private lateinit var viewModelAnchoring: AnchoringViewModel
+    private lateinit var viewModelValueGoals: ValueGoalsViewModel
 
     private lateinit var preference: Preferences
 
@@ -62,6 +69,7 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         auth = FirebaseAuth.getInstance()
@@ -141,18 +149,63 @@ class HomeFragment : Fragment() {
         }
 
         binding.btnAnchor.setOnClickListener {
-            val intent = Intent(requireActivity(), IntroAnchoringActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-            Animatoo.animateSlideLeft(requireActivity())
+            viewModelAnchoring = ViewModelProviders.of(this)[AnchoringViewModel::class.java]
+
+            viewModelAnchoring.allAnchoring
+            viewModelAnchoring.anchroingMutableLiveData.observe(requireActivity()) { anchoring ->
+                if (anchoring!!.isEmpty()){
+                    val intent = Intent(requireActivity(), IntroAnchoringActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    Animatoo.animateSlideLeft(requireActivity())
+                }else{
+                    val intent = Intent(requireActivity(), AnchoringActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    Animatoo.animateSlideLeft(requireActivity())
+                }
+            }
+            viewModelAnchoring.databaseErrorAnchroing.observe(
+                requireActivity()
+            ) { error ->
+                Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.btnGoals.setOnClickListener {
+            viewModelValueGoals = ViewModelProviders.of(this)[ValueGoalsViewModel::class.java]
+
+            viewModelValueGoals.allData
+            viewModelValueGoals.goalsMutableLiveData.observe(requireActivity()) { goals ->
+                if (goals!!.isEmpty()){
+                    val intent = Intent(requireActivity(), IntroValueGoalsActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    Animatoo.animateSlideLeft(requireActivity())
+                }else{
+                    val intent = Intent(requireActivity(), ValueGoalsActivity::class.java)
+                    startActivity(intent)
+                    Animatoo.animateSlideLeft(requireActivity())
+                }
+            }
+            viewModelValueGoals.databaseErrorGoals.observe(
+                requireActivity()
+            ) { error ->
+                Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT).show()
+            }
 
 
         }
 
-        binding.btnGoals.setOnClickListener {
-            val intent = Intent(requireActivity(), ValueGoalsActivity::class.java)
-            startActivity(intent)
-            Animatoo.animateSlideLeft(requireActivity())
+        binding.btnNeuro.setOnClickListener {
+            MaterialAlertDialogBuilder(requireActivity(), R.style.MaterialAlertDialogRounded)
+                .setTitle("COMING SOON")
+                .setPositiveButton("Ok") { _, _ ->
+                }
+                .setNegativeButton(
+                    "Cancel"
+                ) { dialog, which -> }
+                .show()
         }
 
         preference = Preferences(requireActivity().applicationContext)

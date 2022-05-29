@@ -61,13 +61,6 @@
             android:layout_marginBottom="30dp"
             android:text="@string/done"/>
 
-        <TextView
-            android:id="@+id/tv_reso"
-            android:visibility="invisible"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

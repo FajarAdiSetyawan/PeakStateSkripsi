@@ -1,38 +1,31 @@
 package com.brainoptimax.peakstate.ui.fragment.anchoring
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.Navigation
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.brainoptimax.peakstate.R
-import com.brainoptimax.peakstate.adapter.AnchoringAdapter
+import com.brainoptimax.peakstate.adapter.anchoring.ResourcefulAdapter
 import com.brainoptimax.peakstate.databinding.FragmentAnchoring1Binding
-import com.brainoptimax.peakstate.model.Resourceful
-import com.brainoptimax.peakstate.ui.activity.anchoring.Anchoring1Activity
-import com.brainoptimax.peakstate.ui.activity.anchoring.ResultAnchoringActivity
-import com.brainoptimax.peakstate.ui.activity.intro.IntroAnchoringActivity
-import com.brainoptimax.peakstate.utils.Animatoo
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
-import java.util.*
+import com.brainoptimax.peakstate.ui.fragment.anchoring.bottomsheet.ResourcefulBottomSheet
+import com.brainoptimax.peakstate.viewmodel.anchoring.AnchoringViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class Anchoring1Fragment : Fragment() {
 
     private var fragmentAnchoring1Binding: FragmentAnchoring1Binding? = null
     private val binding get() = fragmentAnchoring1Binding!!
 
-    private lateinit var resourceful: ArrayList<Resourceful>
-
-    private lateinit var auth: FirebaseAuth
-    private lateinit var firebaseDatabase: FirebaseDatabase
-    private lateinit var databaseReference: DatabaseReference
+    private var resourcefulAdapter: ResourcefulAdapter? = null
+    private lateinit var viewModel: AnchoringViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,65 +36,62 @@ class Anchoring1Fragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        auth = FirebaseAuth.getInstance()
-        firebaseDatabase = FirebaseDatabase.getInstance()
-        databaseReference = FirebaseDatabase.getInstance().reference
+        viewModel = ViewModelProviders.of(this)[AnchoringViewModel::class.java]
 
-        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
-        binding.rvAnchoring.layoutManager = layoutManager
+        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireActivity())
+        binding.rvResourceful.layoutManager = layoutManager
+        resourcefulAdapter = ResourcefulAdapter()
+        binding.rvResourceful.adapter = resourcefulAdapter
 
-
-        val base = databaseReference.child("Users").child(auth.currentUser!!.uid).child("Resourceful")
-        base.addValueEventListener(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if(dataSnapshot.exists()) {
-                    resourceful = arrayListOf()
-
-                    for (item in dataSnapshot.children) {
-                        val anchor = item.getValue(Resourceful::class.java)
-                        resourceful.add(anchor!!)
-                    }
-                    binding.rvAnchoring.adapter = AnchoringAdapter(resourceful)
-                }
-
-            }
-        })
-
-        binding.ivAdd.setOnClickListener {
-            addAnchoring()
+        binding.progressBar.visibility = View.VISIBLE
+        viewModel.allResourceful
+        viewModel.resourcefulMutableLiveData.observe(requireActivity()) { toDo ->
+            binding.progressBar.visibility = View.GONE
+            resourcefulAdapter!!.setResourceful(toDo)
+            resourcefulAdapter!!.notifyDataSetChanged()
         }
-    }
+        viewModel.databaseErrorResourceful.observe(
+            requireActivity()
+        ) { error ->
+            Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT).show()
+        }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun addAnchoring() {
-        val anchoringText = binding.etAnchoring.text.toString()
-        if (anchoringText.isEmpty()) {
-            Toast.makeText(activity, resources.getString(R.string.anchoring_empty), Toast.LENGTH_SHORT)
+        resourcefulAdapter!!.setOnItemClickListener { resourceful ->
+            val fragment = Anchoring2Fragment() // replace your custom fragment class
+            val bundle = Bundle()
+            val fragmentTransaction: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+            bundle.putString("resourceful", resourceful.resourceful) // use as per your need
+
+            fragment.arguments = bundle
+            fragmentTransaction.addToBackStack(null)
+            fragmentTransaction.replace(R.id.frameLayoutAnchoring, fragment)
+            fragmentTransaction.commit()
+        }
+
+
+        resourcefulAdapter!!.setOnItemDeleteClickListener { resourceful ->
+            MaterialAlertDialogBuilder(requireActivity(), R.style.MaterialAlertDialogRounded)
+                .setTitle("Confirm the action")
+                .setMessage("Are you sure you delete ${resourceful.resourceful} ?")
+                .setPositiveButton("Ok") { _, _ ->
+
+                    viewModel.deleteResourceful(resourceful.id!!)
+                    Toast.makeText(requireActivity(), "Success Delete ${resourceful.resourceful}", Toast.LENGTH_SHORT).show()
+                }
+                .setNegativeButton(
+                    "Cancel"
+                ) { dialog, which -> }
                 .show()
-        } else {
-            databaseReference.child("Users").child(auth.currentUser!!.uid).child("Resourceful").push()
-                .setValue(
-                    Resourceful(
-                        anchoringText, Date().time
-                    )
-                ).addOnSuccessListener {
+        }
 
-                }.addOnFailureListener {
-                    Toast.makeText(
-                        activity,
-                        "Anchor Not Recorded",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+        binding.fabAddResourceful.setOnClickListener {
+            val newFragment: BottomSheetDialogFragment = ResourcefulBottomSheet()
+            newFragment.show(requireActivity().supportFragmentManager, "TAG")
         }
     }
-
 
 }

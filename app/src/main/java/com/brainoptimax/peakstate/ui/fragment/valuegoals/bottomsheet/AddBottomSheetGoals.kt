@@ -1,4 +1,4 @@
-package com.brainoptimax.peakstate.ui.fragment.valuegoals
+package com.brainoptimax.peakstate.ui.fragment.valuegoals.bottomsheet
 
 import android.annotation.SuppressLint
 import android.content.DialogInterface
@@ -12,10 +12,8 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.adapter.valuegoals.AddToDoAdapter
-import com.brainoptimax.peakstate.adapter.valuegoals.DetailValueGoalsAdapter
 import com.brainoptimax.peakstate.databinding.BottomSheetGoalsBinding
 import com.brainoptimax.peakstate.model.valuegoals.ToDo
 import com.brainoptimax.peakstate.ui.activity.goals.ValueGoalsActivity

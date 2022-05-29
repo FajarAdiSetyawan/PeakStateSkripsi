@@ -1,47 +1,24 @@
 package com.brainoptimax.peakstate.ui.activity.reminders
 
 import android.annotation.SuppressLint
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.InsetDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.Settings
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.Menu
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProviders
 import androidx.preference.PreferenceManager
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
-import com.airbnb.lottie.LottieAnimationView
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.adapter.reminder.RemindersAdapter
 import com.brainoptimax.peakstate.databinding.ActivityListRemindersBinding
 import com.brainoptimax.peakstate.model.Reminders
-import com.brainoptimax.peakstate.services.AlarmReceiverReminder
 import com.brainoptimax.peakstate.utils.Animatoo
-import com.brainoptimax.peakstate.utils.ConnectionType
-import com.brainoptimax.peakstate.utils.NetworkMonitorUtil
-import com.brainoptimax.peakstate.utils.ReminderUtils
-import java.util.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.brainoptimax.peakstate.adapter.reminder.ReminderClickListener
-import com.brainoptimax.peakstate.ui.activity.goals.AddGoalsActivity
-import com.brainoptimax.peakstate.viewmodel.bottomnav.HomeViewModel
 import com.brainoptimax.peakstate.viewmodel.reminder.ReminderViewModel
 
 

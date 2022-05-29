@@ -15,6 +15,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.FragmentAddGoalsBinding
+import com.brainoptimax.peakstate.ui.fragment.valuegoals.bottomsheet.AddBottomSheetGoals
 import com.brainoptimax.peakstate.viewmodel.valuegoals.ValueGoalsViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.auth.FirebaseAuth

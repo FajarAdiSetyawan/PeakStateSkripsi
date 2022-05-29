@@ -1,7 +1,6 @@
 package com.brainoptimax.peakstate.adapter.valuegoals
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.brainoptimax.peakstate.R
-import com.brainoptimax.peakstate.ui.activity.goals.AddGoalsActivity
 import com.brainoptimax.peakstate.ui.fragment.valuegoals.AddGoalsFragment
-import com.brainoptimax.peakstate.utils.Animatoo
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 

@@ -46,7 +46,6 @@ class ResultNegativeAdapter(var emotionList: List<Emotion>?, activity: FragmentA
         private val binding = ItemResultEmotionsBinding.bind(view)
 
         fun bind(emotion: Emotion) {
-            val totalAllEmotion = emotion.totalAllEmotion
             val emotionName = emotion.emotionName
             val totalPerEmotion = emotion.totalPerEmotion
 

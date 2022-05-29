@@ -187,11 +187,11 @@ class SaveEmotionsActivity : AppCompatActivity() {
             }
         }
 
-        val sdf = SimpleDateFormat("E, d MMMM yyyy - h:mm ", Locale.getDefault())
+        val sdf = SimpleDateFormat("E, d MMMM yyyy - H:mm ", Locale.getDefault())
         val currentDateTime = sdf.format(Date())
         val sdf2 = SimpleDateFormat("EEE, dd MMM yyyy", Locale.getDefault())
         val dateFormat = sdf2.format(Date())
-        val sdf3 = SimpleDateFormat("h:mm", Locale.getDefault())
+        val sdf3 = SimpleDateFormat("H:mm:ss", Locale.getDefault())
         val timeFormat = sdf3.format(Date())
 
         binding.tvDatetimeEmotion.text = currentDateTime

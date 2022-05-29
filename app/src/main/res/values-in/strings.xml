@@ -246,8 +246,9 @@
     <string name="title_reminder">Judul Pengingat</string>
     <string name="sub_title_reminder">Sub Judul Pengingat</string>
     <string name="date_time_reminder">Tanggal dan Waktu Pengingat</string>
-    <string name="data_for_remainder_empty">Data For Remainder Empty</string>
-    <string name="data_for_value_empty">Data For Value &amp; Goals Empty</string>
+    <string name="data_for_remainder_empty">Pengingat Kosong</string>
+    <string name="data_for_anchoring_empty">Anchoring Kosong</string>
+    <string name="data_for_value_empty">Value &amp; Goals Kosong</string>
     <!--  END REMINDER  -->
 
 
@@ -266,6 +267,7 @@
 
 
     <string name="anchoring_empty">Anchoring tidak boleh kosong</string>
+    <string name="resourceful_empty">Resourceful tidak boleh kosong</string>
     <string name="goals_empty">Tujuan tidak boleh kosong</string>
     <string name="desc_goals_empty">Deskripsi Tujuan tidak boleh kosong</string>
     <string name="time_goals_empty">Waktu Tujuan tidak boleh kosong</string>
@@ -419,12 +421,12 @@
     <string name="take_quiz_psr">Anda belum mengikuti Kuis Siap-Peak State</string>
     <string name="desc_anchor">Praktek penahan membantu Anda mengalami kembali dan menerapkan kembali kondisi mental-emosional yang bermanfaat dan bermanfaat ke berbagai konteks, sesuai perintah.</string>
     <string name="stop_the_anchor">Stop Anchoring</string>
-    <string name="stop_anchor">Hentikan jangkar dan putuskan sepenuhnya dari memori. Luangkan satu atau dua saat untuk mengalihkan perhatian Anda dan memikirkan sesuatu yang sama sekali berbeda.</string>
+    <string name="stop_anchor">Hentikan Anchoring dan putuskan sepenuhnya dari memori. Luangkan satu atau dua saat untuk mengalihkan perhatian Anda dan memikirkan sesuatu yang sama sekali berbeda.</string>
     <string name="desc_recall">Ingat memori masa lalu di mana Anda merasakan kualitas akal yang ingin Anda akses atau alami kembali, misalnya, percaya diri, berdaya, dan mampu</string>
     <string name="recall_memory">Memori Ingat</string>
-    <string name="memory">Penyimpanan</string>
-    <string name="desc_memory"><![CDATA[Hidupkan kembali memori & alami kembali semua sensasi perasaan itu]]></string>
-    <string name="desc_start_anchor">Saat perasaan "berakal" itu terbentuk, aktifkan jangkar (lakukan gerakan atau ucapkan kata yang Anda pilih). Pertahankan jangkar selama 5-15 detik, sampai perasaan Anda yang penuh akal mencapai puncaknya.</string>
+    <string name="memory">Ingatan</string>
+    <string name="desc_memory"><![CDATA[Hidupkan kembali ingatan & alami kembali semua sensasi perasaan itu]]></string>
+    <string name="desc_start_anchor">Saat perasaan "berakal" itu terbentuk, aktifkan Anchoring (lakukan gerakan atau ucapkan kata yang Anda pilih). Pertahankan jangkar selama 5-15 detik, sampai perasaan Anda yang penuh akal mencapai puncaknya.</string>
     <string name="title_anchor_1">Pilih Kualitas Akal yang Anda Inginkan</string>
     <string name="add_your_own_here">Tambahkan Anda sendiri di sini...</string>
     <string name="add_your_value_here">Tambahkan nilai Anda di sini...</string>
@@ -438,7 +440,7 @@
     <string name="health">Kesehatan</string>
     <string name="other">Lainnya</string>
     <string name="write_memorys">Tulis memori...</string>
-    <string name="last_anchoring">Penahan Terakhir</string>
+    <string name="last_anchoring">Riwayat Anchoring</string>
     <string name="done">Selesai</string>
     <string name="result">Hasil</string>
     <string name="the_resourceful_qualities">Kualitas Sumberdaya</string>

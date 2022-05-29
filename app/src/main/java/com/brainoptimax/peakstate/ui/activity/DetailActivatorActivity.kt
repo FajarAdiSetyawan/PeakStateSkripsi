@@ -6,8 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.ActivityDetailActivatorBinding
-import com.brainoptimax.peakstate.model.activator.DetailActivator
-import com.brainoptimax.peakstate.ui.activity.anchoring.Anchoring1Activity
+import com.brainoptimax.peakstate.ui.activity.anchoring.AnchoringActivity
 import com.brainoptimax.peakstate.ui.activity.breathing.MainBreathingActivity
 import com.brainoptimax.peakstate.utils.Animatoo
 
@@ -148,7 +147,7 @@ class DetailActivatorActivity : AppCompatActivity() {
         }
 
         binding.cardAnchoring.setOnClickListener {
-            startActivity(Intent(this, Anchoring1Activity::class.java))
+            startActivity(Intent(this, AnchoringActivity::class.java))
             Animatoo.animateSlideUp(this)
             finish()
         }

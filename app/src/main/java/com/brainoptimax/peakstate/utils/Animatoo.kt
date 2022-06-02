@@ -61,13 +61,6 @@ object Animatoo{
         )
     }
 
-    fun animateInAndOut(context: Context) {
-        (context as Activity).overridePendingTransition(
-            R.anim.animate_in_out_enter,
-            R.anim.animate_in_out_exit
-        )
-    }
-
     fun animateSwipeLeft(context: Context) {
         (context as Activity).overridePendingTransition(
             R.anim.animate_swipe_left_enter,

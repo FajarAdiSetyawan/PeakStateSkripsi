@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragment.anchoring.Anchoring2Fragment"
+    tools:context=".ui.anchoring.fragment.Anchoring2Fragment"
     android:background="@color/bg_layout">
 
     <androidx.constraintlayout.widget.ConstraintLayout

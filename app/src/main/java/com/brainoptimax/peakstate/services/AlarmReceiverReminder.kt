@@ -5,11 +5,10 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.provider.Settings
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.brainoptimax.peakstate.R
-import com.brainoptimax.peakstate.ui.activity.reminders.ListRemindersActivity
+import com.brainoptimax.peakstate.ui.reminders.ListRemindersActivity
 
 
 class AlarmReceiverReminder : BroadcastReceiver() {

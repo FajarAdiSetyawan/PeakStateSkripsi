@@ -12,8 +12,8 @@ abstract class AppDataBase : RoomDatabase() {
     abstract fun reminderDao() : ReminderDAO?
 
     companion object {
-        var appDataBase: AppDataBase? = null
-        var AppDatabase_Name = "PSDB"
+        private var appDataBase: AppDataBase? = null
+        private var AppDatabase_Name = "PSDB"
 
         @JvmStatic
         @Synchronized

@@ -5,17 +5,16 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.ItemEmotionsBinding
 import com.brainoptimax.peakstate.model.ListEmotions
-import com.brainoptimax.peakstate.ui.activity.emotion.SaveEmotionsActivity
+import com.brainoptimax.peakstate.ui.emotion.SaveEmotionsActivity
 import com.brainoptimax.peakstate.utils.Animatoo
 
 class PositiveEmotionAdapter(var context: Context) : RecyclerView.Adapter<PositiveEmotionAdapter.ViewHolder>() {
 
-    var emotionsList = emptyList<ListEmotions>()
+    private var emotionsList = emptyList<ListEmotions>()
 
     internal fun setDataList(dataList: List<ListEmotions>) {
         this.emotionsList = dataList

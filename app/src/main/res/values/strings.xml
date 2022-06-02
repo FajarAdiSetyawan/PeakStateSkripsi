@@ -16,7 +16,12 @@
     <string name="description_intro_slider_4">Ultimately, the Peak State Mastery App is designed to help you on your journey of self-mastery by developing self-control.</string>
     <string name="finish">Finish</string>
     <string name="skip">Skip >></string>
-
+    <string name="change">Change</string>
+    <!-- Language select dialog -->
+    <string-array name="lang_select">
+        <item>English</item>
+        <item>Bahasa Indonesia</item>
+    </string-array>
     <string name="title_intro_emotion_1">Emotion Gauge Benefits</string>
     <string name="title_intro_emotion_2">Happiness Level</string>
     <string name="title_intro_emotion_3">Positive Emotions</string>
@@ -131,6 +136,7 @@
     <string name="pref_theme_title_account">Account</string>
     <string name="pref_lang_entry_auto">LANGUAGE_AUTOMATIC</string>
     <string name="pref_key_lang">pref_key_language</string>
+
     <!--  dialog error  -->
     <string name="username_blank">Username not blank</string>
     <string name="note_blank">Note not blank</string>
@@ -424,6 +430,8 @@
     <string name="title_anchor_1">Select The Resourceful Qualities You\'d Like To Anchor</string>
     <string name="add_your_own_here">Add your own here...</string>
     <string name="add_your_value_here">Add your value here...</string>
+    <string name="add_memory">Add your memory here...</string>
+    <string name="add_resourceful">Add your Resourceful here...</string>
     <string name="write_memory">Write Memory</string>
     <string name="desc_write_memory"><![CDATA[Relive the memory & re-experience all of the sensations those feelings.]]></string>
     <string name="anchor">Anchor</string>
@@ -480,6 +488,24 @@
     <string name="psr_question_11">I feel I have a responsibility to contribute to the community or group that I am a part of</string>
     <string name="psr_question_12">I am able to find positivity even in adversity</string>
 
+    <string name="result_energy_1">Congratulations! Based on your responses, you are well able to keep your tension in check. However, you’d perform more optimally if you are able to raise and maintain your energy level. Read on for recommendations</string>
+    <string name="result_energy_2">Congratulations! Based on your responses, you are well able to keep your tension in check. However, you’d perform more optimally if you are able to raise and maintain your energy level. Read on for recommendations</string>
+    <string name="result_energy_3">Congratulations! Based on your responses, you are well able to keep your tension in check. However, you’d perform more optimally if you are able to raise and maintain your energy level. Read on for recommendations</string>
+    <string name="result_energy_4">Congratulations! Based on your responses, you are well able to keep your tension in check. However, you’d perform more optimally if you are able to raise and maintain your energy level. Read on for recommendations</string>
+    <string name="result_energy_5">Based on your responses, learning to minimize tension is key to helping you unlock your best performance. Continuous and accumulated tension build-up can deplete our strength, weaken our will to meet the demands of your circumstances and diminish performance. Read on for recommendations</string>
+    <string name="result_energy_6">Based on your responses, learning to minimize tension is key to helping you unlock your best performance. Continuous and accumulated tension build-up can deplete our strength, weaken our will to meet the demands of your circumstances and diminish performance. Read on for recommendations</string>
+    <string name="result_energy_7">Based on your responses, learning to minimize tension is key to helping you unlock your best performance. Continuous and accumulated tension build-up can deplete our strength, weaken our will to meet the demands of your circumstances and diminish performance. Read on for recommendations</string>
+    <string name="result_energy_8">Congratulations! You are in an elite class. Based on your responses, you are well able to raise your level of energy to meet the demands of your circumstances while keeping your tension in check. Read on for recommendations</string>
+    <string name="result_energy_9">Congratulations! You are in an elite class. Based on your responses, you are well able to raise your level of energy to meet the demands of your circumstances while keeping your tension in check. Read on for recommendations</string>
+
+    <string name="result_peak_1">Your profile suggests that your readiness for attaining peak state can be significantly improved. None of us were given a user’s guide at birth to fully avail of the resources of our mind and body we need to surmount the challenges and navigate the difficult terrains of life. The good news is that by making a commitment to swiftly adopt and practice new routines, develop new habits suggested here, you can experience an elevation in your peak state score and live a fulfilling life. Keep in mind that the key to change is consistency and the daily, proper performance of practices and routines.</string>
+    <string name="result_peak_2">Your profile suggests that you have room for improvement in your readiness score in order to attain and access peak state more consistently. To elevate your peak state score, make a commitment to adopting and practising proper routines suggested here and develop new habits swiftly. Keep in mind that the key to change is the right mindset and consistency in performing readiness practices and routines regularly.</string>
+    <string name="result_peak_3">Congratulations! Your profile suggests that you have high readiness for accessing the peak state. To improve and maintain your readiness for peak state, make a commitment to adopting and practising proper routines suggested here and develop new habits.Keep in mind that the key to change is the right mindset and consistency in performing readiness practices and routines regularly.</string>
+
+    <string name="medium_readiness">Medium Readiness</string>
+
+    <string name="training_maintenance">Training Maintenance</string>
+    <string name="training_relaxation">Training Relaxation</string>
     <string-array name="pref_themes_label">
         <item>@string/pref_theme_label_auto</item>
         <item>@string/pref_theme_label_dark</item>
@@ -504,5 +530,7 @@
 
     <string name="your_to_do_list">Your to-do list</string>
     <string name="board_presentation">Board Presentation</string>
+    <string name="take_the_quiz_again">Take the Quiz again</string>
+    <string name="desc_result_energy">Your Peak State Readiness profile is (SEE PROFILE COLUMN). Your profile suggests that your readiness for attaining peak state can be significantly improved</string>
 
 </resources>

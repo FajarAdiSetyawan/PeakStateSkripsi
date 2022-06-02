@@ -4,7 +4,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
@@ -12,10 +11,8 @@ import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.ItemResultEmotionsBinding
 import com.brainoptimax.peakstate.model.Emotion
 import com.brainoptimax.peakstate.viewmodel.emotion.EmotionViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
 
-class ResultNegativeAdapter(var emotionList: List<Emotion>?, activity: FragmentActivity) :
+class ResultNegativeAdapter(private var emotionList: List<Emotion>?, activity: FragmentActivity) :
     RecyclerView.Adapter<ResultNegativeAdapter.ViewHolder>() {
 
     private lateinit var viewModel: EmotionViewModel
@@ -52,10 +49,10 @@ class ResultNegativeAdapter(var emotionList: List<Emotion>?, activity: FragmentA
             viewModel.totalAllEmotion
             viewModel.totalAllEmotionMutableLiveData.observe(activity) { totalAllEmotion ->
                 Log.d("TAG", "totalAllEmotion: $totalAllEmotion")
-                if (totalAllEmotion!!.isEmpty() || totalAllEmotion.equals(null) || totalAllEmotion == "null") {
-                    totalAll = 0
+                totalAll = if (totalAllEmotion!!.isEmpty() || totalAllEmotion.equals(null) || totalAllEmotion == "null") {
+                    0
                 } else {
-                    totalAll = totalAllEmotion.toInt()
+                    totalAllEmotion.toInt()
                 }
             }
 

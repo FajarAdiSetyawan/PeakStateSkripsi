@@ -8,7 +8,6 @@ import com.brainoptimax.peakstate.repository.EmotionRepository
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
-import java.util.*
 
 class EmotionViewModel : ViewModel(),
     EmotionRepository.OnRealtimeDbEmotion,
@@ -30,10 +29,10 @@ class EmotionViewModel : ViewModel(),
     val databaseErrorNegative = MutableLiveData<String?>()
 
     val totalAllEmotionMutableLiveData = MutableLiveData<String?>()
-    val databaseErrorTotalAllEmotion = MutableLiveData<DatabaseError?>()
+    private val databaseErrorTotalAllEmotion = MutableLiveData<DatabaseError?>()
 
     val totalPerEmotionMutableLiveData = MutableLiveData<String?>()
-    val databaseErrorTotalPerEmotion = MutableLiveData<DatabaseError?>()
+    private val databaseErrorTotalPerEmotion = MutableLiveData<DatabaseError?>()
 
     var status = MutableLiveData<Boolean?>()
 

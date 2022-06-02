@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/bg_layout"
-    tools:context=".ui.fragment.valuegoals.ListGoalsFragment">
+    tools:context=".ui.valuegoals.fragment.ListGoalsFragment">
 
     <ImageView
         android:id="@+id/backMain"

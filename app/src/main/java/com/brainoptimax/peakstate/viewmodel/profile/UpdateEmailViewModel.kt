@@ -1,7 +1,6 @@
 package com.brainoptimax.peakstate.viewmodel.profile
 
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -42,7 +41,7 @@ class UpdateEmailViewModel : ViewModel() {
                             .setMessage(R.string.msg_update_email)
                             .setPositiveButton("Ok") { _, _ ->
                                 user.let {
-                                    user.updateEmail(email).addOnCompleteListener {
+                                    user.updateEmail(email).addOnCompleteListener { it ->
                                         if (it.isSuccessful) {
                                             databaseReference.child("email").setValue(email)
                                                 .addOnSuccessListener { }

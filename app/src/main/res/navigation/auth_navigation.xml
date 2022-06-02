@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.brainoptimax.peakstate.ui.fragment.auth.LoginFragment"
+        android:name="com.brainoptimax.peakstate.ui.auth.fragment.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.brainoptimax.peakstate.ui.fragment.auth.RegisterFragment"
+        android:name="com.brainoptimax.peakstate.ui.auth.fragment.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -44,7 +44,7 @@
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
-        android:name="com.brainoptimax.peakstate.ui.fragment.auth.ForgotPasswordFragment"
+        android:name="com.brainoptimax.peakstate.ui.auth.fragment.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" >
         <action
@@ -55,6 +55,6 @@
     </fragment>
     <activity
         android:id="@+id/introSliderActivity"
-        android:name="com.brainoptimax.peakstate.ui.activity.intro.IntroSliderActivity"
+        android:name="com.brainoptimax.peakstate.ui.intro.IntroSliderActivity"
         android:label="IntroSliderActivity" />
 </navigation>

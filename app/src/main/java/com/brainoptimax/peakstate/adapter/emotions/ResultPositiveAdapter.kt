@@ -1,13 +1,10 @@
 package com.brainoptimax.peakstate.adapter.emotions
 
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.brainoptimax.peakstate.R
@@ -15,7 +12,7 @@ import com.brainoptimax.peakstate.databinding.ItemResultEmotionsBinding
 import com.brainoptimax.peakstate.model.Emotion
 import com.brainoptimax.peakstate.viewmodel.emotion.EmotionViewModel
 
-class ResultPositiveAdapter(var emotionList: List<Emotion>?, activity: FragmentActivity) :
+class ResultPositiveAdapter(private var emotionList: List<Emotion>?, activity: FragmentActivity) :
     RecyclerView.Adapter<ResultPositiveAdapter.ViewHolder>() {
 
     private lateinit var viewModel: EmotionViewModel
@@ -55,10 +52,10 @@ class ResultPositiveAdapter(var emotionList: List<Emotion>?, activity: FragmentA
             viewModel.totalAllEmotion
             viewModel.totalAllEmotionMutableLiveData.observe(activity) { totalAllEmotion ->
                 Log.d("TAG", "totalAllEmotion: $totalAllEmotion")
-                if (totalAllEmotion!!.isEmpty() || totalAllEmotion.equals(null) || totalAllEmotion == "null") {
-                    totalAll = 0
+                totalAll = if (totalAllEmotion!!.isEmpty() || totalAllEmotion.equals(null) || totalAllEmotion == "null") {
+                    0
                 } else {
-                    totalAll = totalAllEmotion.toInt()
+                    totalAllEmotion.toInt()
                 }
             }
 

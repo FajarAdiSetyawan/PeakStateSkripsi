@@ -8,13 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.ItemDetailValueGoalsBinding
 import com.brainoptimax.peakstate.model.valuegoals.ToDo
-import com.brainoptimax.peakstate.model.valuegoals.ValueGoals
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
 
-class DetailValueGoalsAdapter(val goalsID: String?) :
+class DetailValueGoalsAdapter(private val goalsID: String?) :
     RecyclerView.Adapter<DetailValueGoalsAdapter.ViewHolder>() {
 
     private lateinit var auth: FirebaseAuth

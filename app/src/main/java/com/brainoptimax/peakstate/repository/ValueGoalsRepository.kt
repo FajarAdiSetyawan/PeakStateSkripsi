@@ -1,7 +1,6 @@
 package com.brainoptimax.peakstate.repository
 
 import android.util.Log
-import com.brainoptimax.peakstate.adapter.valuegoals.ValueGoalsAdapter
 import com.brainoptimax.peakstate.model.valuegoals.ToDo
 import com.brainoptimax.peakstate.model.valuegoals.ValueGoals
 import com.google.firebase.auth.FirebaseAuth

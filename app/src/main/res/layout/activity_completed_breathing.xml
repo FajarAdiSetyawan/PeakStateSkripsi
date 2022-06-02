@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.breathing.CompletedBreathingActivity"
+    tools:context=".ui.breathing.CompletedBreathingActivity"
     android:background="@color/bg_layout">
 
     <ImageView

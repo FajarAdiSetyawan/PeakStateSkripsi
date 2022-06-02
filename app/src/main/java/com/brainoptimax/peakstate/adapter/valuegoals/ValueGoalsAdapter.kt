@@ -11,10 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.ItemValueGoalsListBinding
 import com.brainoptimax.peakstate.model.valuegoals.ValueGoals
-import com.brainoptimax.peakstate.ui.fragment.valuegoals.DetailGoalsFragment
-import com.brainoptimax.peakstate.ui.fragment.valuegoals.EditValueGoalsFragment
+import com.brainoptimax.peakstate.ui.valuegoals.fragment.DetailGoalsFragment
+import com.brainoptimax.peakstate.ui.valuegoals.fragment.EditValueGoalsFragment
 import com.bumptech.glide.Glide
-import com.squareup.picasso.Picasso
 
 class ValueGoalsAdapter(var data: List<ValueGoals>?, var context: Context): RecyclerView.Adapter<ValueGoalsAdapter.ViewHolder>()  {
 

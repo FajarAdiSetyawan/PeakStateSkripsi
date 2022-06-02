@@ -4,12 +4,10 @@ import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.InsetDrawable
-import android.text.TextUtils
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
-import androidx.navigation.NavController
 import com.airbnb.lottie.LottieAnimationView
 import com.brainoptimax.peakstate.R
 import com.google.android.material.snackbar.Snackbar

@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.ItemEmotionsBinding
 import com.brainoptimax.peakstate.model.ListEmotions
-import com.brainoptimax.peakstate.ui.activity.emotion.SaveEmotionsActivity
+import com.brainoptimax.peakstate.ui.emotion.SaveEmotionsActivity
 import com.brainoptimax.peakstate.utils.Animatoo
 
 class NegativeEmotionAdapter(var context: Context) : RecyclerView.Adapter<NegativeEmotionAdapter.ViewHolder>() {
-    var emotionsList = emptyList<ListEmotions>()
+    private var emotionsList = emptyList<ListEmotions>()
 
     internal fun setDataList(dataList: List<ListEmotions>) {
         this.emotionsList = dataList

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.quiz.QuizActivity"
+    tools:context=".ui.quiz.QuizActivity"
     android:background="@color/bg_layout">
 
     <TextView
@@ -20,7 +20,7 @@
         android:textStyle="bold"
         android:textColor="@color/text_color"
         android:layout_marginTop="40dp"/>
-    
+
     <ImageView
         android:id="@+id/iv_icon_quiz"
         android:layout_width="270dp"

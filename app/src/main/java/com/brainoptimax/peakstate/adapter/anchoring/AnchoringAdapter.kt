@@ -10,8 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.ItemListResultAnchoringBinding
 import com.brainoptimax.peakstate.model.anchoring.Anchoring
-import com.brainoptimax.peakstate.ui.fragment.anchoring.ResultAnchoringFragment
-import com.brainoptimax.peakstate.ui.fragment.valuegoals.DetailGoalsFragment
+import com.brainoptimax.peakstate.ui.anchoring.fragment.ResultAnchoringFragment
 
 class AnchoringAdapter(var context: Context): RecyclerView.Adapter<AnchoringAdapter.ViewHolder>() {
     private var anchoringList: List<Anchoring>? = null

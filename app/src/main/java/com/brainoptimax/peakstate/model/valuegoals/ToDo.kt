@@ -1,7 +1,5 @@
 package com.brainoptimax.peakstate.model.valuegoals
 
-import com.google.firebase.database.PropertyName
-
 data class ToDo(
     var id: String?,
     var goals: String?,

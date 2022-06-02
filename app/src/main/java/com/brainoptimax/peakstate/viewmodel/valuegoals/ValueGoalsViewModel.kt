@@ -227,7 +227,7 @@ class ValueGoalsViewModel: ViewModel(), ValueGoalsRepository.OnRealtimeDbTaskCom
         alertDialogLoading.show()
     }
 
-    fun closeLoadingDialog() {
+    private fun closeLoadingDialog() {
         alertDialogLoading.dismiss()
     }
 

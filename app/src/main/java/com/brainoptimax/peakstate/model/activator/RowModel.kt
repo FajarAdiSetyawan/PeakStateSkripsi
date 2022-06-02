@@ -1,6 +1,5 @@
 package com.brainoptimax.peakstate.model.activator
 
-import android.os.Parcelable
 import androidx.annotation.IntDef
 
 class RowModel {
@@ -21,7 +20,7 @@ class RowModel {
 
     lateinit var expandActivator: ExpandActivator
 
-    lateinit var detailActivator: DetailActivator
+    private lateinit var detailActivator: DetailActivator
 
     var isExpanded : Boolean
 

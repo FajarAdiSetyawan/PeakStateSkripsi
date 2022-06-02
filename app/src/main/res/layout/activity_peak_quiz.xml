@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.quiz.PeakQuizActivity"
+    tools:context=".ui.quiz.PeakQuizActivity"
     android:background="@color/bg_layout"
+    android:paddingTop="30dp"
     android:paddingStart="30dp"
     android:paddingEnd="30dp"
     android:paddingBottom="0dp">
+
 
     <LinearLayout
         android:layout_marginTop="15dp"
@@ -404,7 +406,7 @@
         android:letterSpacing="0.2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -430,5 +432,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_result" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

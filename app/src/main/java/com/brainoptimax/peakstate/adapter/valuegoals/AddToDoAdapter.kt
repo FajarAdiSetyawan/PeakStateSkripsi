@@ -1,6 +1,5 @@
 package com.brainoptimax.peakstate.adapter.valuegoals
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

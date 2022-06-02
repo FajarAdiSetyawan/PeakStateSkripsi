@@ -4,7 +4,7 @@ class Emotion{
     var emotionName: String? = null
     var emotionNote: String? = null
     var emotionDate: String? = null
-    var totalAllEmotion: Int? = null
+    private var totalAllEmotion: Int? = null
     var totalPerEmotion: Int? = null
 
     constructor()

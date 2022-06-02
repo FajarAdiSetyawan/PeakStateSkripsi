@@ -29,94 +29,94 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PeakState">
         <activity
-            android:name=".ui.activity.EditProfileActivity"
+            android:name=".ui.quiz.RecommendEnergyQuizActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.quiz.RecommendPeakActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.quiz.PeakQuizActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.quiz.EnergyQuizActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.quiz.ResultEnergyQuizActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.quiz.ResultPeakQuizActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.dashboard.profile.EditProfileActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.auth.AuthActivity"
+            android:name=".ui.auth.AuthActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.emotion.SaveEmotionsActivity"
+            android:name="com.brainoptimax.peakstate.ui.emotion.SaveEmotionsActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.emotion.ChooseEmotionsActivity"
+            android:name="com.brainoptimax.peakstate.ui.emotion.ChooseEmotionsActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.intro.IntroValueGoalsActivity"
+            android:name="com.brainoptimax.peakstate.ui.intro.IntroValueGoalsActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.goals.ValueGoalsActivity"
+            android:name=".ui.valuegoals.ValueGoalsActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.anchoring.AnchoringActivity"
+            android:name="com.brainoptimax.peakstate.ui.anchoring.AnchoringActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.intro.IntroAnchoringActivity"
+            android:name="com.brainoptimax.peakstate.ui.intro.IntroAnchoringActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.quiz.RecommendEnergyQuizActivity"
+            android:name="com.brainoptimax.peakstate.ui.intro.IntroPeakStateQuizActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.quiz.RecommendPSRQuizActivity"
+            android:name="com.brainoptimax.peakstate.ui.intro.IntroEnergyTensionActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.quiz.ResultEnergyQuizActivity"
+            android:name=".ui.quiz.QuizActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.quiz.ResultPSRQuizActivity"
+            android:name="com.brainoptimax.peakstate.ui.breathing.CompletedBreathingActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.quiz.PeakQuizActivity"
+            android:name="com.brainoptimax.peakstate.ui.breathing.IntroBreathingActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.quiz.EnergyQuizActivity"
+            android:name="com.brainoptimax.peakstate.ui.breathing.MainBreathingActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.intro.IntroPeakStateQuizActivity"
+            android:name="com.brainoptimax.peakstate.ui.emotion.RecommendationEmotionActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.intro.IntroEnergyTensionActivity"
+            android:name="com.brainoptimax.peakstate.ui.emotion.ResultEmotionActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.quiz.QuizActivity"
+            android:name="com.brainoptimax.peakstate.ui.emotion.EmotionGaugeActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.breathing.CompletedBreathingActivity"
+            android:name="com.brainoptimax.peakstate.ui.intro.IntroEmotionActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.breathing.IntroBreathingActivity"
+            android:name="com.brainoptimax.peakstate.ui.reminders.DetailReminderActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.breathing.MainBreathingActivity"
+            android:name="com.brainoptimax.peakstate.ui.reminders.AddRemindersActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.emotion.RecommendationEmotionActivity"
+            android:name="com.brainoptimax.peakstate.ui.reminders.ListRemindersActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.emotion.ResultEmotionActivity"
+            android:name=".ui.dashboard.activator.DetailActivatorActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.emotion.EmotionGaugeActivity"
+            android:name="com.brainoptimax.peakstate.ui.intro.IntroSliderActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activity.intro.IntroEmotionActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.activity.reminders.DetailReminderActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.activity.reminders.AddRemindersActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.activity.reminders.ListRemindersActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.activity.DetailActivatorActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.activity.intro.IntroSliderActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.activity.SplashScreenActivity"
+            android:name=".ui.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -125,7 +125,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true" /> <!-- <activity -->
         <!-- android:name="com.theartofdev.edmodo.cropper.CropImageActivity" -->
         <!-- android:theme="@style/Base.Theme.AppCompat" /> &lt;!&ndash; Notification Reminder &ndash;&gt; -->

@@ -56,6 +56,12 @@
     <string name="loading_register">Harap tunggu,\nsementara kami membuat akun Anda</string>
     <string name="loading_login">Harap tunggu,\nSementara kami menghubungkan akun Anda</string>
     <!--  dialog error  -->
+    <!-- Language select dialog -->
+    <string name="change">Change</string>
+    <string-array name="lang_select">
+        <item>English</item>
+        <item>Bahasa Indonesia</item>
+    </string-array>
     <string name="username_blank">Username tidak boleh kosong</string>
     <string name="email_blank">Email tidak boleh kosong</string>
     <string name="fullname_blank">Nama lengkap tidak boleh kosong</string>
@@ -128,7 +134,7 @@
     <string name="offline">Offline</string>
     <string name="msgoffline">Please Connect to the Internet to continue.</string>
     <string name="connect">Connect</string>
-    <string name="english">Bahasa Inggris</string>
+    <string name="english">Bahasa Indonesia</string>
     <string name="indonesia">Bahasa Indonesia</string>
 
     <!--  INTRO  -->
@@ -333,7 +339,7 @@
     <string name="neutral">Netral</string>
     <string name="accept">Setuju</string>
     <string name="cancel">Batal</string>
-    <string name="strongly_disagree">Strongly Disagree</string>
+    <string name="strongly_disagree">Sangat Tidak Setuju</string>
     <string name="peak_state_ready_quiz">KUIS KESIAPAN KEADAAN PUNCAK</string>
     <string name="disagree">Tidak setuju</string>
     <string name="are_you_peak_state_ready">Apakah Anda Siap di Puncak?</string>
@@ -345,6 +351,8 @@
     <string name="med_readiness">Kesiapan Sedang</string>
     <string name="high_readiness">Kesiapan Tinggi</string>
     <string name="relaxation">Relaksasi</string>
+    <string name="add_memory">Tambah Ingatan Anda...</string>
+    <string name="add_resourceful">Tambah Resourceful Anda...</string>
     <string name="maintenance">Pemeliharaan</string>
     <string name="recommend_low_1">Profil Anda menunjukkan bahwa kesiapan Anda untuk mencapai kondisi puncak dapat ditingkatkan secara signifikan. Tak satu pun dari kita diberi panduan pengguna saat lahir untuk sepenuhnya memanfaatkan sumber daya pikiran dan tubuh kita yang kita butuhkan untuk mengatasi tantangan dan menavigasi medan kehidupan yang sulit. Kabar baiknya adalah bahwa dengan membuat komitmen untuk mengadopsi dan mempraktikkan rutinitas baru dengan cepat, mengembangkan kebiasaan baru yang disarankan di sini, Anda dapat mengalami peningkatan skor keadaan puncak Anda dan menjalani kehidupan yang memuaskan.</string>
     <string name="recommend_low_2">Bagaimana kita menafsirkan situasi dan pengalaman sebagian besar merupakan hasil dari dialog batin kita, produk dari pikiran sadar kita dan keyakinan serta bias bawah sadar kita. Membudayakan self-talk yang sehat dan positif dapat secara dramatis menentukan kesuksesan kita atau sebaliknya kegagalan, sikap kita, emosi kita, membangun atau menghancurkan kepercayaan diri kita, kemampuan kita untuk mengatasi tantangan dan kesulitan. Beberapa orang menyamakan kebiasaan self-talk yang positif dengan baju besi pertahanan atau tangga untuk membawa Anda lebih tinggi. Jadikan self-talk positif sebagai kebiasaan hari ini. (Unduh lembar kerja self-talk positif)</string>
@@ -415,6 +423,26 @@
     <string name="recommend_energizer_4">Gaya hidup yang tidak banyak bergerak atau posisi duduk yang lama dapat menguras energi, kreativitas, dan kinerja Anda secara keseluruhan. Gunakan alat pengingat untuk mengatur waktu istirahat yang teratur untuk menggerakkan tubuh Anda dan “mengatur ulang” pikiran/tubuh Anda untuk bekerja secara optimal.</string>
     <string name="recommend_energizer_5">Mulailah dengan tujuan yang lebih kecil. Menetapkan tujuan yang lebih kecil atau memecah tugas besar menjadi bagian-bagian yang lebih kecil dengan target yang lebih kecil membantu pemanfaatan yang lebih efektif dari penyimpanan energi Anda dan untuk ukuran yang baik, memberikan dorongan untuk terus berjalan.</string>
     <string name="recommend_energizer_6">Satu cara sederhana untuk membuat rekomendasi Anda otomatis sehingga Anda yakin akan energi yang cukup untuk memulai dan mengakhiri hari Anda dengan catatan yang tepat adalah dengan menyiapkan rutinitas harian. Manfaatkan fungsi pengingat untuk menyiapkan rutinitas yang membawa Anda pada perjalanan menuju perubahan positif sekarang.</string>
+
+    <string name="result_energy_1">Selamat! Berdasarkan tanggapan Anda, Anda dapat mengendalikan ketegangan dengan baik. Namun, Anda akan tampil lebih optimal jika Anda mampu meningkatkan dan mempertahankan tingkat energi Anda. Baca terus untuk mendapatkan rekomendasi</string>
+    <string name="result_energy_2">Selamat! Berdasarkan tanggapan Anda, Anda dapat mengendalikan ketegangan dengan baik. Namun, Anda akan tampil lebih optimal jika Anda mampu meningkatkan dan mempertahankan tingkat energi Anda. Baca terus untuk mendapatkan rekomendasi</string>
+    <string name="result_energy_3">Selamat! Berdasarkan tanggapan Anda, Anda dapat mengendalikan ketegangan dengan baik. Namun, Anda akan tampil lebih optimal jika Anda mampu meningkatkan dan mempertahankan tingkat energi Anda. Baca terus untuk mendapatkan rekomendasi</string>
+    <string name="result_energy_4">Selamat! Berdasarkan tanggapan Anda, Anda dapat mengendalikan ketegangan dengan baik. Namun, Anda akan tampil lebih optimal jika Anda mampu meningkatkan dan mempertahankan tingkat energi Anda. Baca terus untuk mendapatkan rekomendasi</string>
+    <string name="result_energy_5">Berdasarkan tanggapan Anda, belajar meminimalkan ketegangan adalah kunci untuk membantu Anda mendapatkan performa terbaik Anda. Peningkatan ketegangan yang terus menerus dan terakumulasi dapat menguras kekuatan kita, melemahkan keinginan kita untuk memenuhi tuntutan keadaan Anda dan mengurangi kinerja. Baca terus untuk mendapatkan rekomendasi</string>
+    <string name="result_energy_6">Berdasarkan tanggapan Anda, belajar meminimalkan ketegangan adalah kunci untuk membantu Anda mendapatkan performa terbaik Anda. Peningkatan ketegangan yang terus menerus dan terakumulasi dapat menguras kekuatan kita, melemahkan keinginan kita untuk memenuhi tuntutan keadaan Anda dan mengurangi kinerja. Baca terus untuk mendapatkan rekomendasi</string>
+    <string name="result_energy_7">Berdasarkan tanggapan Anda, belajar meminimalkan ketegangan adalah kunci untuk membantu Anda membuka kinerja terbaik Anda. Peningkatan ketegangan yang terus menerus dan terakumulasi dapat menguras kekuatan kita, melemahkan keinginan kita untuk memenuhi tuntutan keadaan Anda dan mengurangi kinerja. Baca terus untuk mendapatkan rekomendasi</string>
+    <string name="result_energy_8">Selamat! Anda berada di kelas elit. Berdasarkan tanggapan Anda, Anda dapat dengan baik meningkatkan tingkat energi Anda untuk memenuhi tuntutan keadaan Anda sambil menjaga ketegangan Anda tetap terkendali. Baca terus untuk mendapatkan rekomendasi</string>
+    <string name="result_energy_9">Selamat! Anda berada di kelas elit. Berdasarkan tanggapan Anda, Anda dapat dengan baik meningkatkan tingkat energi Anda untuk memenuhi tuntutan keadaan Anda sambil menjaga ketegangan Anda tetap terkendali. Baca terus untuk mendapatkan rekomendasi</string>
+
+    <string name="training_maintenance">Pemeliharaan Pelatihan</string>
+    <string name="training_relaxation">Latihan Relaksasi</string>
+
+    <string name="result_peak_1">Profil Anda menunjukkan bahwa kesiapan Anda untuk mencapai kondisi puncak dapat ditingkatkan secara signifikan. Tak satu pun dari kita diberi panduan pengguna saat lahir untuk sepenuhnya memanfaatkan sumber daya pikiran dan tubuh kita yang kita butuhkan untuk mengatasi tantangan dan menavigasi medan kehidupan yang sulit. Kabar baiknya adalah bahwa dengan membuat komitmen untuk mengadopsi dan mempraktikkan rutinitas baru dengan cepat, mengembangkan kebiasaan baru yang disarankan di sini, Anda dapat mengalami peningkatan skor keadaan puncak Anda dan menjalani kehidupan yang memuaskan. Ingatlah bahwa kunci perubahan adalah konsistensi dan kinerja praktik dan rutinitas harian yang tepat.</string>
+    <string name="result_peak_2">Profil Anda menunjukkan bahwa Anda memiliki ruang untuk peningkatan dalam skor kesiapan Anda untuk mencapai dan mengakses status puncak secara lebih konsisten. Untuk meningkatkan skor keadaan puncak Anda, buat komitmen untuk mengadopsi dan mempraktikkan rutinitas yang tepat yang disarankan di sini dan mengembangkan kebiasaan baru dengan cepat. Perlu diingat bahwa kunci perubahan adalah pola pikir yang benar dan konsistensi dalam melakukan latihan kesiapan dan rutinitas secara teratur.</string>
+    <string name="result_peak_3">Selamat! Profil Anda menunjukkan bahwa Anda memiliki kesiapan tinggi untuk mengakses status puncak. Untuk meningkatkan dan mempertahankan kesiapan Anda untuk kondisi puncak, buatlah komitmen untuk mengadopsi dan mempraktikkan rutinitas yang disarankan di sini dan mengembangkan kebiasaan baru. Ingatlah bahwa kunci untuk berubah adalah pola pikir yang benar dan konsistensi dalam melakukan praktik dan rutinitas kesiapan secara teratur.</string>
+
+    <string name="medium_readiness">Kesiapan Sedang</string>
+
     <string name="breathe">Bernapas</string>
     <string name="take_quiz">Ikuti Kuis</string>
     <string name="take_quiz_energy">Anda belum mengikuti Kuis Ketegangan Energi</string>
@@ -485,4 +513,7 @@
     <string name="psr_question_12">Saya dapat menemukan hal positif bahkan dalam kesulitan</string>
     <string name="your_to_do_list">Daftar Tujuan Anda</string>
 
+    <string name="board_presentation">Papan Presentasi</string>
+    <string name="take_the_quiz_again">Kerjakan Quiz Lagi</string>
+    <string name="desc_result_energy">Profil Kesiapan Status Puncak Anda adalah (LIHAT KOLOM PROFIL). Profil Anda menunjukkan bahwa kesiapan Anda untuk mencapai kondisi puncak dapat ditingkatkan secara signifikan</string>
 </resources>

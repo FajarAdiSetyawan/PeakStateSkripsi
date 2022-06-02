@@ -7,7 +7,7 @@ import com.brainoptimax.peakstate.database.ReminderDAO
 import com.brainoptimax.peakstate.model.Reminders
 
 class ReminderRepository(application: Application?) {
-    var reminderDAO: ReminderDAO?
+    private var reminderDAO: ReminderDAO?
 
     @JvmField
     var getAllReminder: LiveData<List<Reminders?>?>?

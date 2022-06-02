@@ -12,13 +12,11 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.navigation.NavController
 import com.airbnb.lottie.LottieAnimationView
 import com.brainoptimax.peakstate.R
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.storage.StorageReference
-import java.util.*
 
 class ProfileViewModel: ViewModel() {
     private lateinit var alertDialogLoading: AlertDialog
@@ -77,7 +75,7 @@ class ProfileViewModel: ViewModel() {
         alertDialogLoading.show()
     }
 
-    fun closeLoadingDialog() {
+    private fun closeLoadingDialog() {
         alertDialogLoading.dismiss()
     }
 }

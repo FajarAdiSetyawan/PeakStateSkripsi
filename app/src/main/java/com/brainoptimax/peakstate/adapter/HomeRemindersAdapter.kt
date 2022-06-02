@@ -10,21 +10,13 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.brainoptimax.peakstate.R
-import com.brainoptimax.peakstate.databinding.ItemRemindersBinding
 import com.brainoptimax.peakstate.databinding.ItemRemindersHomeBinding
 import com.brainoptimax.peakstate.model.Reminders
-import com.brainoptimax.peakstate.model.activator.RowModel
-import com.brainoptimax.peakstate.ui.activity.DetailActivatorActivity
-import com.brainoptimax.peakstate.ui.activity.reminders.AddRemindersActivity
-import com.brainoptimax.peakstate.ui.activity.reminders.DetailReminderActivity
-import com.brainoptimax.peakstate.utils.ReminderUtils
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.*
+import com.brainoptimax.peakstate.ui.reminders.DetailReminderActivity
 
 class HomeRemindersAdapter: RecyclerView.Adapter<HomeRemindersAdapter.ViewHolder>() {
 
-    var reminderList = mutableListOf<Reminders>()
+    private var reminderList = mutableListOf<Reminders>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflate =
@@ -47,38 +39,34 @@ class HomeRemindersAdapter: RecyclerView.Adapter<HomeRemindersAdapter.ViewHolder
         @RequiresApi(Build.VERSION_CODES.N)
         @SuppressLint("SetTextI18n", "NewApi")
         fun bindItems(reminder: Reminders) {
-            with(binding) {
-
-                when (reminder.title) {
-                    "Morning Routine" -> {
-                        binding.tvTitleRemainder.setTextColor(Color.parseColor("#F4D35E"))
-                        binding.ivMoreRemainder.setImageResource(R.drawable.ic_morning)
-                    }
-                    "Night Routine" -> {
-                        binding.tvTitleRemainder.setTextColor(Color.parseColor("#19647E"))
-                        binding.ivMoreRemainder.setImageResource(R.drawable.ic_night)
-                    }
-                    "Movement" -> {
-                        binding.tvTitleRemainder.setTextColor(Color.parseColor("#EE964B"))
-                        binding.ivMoreRemainder.setImageResource(R.drawable.ic_movement)
-                    }
-                    "Fresh Air" -> {
-                        binding.tvTitleRemainder.setTextColor(Color.parseColor("#28AFB0"))
-                        binding.ivMoreRemainder.setImageResource(R.drawable.ic_fresh)
-                    }
-                    else -> {
-                        binding.tvTitleRemainder.setTextColor(Color.parseColor("#84AEFF"))
-                        binding.ivMoreRemainder.setImageResource(R.drawable.ic_placeholder_image)
-                    }
+            when (reminder.title) {
+                "Morning Routine" -> {
+                    binding.tvTitleRemainder.setTextColor(Color.parseColor("#F4D35E"))
+                    binding.ivMoreRemainder.setImageResource(R.drawable.ic_morning)
                 }
-
-                
-                binding.tvSubtitleRemainder.text = reminder.subtitle
-                binding.tvTitleRemainder.text = reminder.title
-                binding.tvDescRemainder.text = reminder.description
-                binding.tvDatetimeRemainder.text = "${reminder.date} ${reminder.time}"
-
+                "Night Routine" -> {
+                    binding.tvTitleRemainder.setTextColor(Color.parseColor("#19647E"))
+                    binding.ivMoreRemainder.setImageResource(R.drawable.ic_night)
+                }
+                "Movement" -> {
+                    binding.tvTitleRemainder.setTextColor(Color.parseColor("#EE964B"))
+                    binding.ivMoreRemainder.setImageResource(R.drawable.ic_movement)
+                }
+                "Fresh Air" -> {
+                    binding.tvTitleRemainder.setTextColor(Color.parseColor("#28AFB0"))
+                    binding.ivMoreRemainder.setImageResource(R.drawable.ic_fresh)
+                }
+                else -> {
+                    binding.tvTitleRemainder.setTextColor(Color.parseColor("#84AEFF"))
+                    binding.ivMoreRemainder.setImageResource(R.drawable.ic_placeholder_image)
+                }
             }
+
+
+            binding.tvSubtitleRemainder.text = reminder.subtitle
+            binding.tvTitleRemainder.text = reminder.title
+            binding.tvDescRemainder.text = reminder.description
+            binding.tvDatetimeRemainder.text = "${reminder.date} ${reminder.time}"
 
 
             itemView.setOnClickListener {

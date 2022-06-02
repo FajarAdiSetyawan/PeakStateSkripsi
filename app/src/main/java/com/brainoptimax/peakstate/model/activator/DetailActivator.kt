@@ -5,8 +5,5 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class DetailActivator(
-    val iso : String,
-    val music: String,
-    val breathing : String,
-    val suggest: String
-    ): Parcelable
+    val breathing: String
+): Parcelable

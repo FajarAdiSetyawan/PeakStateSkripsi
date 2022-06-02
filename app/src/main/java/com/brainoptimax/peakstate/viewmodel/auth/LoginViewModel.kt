@@ -1,12 +1,10 @@
 package com.brainoptimax.peakstate.viewmodel.auth
 
 import android.app.AlertDialog
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.InsetDrawable
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
@@ -16,13 +14,9 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.model.Users
-import com.brainoptimax.peakstate.utils.Preferences
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.*
-import java.net.ProtocolFamily
 
 class LoginViewModel : ViewModel() {
 

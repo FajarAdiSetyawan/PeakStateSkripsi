@@ -1,16 +1,12 @@
 package com.brainoptimax.peakstate.viewmodel.profile
 
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.brainoptimax.peakstate.R
-import com.brainoptimax.peakstate.model.Users
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 
 class EditProfileViewModel: ViewModel() {
     var status = MutableLiveData<Boolean?>()

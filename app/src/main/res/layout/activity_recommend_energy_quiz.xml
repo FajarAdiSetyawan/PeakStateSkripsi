@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.quiz.RecommendEnergyQuizActivity"
+    tools:context=".ui.quiz.RecommendEnergyQuizActivity"
     android:background="@color/bg_layout">
 
     <ScrollView
@@ -574,4 +574,5 @@
 
 
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_layout"
-    tools:context=".ui.activity.quiz.ResultEnergyQuizActivity">
+    tools:context=".ui.quiz.ResultEnergyQuizActivity"
+    android:background="@color/bg_layout">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -92,7 +92,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginTop="3dp"
-                            android:text="Result"
+                            android:text="@string/result"
                             android:fontFamily="@font/poppins"
                             android:textSize="14sp" />
                     </LinearLayout>
@@ -276,7 +276,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Your Peak State Readiness profile is (SEE PROFILE COLUMN). Your profile suggests that your readiness for attaining peak state can be significantly improved"
+                        android:text="@string/desc_result_energy"
                         android:gravity="center"
                         android:textAlignment="center"
                         android:layout_marginStart="20dp"
@@ -325,20 +325,33 @@
                 android:backgroundTint="@color/md_orange_600"/>
 
             <Button
-                android:id="@+id/btn_done"
+                android:id="@+id/btn_again"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/btn_recomendation"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
-                android:backgroundTint="@color/md_yellow_600"
+                android:layout_marginBottom="10dp"
+                android:backgroundTint="@color/md_yellow_A400"
                 android:fontFamily="@font/poppins"
-                android:text="Done"
+                android:text="@string/take_the_quiz_again"
+                android:textAllCaps="true"
+                android:textColor="@color/md_orange_800" />
+
+            <Button
+                android:id="@+id/btn_done"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btn_again"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="@color/md_yellow_A100"
+                android:fontFamily="@font/poppins"
+                android:text="@string/done"
                 android:textAllCaps="true"
                 android:textColor="@color/md_orange_800" />
         </RelativeLayout>
     </ScrollView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

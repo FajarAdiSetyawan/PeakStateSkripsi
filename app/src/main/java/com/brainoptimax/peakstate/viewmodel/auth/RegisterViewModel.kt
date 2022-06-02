@@ -1,6 +1,5 @@
 package com.brainoptimax.peakstate.viewmodel.auth
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -8,7 +7,6 @@ import android.graphics.drawable.InsetDrawable
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
@@ -16,7 +14,6 @@ import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.model.Users
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
 class RegisterViewModel : ViewModel() {

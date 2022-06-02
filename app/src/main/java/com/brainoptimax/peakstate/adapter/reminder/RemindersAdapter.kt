@@ -35,7 +35,7 @@ class RemindersAdapter(
     override fun getItemCount(): Int = reminderList.size
 
     fun getReminderAt(position: Int): Reminders {
-        return reminderList.get(position)
+        return reminderList[position]
     }
 
     override fun getFilter(): Filter {

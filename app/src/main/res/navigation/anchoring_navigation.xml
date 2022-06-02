@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/anchoring1Fragment"
-        android:name="com.brainoptimax.peakstate.ui.fragment.anchoring.Anchoring1Fragment"
+        android:name="com.brainoptimax.peakstate.ui.anchoring.fragment.Anchoring1Fragment"
         android:label="fragment_anchoring1"
         tools:layout="@layout/fragment_anchoring1" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/anchoring2Fragment"
-        android:name="com.brainoptimax.peakstate.ui.fragment.anchoring.Anchoring2Fragment"
+        android:name="com.brainoptimax.peakstate.ui.anchoring.fragment.Anchoring2Fragment"
         android:label="fragment_anchoring2"
         tools:layout="@layout/fragment_anchoring2" >
         <action
@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/anchoring3Fragment"
-        android:name="com.brainoptimax.peakstate.ui.fragment.anchoring.Anchoring3Fragment"
+        android:name="com.brainoptimax.peakstate.ui.anchoring.fragment.Anchoring3Fragment"
         android:label="fragment_anchoring3"
         tools:layout="@layout/fragment_anchoring3" >
         <action
@@ -41,7 +41,7 @@
     </fragment>
     <fragment
         android:id="@+id/anchoring4Fragment"
-        android:name="com.brainoptimax.peakstate.ui.fragment.anchoring.Anchoring4Fragment"
+        android:name="com.brainoptimax.peakstate.ui.anchoring.fragment.Anchoring4Fragment"
         android:label="fragment_anchoring4"
         tools:layout="@layout/fragment_anchoring4" >
         <action
@@ -52,7 +52,7 @@
     </fragment>
     <fragment
         android:id="@+id/anchoring5Fragment"
-        android:name="com.brainoptimax.peakstate.ui.fragment.anchoring.Anchoring5Fragment"
+        android:name="com.brainoptimax.peakstate.ui.anchoring.fragment.Anchoring5Fragment"
         android:label="fragment_anchoring5"
         tools:layout="@layout/fragment_anchoring5" >
         <action
@@ -63,12 +63,12 @@
     </fragment>
     <fragment
         android:id="@+id/anchoring6Fragment"
-        android:name="com.brainoptimax.peakstate.ui.fragment.anchoring.Anchoring6Fragment"
+        android:name="com.brainoptimax.peakstate.ui.anchoring.fragment.Anchoring6Fragment"
         android:label="fragment_anchoring6"
         tools:layout="@layout/fragment_anchoring6" />
     <fragment
         android:id="@+id/listAnchoringFragment"
-        android:name="com.brainoptimax.peakstate.ui.fragment.anchoring.ListAnchoringFragment"
+        android:name="com.brainoptimax.peakstate.ui.anchoring.fragment.ListAnchoringFragment"
         android:label="fragment_list_anchoring"
         tools:layout="@layout/fragment_list_anchoring" >
         <action
@@ -82,7 +82,7 @@
     </fragment>
     <fragment
         android:id="@+id/anchoringMenuFragment"
-        android:name="com.brainoptimax.peakstate.ui.fragment.anchoring.AnchoringMenuFragment"
+        android:name="com.brainoptimax.peakstate.ui.anchoring.fragment.AnchoringMenuFragment"
         android:label="fragment_anchoring_menu"
         tools:layout="@layout/fragment_anchoring_menu" >
         <action
@@ -98,7 +98,7 @@
     </fragment>
     <fragment
         android:id="@+id/resultAnchoringFragment"
-        android:name="com.brainoptimax.peakstate.ui.fragment.anchoring.ResultAnchoringFragment"
+        android:name="com.brainoptimax.peakstate.ui.anchoring.fragment.ResultAnchoringFragment"
         android:label="fragment_result_anchoring"
         tools:layout="@layout/fragment_result_anchoring" >
         <action

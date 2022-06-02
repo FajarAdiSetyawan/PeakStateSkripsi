@@ -9,14 +9,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.brainoptimax.peakstate.R
-import com.brainoptimax.peakstate.ui.fragment.valuegoals.AddGoalsFragment
+import com.brainoptimax.peakstate.ui.valuegoals.fragment.AddGoalsFragment
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
 class ValueAdapter(// Declare variables to store data from the constructor
     var context: Context,
-    var valueName: Array<String>,
-    var images: IntArray
+    private var valueName: Array<String>,
+    private var images: IntArray
 ) : RecyclerView.Adapter<ValueAdapter.ViewHolder>() {
 
 //    private lateinit var nav : NavController

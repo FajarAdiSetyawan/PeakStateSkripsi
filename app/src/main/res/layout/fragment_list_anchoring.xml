@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg_layout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragment.anchoring.ListAnchoringFragment">
+    tools:context=".ui.anchoring.fragment.ListAnchoringFragment">
 
     <ImageView
         android:id="@+id/backMain"

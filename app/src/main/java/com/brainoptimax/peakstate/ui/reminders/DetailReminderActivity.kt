@@ -1,6 +1,7 @@
 package com.brainoptimax.peakstate.ui.reminders
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.brainoptimax.peakstate.R
@@ -45,16 +46,16 @@ class DetailReminderActivity : AppCompatActivity() {
         val date = intent.getStringExtra(EXTRA_DATE)
 
         when (title) {
-            "Morning Routine" -> {
+            resources.getString(R.string.morning_routine) -> {
                 binding.imgBackdrop.setImageResource(R.drawable.ic_morning)
             }
-            "Night Routine" -> {
+            resources.getString(R.string.night_routine) -> {
                 binding.imgBackdrop.setImageResource(R.drawable.ic_night)
             }
-            "Movement" -> {
+            resources.getString(R.string.movement) -> {
                 binding.imgBackdrop.setImageResource(R.drawable.ic_movement)
             }
-            "Fresh Air" -> {
+            resources.getString(R.string.fresh_air) -> {
                 binding.imgBackdrop.setImageResource(R.drawable.ic_fresh)
             }
             else -> {

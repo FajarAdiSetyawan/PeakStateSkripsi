@@ -38,9 +38,9 @@ class ResultEmotionActivity : AppCompatActivity() {
             Log.d("TAG", "totalAllEmotion: $totalAllEmotion")
 
             if (totalAllEmotion!!.isEmpty() || totalAllEmotion.equals(null) || totalAllEmotion == "null") {
-                binding.tvTotal.text = "0"
+                binding.tvTotal.text = "0 " + resources.getString(R.string.emotion)
             } else {
-                binding.tvTotal.text = "$totalAllEmotion Emotions"
+                binding.tvTotal.text = "$totalAllEmotion " + resources.getString(R.string.emotion)
             }
         }
 

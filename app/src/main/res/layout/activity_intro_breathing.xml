@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.breathing.IntroBreathingActivity"
+    tools:context=".ui.intro.IntroBreathingActivity"
     android:background="@color/bg_layout">
 
     <TextView
@@ -30,8 +30,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="50dp"
-        android:src="@color/text_color"
-        />
+        android:src="@drawable/ic_breating"
+        app:tint="@color/dark_tosca" />
 
     <TextView
         android:layout_width="match_parent"

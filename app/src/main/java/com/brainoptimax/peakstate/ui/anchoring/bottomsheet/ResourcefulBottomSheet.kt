@@ -66,7 +66,7 @@ class ResourcefulBottomSheet : BottomSheetDialogFragment() {
             val getEditText = binding.editText.text.toString().trim()
             // TODO: cek text isi/kosong
             if (getEditText.isEmpty()){
-                Toast.makeText(requireActivity(), resources.getString(R.string.todoblank), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), resources.getString(R.string.resourceful_empty), Toast.LENGTH_SHORT).show()
             }else{
                 // TODO: menambahakan todo list ke firebase menggunakan viewmodel
                 val id = databaseReference.push().key
@@ -76,7 +76,7 @@ class ResourcefulBottomSheet : BottomSheetDialogFragment() {
                         //Reset status value at first to prevent multitriggering
                         //and to be available to trigger action again
                         viewModel.status.value = null
-                        Toast.makeText(requireActivity(), "Success Add $getEditText", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireActivity(), resources.getString(R.string.success_add) + " $getEditText", Toast.LENGTH_SHORT).show()
                     }
                 }
 

@@ -10,8 +10,8 @@ object LanguageSetting {
     const val LANGUAGE_INDONESIA = "in"
     private const val PREFERENCE_LANGUAGE = "pref_language"
     private const val KEY_LANGUAGE = "key_language"
-    var defaultLanguage = Locale.ENGLISH.language
-    var language = Locale.ENGLISH.language
+    var defaultLanguage = Locale.ENGLISH.language!!
+    var language = Locale.ENGLISH.language!!
         private set
 
     fun setLanguage(context: Context, language: String) {

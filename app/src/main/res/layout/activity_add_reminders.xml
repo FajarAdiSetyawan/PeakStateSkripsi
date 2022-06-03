@@ -230,25 +230,18 @@
                         android:layout_height="1dp"
                         android:background="@color/text_color"/>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_note"
+                    <EditText
+                        android:id="@+id/et_note"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        app:boxBackgroundMode="none"
-                        app:endIconMode="clear_text">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/tiet_note"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:fontFamily="@font/poppins"
-                            android:textStyle="normal"
-                            android:text="@string/every_morning_i_ll_practise_meditation_and_review_my_affirmations"
-                            android:textSize="14sp"
-                            android:padding="20dp"
-                            android:textColor="@color/text_color"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:fontFamily="@font/poppins"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:inputType="textMultiLine"
+                        android:padding="6dp"
+                        android:paddingStart="15dp"
+                        android:hint="@string/every_morning_i_ll_practise_meditation_and_review_my_affirmations"
+                        android:background="@android:color/transparent" />
 
                 </LinearLayout>
 

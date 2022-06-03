@@ -80,15 +80,15 @@ class Anchoring3Fragment : Fragment() {
 
         memoryAdapter!!.setOnItemDeleteClickListener { memory ->
             MaterialAlertDialogBuilder(requireActivity(), R.style.MaterialAlertDialogRounded)
-                .setTitle("Confirm the action")
-                .setMessage("Are you sure you delete ${memory.memory} ?")
+                .setTitle(resources.getString(R.string.confirm_action))
+                .setMessage(resources.getString(R.string.are_sure_delete) + " ${memory.memory} ?")
                 .setPositiveButton("Ok") { _, _ ->
 
                     viewModel.deleteMemory(memory.id!!)
-                    Toast.makeText(requireActivity(), "Success Delete ${memory.memory}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity(), resources.getString(R.string.success_delete) + " ${memory.memory}", Toast.LENGTH_SHORT).show()
                 }
                 .setNegativeButton(
-                    "Cancel"
+                    resources.getString(R.string.cancel)
                 ) { dialog, which -> }
                 .show()
         }

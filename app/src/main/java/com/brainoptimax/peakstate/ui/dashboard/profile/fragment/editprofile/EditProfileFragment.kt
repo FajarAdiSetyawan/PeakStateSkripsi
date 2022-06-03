@@ -62,7 +62,7 @@ class EditProfileFragment : Fragment() {
         val fullname = preferences.getValues("fullname")
 
         if (fullname!!.isEmpty()){
-            binding.tietFullname.setText("Full name")
+            binding.tietFullname.setText(resources.getString(R.string.full_name))
         }else{
             binding.tietFullname.setText(fullname)
         }
@@ -93,7 +93,7 @@ class EditProfileFragment : Fragment() {
                     auth.signOut() // fungsi dari firebase auth untuk logout
                     startActivity(Intent(context, AuthActivity::class.java)) // pindah ke login
                     Animatoo.animateSlideUp(requireContext())
-                    Toast.makeText(context, "Success Logout", Toast.LENGTH_SHORT)
+                    Toast.makeText(context, resources.getString(R.string.logout), Toast.LENGTH_SHORT)
                         .show() //
                 } else {
                     Toast.makeText(context, "${it.exception}", Toast.LENGTH_SHORT).show()
@@ -121,15 +121,15 @@ class EditProfileFragment : Fragment() {
                     binding.outlinedTextFieldUsername.error = null
 
                     MaterialAlertDialogBuilder(requireContext(), R.style.MaterialAlertDialogRounded)
-                        .setTitle("UPDATE PROFILE")
-                        .setMessage("Are you sure want to Update Profile ?")
+                        .setTitle(resources.getString(R.string.update_profile))
+                        .setMessage(resources.getString(R.string.desc_update_profile))
                         .setPositiveButton("Ok") { _, _ ->
                             viewModel.saveProfile(databaseReference, username, fullname, nav, view)
 
                             preferences.setValues(PreferencesKey.USERNAME, username)
                             preferences.setValues(PreferencesKey.FULLNAME, fullname)
 
-                            viewModel.status.observe(activity!!) { status ->
+                            viewModel.status.observe(requireActivity()) { status ->
                                 status?.let {
                                     //Reset status value at first to prevent multitriggering
                                     //and to be available to trigger action again
@@ -137,14 +137,14 @@ class EditProfileFragment : Fragment() {
                                     //Display Toast or snackbar
                                     Toast.makeText(
                                         activity,
-                                        "Success Edit Profile",
+                                        "Success Update Profile",
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 }
                             }
                         }
                         .setNegativeButton(
-                            "Cancel"
+                            resources.getString(R.string.cancel)
                         ) { _, _ -> }
                         .show()
                 }

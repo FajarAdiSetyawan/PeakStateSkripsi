@@ -32,7 +32,7 @@ class LocalizationAgent(private val activity: Activity) {
     }
 
     fun setDefaultLanguage(language: String?) {
-        defaultLanguage = language
+        defaultLanguage = language!!
     }
 
     fun setDefaultLanguage(locale: Locale) {

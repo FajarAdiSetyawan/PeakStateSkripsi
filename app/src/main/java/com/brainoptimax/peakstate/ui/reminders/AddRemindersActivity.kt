@@ -61,7 +61,7 @@ class AddRemindersActivity : AppCompatActivity() {
             )
 
             val builder = AlertDialog.Builder(this, R.style.MaterialAlertDialogRounded)
-            builder.setTitle("Title Remainder")
+            builder.setTitle(resources.getString(R.string.title_reminder))
             // set the custom layout
             // set the custom layout
             val customLayout: View = layoutInflater.inflate(R.layout.dialog_reminder, null)
@@ -88,7 +88,7 @@ class AddRemindersActivity : AppCompatActivity() {
                 }
             }
             builder.setNegativeButton(
-                "Cancel"
+                resources.getString(R.string.cancel)
             ) { dialog, _ -> dialog.cancel() }
 
             val alertDialog = builder.create()
@@ -112,7 +112,7 @@ class AddRemindersActivity : AppCompatActivity() {
             )
 
             val builder = AlertDialog.Builder(this, R.style.MaterialAlertDialogRounded)
-            builder.setTitle("Sub Title Remainder")
+            builder.setTitle(resources.getString(R.string.sub_title_reminder))
             // set the custom layout
             // set the custom layout
             val customLayout: View = layoutInflater.inflate(R.layout.dialog_reminder, null)
@@ -142,7 +142,7 @@ class AddRemindersActivity : AppCompatActivity() {
                 }
             }
             builder.setNegativeButton(
-                "Cancel"
+                resources.getString(R.string.cancel)
             ) { dialog, which -> dialog.cancel() }
             val alertDialog = builder.create()
             alertDialog.show()
@@ -168,32 +168,31 @@ class AddRemindersActivity : AppCompatActivity() {
                 binding.tvTitleRemainder.text.toString().trim()
             val getSubtitle: String =
                 binding.tvSubtitleRemainder.text.toString().trim()
-            val getNote: String = binding.tietNote.text.toString().trim()
+            val getNote: String = binding.etNote.text.toString().trim()
 
             if (getTitle.isEmpty() || getTitle == resources.getString(R.string.title_reminder)) {
-                Toast.makeText(applicationContext, "Title Not Blank", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, resources.getString(R.string.title_blank), Toast.LENGTH_SHORT).show()
             } else if (getSubtitle.isEmpty() || getSubtitle == resources.getString(R.string.sub_title_reminder)) {
-                Toast.makeText(applicationContext, "Sub Title Not Blank", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, resources.getString(R.string.sub_title_blank), Toast.LENGTH_SHORT).show()
             } else if (getDate.isEmpty()) {
-                Toast.makeText(applicationContext, "Date Not Blank", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, resources.getString(R.string.date_blank), Toast.LENGTH_SHORT).show()
             } else if (getTime.isEmpty() || getTime == resources.getString(R.string.time)) {
-                Toast.makeText(applicationContext, "Time Not Blank", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, resources.getString(R.string.blank), Toast.LENGTH_SHORT).show()
             } else if (getNote.isEmpty()) {
-                Toast.makeText(applicationContext, "Note Not Blank", Toast.LENGTH_SHORT).show()
-                binding.tilNote.error =
-                    resources.getString(R.string.not_verified)
-                binding.tilNote.requestFocus()
+                Toast.makeText(applicationContext, resources.getString(R.string.note_blank), Toast.LENGTH_SHORT).show()
+                binding.etNote.error = resources.getString(R.string.note_blank)
+                binding.etNote.requestFocus()
             } else {
-                binding.tilNote.error = null
+                binding.etNote.error = null
 
                 MaterialAlertDialogBuilder(this, R.style.MaterialAlertDialogRounded)
-                    .setTitle("Confirm the action")
-                    .setMessage("Are you sure you add Reminder ?")
+                    .setTitle(resources.getString(R.string.confirm_action))
+                    .setMessage(resources.getString(R.string.dialog_reminder_add_msg))
                     .setPositiveButton("Ok") { _, _ ->
                         setReminders(getTitle, getSubtitle, getNote, getDate, getTime)
                     }
                     .setNegativeButton(
-                        "Cancel"
+                        resources.getString(R.string.cancel)
                     ) { dialog, which -> }
                     .show()
             }
@@ -226,7 +225,7 @@ class AddRemindersActivity : AppCompatActivity() {
             reminders!!.datetime = fmt.format(date)
             viewModel!!.insertReminders(reminders)
             setNotification(title, subTitle, description)
-            Toast.makeText(this, "Added Successfully", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, resources.getString(R.string.added_success), Toast.LENGTH_SHORT).show()
         } else {
             reminders!!.title = title
             reminders!!.subtitle = subTitle
@@ -236,7 +235,7 @@ class AddRemindersActivity : AppCompatActivity() {
             reminders!!.datetime = fmt.format(date)
             viewModel!!.updateReminders(reminders)
             setNotification(title, subTitle, description)
-            Toast.makeText(this, "Updated Successfully", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, resources.getString(R.string.update_success), Toast.LENGTH_SHORT).show()
         }
         finish()
     }
@@ -248,7 +247,7 @@ class AddRemindersActivity : AppCompatActivity() {
         binding.tvSubtitleRemainder.text = reminders!!.subtitle
         binding.tvDateReminder.text = reminders!!.date
         binding.tvTimeReminder.text = reminders!!.time
-        binding.tietNote.setText(reminders!!.description)
+        binding.etNote.setText(reminders!!.description)
         oldReminders = false
 
         binding.btnSaveRemainder.text = getString(R.string.update)
@@ -282,9 +281,8 @@ class AddRemindersActivity : AppCompatActivity() {
             calendar[Calendar.SECOND] = 0
             calendar[Calendar.MILLISECOND] = 0
             updateTime(hour, minute)
-        }, Hour, Minute, false)
+        }, Hour, Minute, true)
         timePickerDialog.show()
-
     }
 
     @SuppressLint("SetTextI18n")

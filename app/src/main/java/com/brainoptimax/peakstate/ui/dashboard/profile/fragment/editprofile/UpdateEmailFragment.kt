@@ -95,7 +95,7 @@ class UpdateEmailFragment : Fragment() {
 
         viewModel.updateEmail(auth, nav, databaseReference, email, password, view, requireActivity())
 
-        viewModel.status.observe(this) { status ->
+        viewModel.status.observe(viewLifecycleOwner) { status ->
             status?.let {
                 //Reset status value at first to prevent multitriggering
                 //and to be available to trigger action again
@@ -104,7 +104,7 @@ class UpdateEmailFragment : Fragment() {
             }
         }
 
-        viewModel.error.observe(this) { status ->
+        viewModel.error.observe(viewLifecycleOwner) { status ->
             status?.let {
                 //Reset status value at first to prevent multitriggering
                 //and to be available to trigger action again
@@ -115,7 +115,7 @@ class UpdateEmailFragment : Fragment() {
             }
         }
 
-        viewModel.statusMsg.observe(this) { status ->
+        viewModel.statusMsg.observe(viewLifecycleOwner) { status ->
             status?.let {
                 //Reset status value at first to prevent multitriggering
                 //and to be available to trigger action again

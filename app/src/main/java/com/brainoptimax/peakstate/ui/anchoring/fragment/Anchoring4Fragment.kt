@@ -65,8 +65,6 @@ class Anchoring4Fragment : Fragment() {
                         //and to be available to trigger action again
                         viewModel.status.value = null
 
-                        Toast.makeText(requireActivity(), "Success Save Data", Toast.LENGTH_SHORT).show()
-                        
                         val fragment = Anchoring5Fragment() // replace your custom fragment class
                         val fragmentTransaction: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
                         fragmentTransaction.addToBackStack(null)

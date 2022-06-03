@@ -16,7 +16,7 @@ import com.brainoptimax.peakstate.adapter.reminder.ReminderClickListener
 import com.brainoptimax.peakstate.databinding.FragmentHomeBinding
 import com.brainoptimax.peakstate.model.Reminders
 import com.brainoptimax.peakstate.ui.anchoring.AnchoringActivity
-import com.brainoptimax.peakstate.ui.breathing.IntroBreathingActivity
+import com.brainoptimax.peakstate.ui.intro.IntroBreathingActivity
 import com.brainoptimax.peakstate.ui.emotion.EmotionGaugeActivity
 import com.brainoptimax.peakstate.ui.dashboard.profile.ProfileFragment
 import com.brainoptimax.peakstate.ui.valuegoals.ValueGoalsActivity
@@ -202,9 +202,6 @@ open class HomeFragment : Fragment() {
                 .setTitle("COMING SOON")
                 .setPositiveButton("Ok") { _, _ ->
                 }
-                .setNegativeButton(
-                    "Cancel"
-                ) { dialog, which -> }
                 .show()
         }
 

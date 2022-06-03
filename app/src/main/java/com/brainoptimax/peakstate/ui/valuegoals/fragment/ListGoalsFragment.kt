@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -89,6 +90,18 @@ class ListGoalsFragment : Fragment() {
             Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT).show()
         }
 
+        requireView().setOnKeyListener(object : View.OnKeyListener {
+            override fun onKey(v: View?, keyCode: Int, event: KeyEvent): Boolean {
+                if (event.action === KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                        startActivity(Intent(context, MainActivity::class.java)) // pindah ke login
+                        Animatoo.animateSlideUp(requireContext())
+                        return true
+                    }
+                }
+                return false
+            }
+        })
     }
     private fun showLoading() {
         binding.shimmerValueGoals.startShimmer()

@@ -73,7 +73,12 @@
     <string name="change_language_settings">Change Language Settings</string>
     <string name="language">Language</string>
     <string name="logout">Logout</string>
+    <string name="success_logout">Success Logout</string>
     <string name="share">Share</string>
+    <string name="update_profile">UPDATE PROFILE</string>
+    <string name="desc_update_profile">Are you sure want to Update Profile ?</string>
+    <string name="feedback">Feedback</string>
+    <string name="feedback">Feedback</string>
     <string name="feedback">Feedback</string>
     <string name="account">Account</string>
     <string name="arelogout">Are you sure <b>Logout ?</b></string>
@@ -120,9 +125,9 @@
     <string name="pref_feedback_summary">Send Feedback Application </string>
     <string name="pref_share_summary">Share Application</string>
     <string name="pref_logout_summary">Logout Form Application</string>
-    <string name="pref_theme_label_auto">Otomatis</string>
-    <string name="pref_theme_label_dark">Gelap</string>
-    <string name="pref_theme_label_light">Terang</string>
+    <string name="pref_theme_label_auto">System Default</string>
+    <string name="pref_theme_label_dark">Dark Mode</string>
+    <string name="pref_theme_label_light">Light Mode</string>
     <string name="pref_lang_label_en">English</string>
     <string name="pref_lang_label_in">Indonesia</string>
     <string name="pref_theme_entry_auto">THEME_AUTOMATIC</string>
@@ -173,6 +178,15 @@
     <string name="comfirm_pass">Confirm Password</string>
     <string name="english">English</string>
     <string name="indonesia">Indonesia</string>
+    <string name="added_success">Added Successfully</string>
+    <string name="update_success">Updated Successfully</string>
+    <string name="title_blank">Title not blank</string>
+    <string name="sub_title_blank">Sub Title not blank</string>
+    <string name="time_blank">Time not blank</string>
+    <string name="date_blank">Date not blank</string>
+    <string name="confirm_action">Confirm the action</string>
+    <string name="desc_dialog_add_emotion">Are you sure add Emotion ?</string>
+    <string name="dialog_reminder_add_msg">Are you sure you add Reminder ?</string>
 
     <!-- activator   -->
     <string name="activator" translatable="false">Activator</string>
@@ -235,6 +249,9 @@
     <string name="planner">Planner</string>
     <string name="emotion_gauge">Emotion\nGauge</string>
     <string name="emotion__gauge" translatable="false">Emotion Gauge</string>
+    <string name="emotion">Emotion</string>
+    <string name="emotion_recorded">Emotion Recorded</string>
+    <string name="emotions">Emotions</string>
     <string name="quizzes">Quizzes</string>
     <string name="reminders">Reminders</string>
     <string name="anchoring">Anchoring</string>
@@ -283,6 +300,9 @@
     <string name="memory_empty">Memory not blank</string>
     <string name="weekly">Weekly</string>
     <string name="daily">Daily</string>
+    <string name="success_add">Success Add</string>
+    <string name="success_delete">Success Delete</string>
+    <string name="are_sure_delete">Are you sure you delete</string>
     <string name="how_do_you_feel_today">How do you feel today?</string>
     <string name="choose_emotion">CHOOSE EMOTION</string>
     <string name="help_a_struggling_family_by_paying_for_their_groceries">Help a struggling family by paying for their groceries.</string>
@@ -532,5 +552,13 @@
     <string name="board_presentation">Board Presentation</string>
     <string name="take_the_quiz_again">Take the Quiz again</string>
     <string name="desc_result_energy">Your Peak State Readiness profile is (SEE PROFILE COLUMN). Your profile suggests that your readiness for attaining peak state can be significantly improved</string>
+    <string name="breathe_in">Breathe in</string>
+    <string name="hold">Hold</string>
+    <string name="breathe_out">Breathe out</string>
+    <string name="reset">RESET</string>
+    <string name="custom">Custom</string>
+    <string name="completed">Completed!</string>
+    <string name="_10_sec">10 Sec</string>
+    <string name="_0_sec">0 Sec</string>
 
 </resources>

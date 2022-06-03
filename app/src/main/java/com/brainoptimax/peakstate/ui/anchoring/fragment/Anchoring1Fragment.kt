@@ -75,15 +75,15 @@ class Anchoring1Fragment : Fragment() {
 
         resourcefulAdapter!!.setOnItemDeleteClickListener { resourceful ->
             MaterialAlertDialogBuilder(requireActivity(), R.style.MaterialAlertDialogRounded)
-                .setTitle("Confirm the action")
-                .setMessage("Are you sure you delete ${resourceful.resourceful} ?")
+                .setTitle(resources.getString(R.string.confirm_action))
+                .setMessage(resources.getString(R.string.are_sure_delete) + " ${resourceful.resourceful} ?")
                 .setPositiveButton("Ok") { _, _ ->
 
                     viewModel.deleteResourceful(resourceful.id!!)
-                    Toast.makeText(requireActivity(), "Success Delete ${resourceful.resourceful}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity(), resources.getString(R.string.success_delete) + " ${resourceful.resourceful}", Toast.LENGTH_SHORT).show()
                 }
                 .setNegativeButton(
-                    "Cancel"
+                    resources.getString(R.string.cancel)
                 ) { dialog, which -> }
                 .show()
         }

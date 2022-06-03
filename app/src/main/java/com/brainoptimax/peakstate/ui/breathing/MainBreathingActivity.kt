@@ -18,11 +18,11 @@ import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.ActivityMainBreathingBinding
 import com.brainoptimax.peakstate.ui.MainActivity
 import com.brainoptimax.peakstate.utils.Animatoo
-import kotlin.math.hypot
 import render.animations.Fade
 import render.animations.Render
 import render.animations.Slide
 import render.animations.Zoom
+import kotlin.math.hypot
 
 
 class MainBreathingActivity : AppCompatActivity(), OnValueChangeListener,
@@ -127,7 +127,7 @@ class MainBreathingActivity : AppCompatActivity(), OnValueChangeListener,
             binding.ivModeBreathing.visibility = View.VISIBLE
             binding.tvModeBreathing.visibility = View.VISIBLE
             binding.ivModeBreathing.setImageResource(R.drawable.ic_night_sleep)
-            binding.tvModeBreathing.text = "Breathe to Sleep"
+            binding.tvModeBreathing.text = resources.getString(R.string.breathe_to_sleep)
 
             binding.backMain.visibility = View.VISIBLE
             animationMode()
@@ -145,7 +145,7 @@ class MainBreathingActivity : AppCompatActivity(), OnValueChangeListener,
             binding.ivModeBreathing.visibility = View.VISIBLE
             binding.tvModeBreathing.visibility = View.VISIBLE
             binding.ivModeBreathing.setImageResource(R.drawable.ic_relax)
-            binding.tvModeBreathing.text = "Breathe to Relax"
+            binding.tvModeBreathing.text = resources.getString(R.string.breathe_to_relax)
 
             binding.backMain.visibility = View.VISIBLE
             animationMode()
@@ -164,7 +164,7 @@ class MainBreathingActivity : AppCompatActivity(), OnValueChangeListener,
             binding.tvModeBreathing.visibility = View.VISIBLE
 
             binding.ivModeBreathing.setImageResource(R.drawable.ic_meditation)
-            binding.tvModeBreathing.text = "Breathe to Meditation"
+            binding.tvModeBreathing.text = resources.getString(R.string.breathe_to_meditation)
 
             binding.backMain.visibility = View.VISIBLE
             animationMode()
@@ -199,7 +199,8 @@ class MainBreathingActivity : AppCompatActivity(), OnValueChangeListener,
                         cdt = object : CountDownTimer(inhale.toLong(), inhale.toLong()) {
                             override fun onTick(millisUntilFinished: Long) {
                                 binding.btnStartBreathing.text = "STOP"
-                                binding.tvStartBreathing.text = "Breath in"
+                                binding.tvStartBreathing.text =
+                                    resources.getString(R.string.breathe_in)
                                 f = 2f
                                 performAnimation(binding.bg2, f, inhale, hold)
                                 performAnimation(
@@ -214,7 +215,8 @@ class MainBreathingActivity : AppCompatActivity(), OnValueChangeListener,
                                 timer = false
                                 cdt = object : CountDownTimer(hold.toLong(), hold.toLong()) {
                                     override fun onTick(millisUntilFinished: Long) {
-                                        binding.tvStartBreathing.text = "Hold"
+                                        binding.tvStartBreathing.text =
+                                            resources.getString(R.string.hold)
                                     }
 
                                     override fun onFinish() {
@@ -223,7 +225,7 @@ class MainBreathingActivity : AppCompatActivity(), OnValueChangeListener,
                                             override fun onTick(millisUntilFinished: Long) {
                                                 f = 1f
                                                 binding.tvStartBreathing.text =
-                                                    "Breath out"
+                                                    resources.getString(R.string.breathe_out)
                                                 performAnimation(
                                                     binding.bg2,
                                                     f,
@@ -246,7 +248,7 @@ class MainBreathingActivity : AppCompatActivity(), OnValueChangeListener,
                                                     ) {
                                                         override fun onTick(l: Long) {
                                                             binding.tvStartBreathing.text =
-                                                                "Hold"
+                                                                resources.getString(R.string.hold)
                                                         }
 
                                                         override fun onFinish() {}
@@ -303,7 +305,7 @@ class MainBreathingActivity : AppCompatActivity(), OnValueChangeListener,
 
     }
 
-    private fun hideMode(){
+    private fun hideMode() {
         animation.setAnimation(Slide.InUp(binding.tvModeBreathing))
         animation.start()
         animation.setAnimation(Fade.Out(binding.cardRelax))

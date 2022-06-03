@@ -1,4 +1,4 @@
-package com.brainoptimax.peakstate.ui.breathing
+package com.brainoptimax.peakstate.ui.intro
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.core.content.ContextCompat
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.ActivityIntroBreathingBinding
+import com.brainoptimax.peakstate.ui.breathing.MainBreathingActivity
 import com.brainoptimax.peakstate.utils.Animatoo
 
 class IntroBreathingActivity : AppCompatActivity() {

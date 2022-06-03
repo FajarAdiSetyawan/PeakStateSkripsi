@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
+import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.FragmentWeeklyEmotionBinding
 import com.brainoptimax.peakstate.ui.emotion.ResultEmotionActivity
 import com.brainoptimax.peakstate.utils.Animatoo
@@ -44,9 +45,9 @@ class WeeklyEmotionFragment : Fragment() {
             Log.d("TAG", "totalAllEmotion: $totalAllEmotion")
 
             if (totalAllEmotion!!.isEmpty() || totalAllEmotion.equals(null) || totalAllEmotion == "null") {
-                binding.tvTotalEmotion.text = "0 Emotion"
+                binding.tvTotalEmotion.text = "0 " + resources.getString(R.string.emotion)
             } else {
-                binding.tvTotalEmotion.text = "$totalAllEmotion Emotions"
+                binding.tvTotalEmotion.text = "$totalAllEmotion " + resources.getString(R.string.emotion)
             }
         }
 

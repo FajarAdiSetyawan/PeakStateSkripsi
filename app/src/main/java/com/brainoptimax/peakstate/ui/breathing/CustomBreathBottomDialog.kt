@@ -64,10 +64,10 @@ class CustomBreathBottomDialog : BottomSheetDialogFragment() {
             override fun onStopTrackingTouch(seekBar: SeekBar) {}
         })
 
-        binding.resetBtn.setOnClickListener({
+        binding.resetBtn.setOnClickListener {
             mListener!!.onButtonClicked(4000, 2000, 4000)
             dismiss()
-        })
+        }
     }
 
     interface BottomSheetListener {

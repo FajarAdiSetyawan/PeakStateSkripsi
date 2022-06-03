@@ -12,12 +12,13 @@ import com.brainoptimax.peakstate.databinding.ItemResultEmotionsBinding
 import com.brainoptimax.peakstate.model.Emotion
 import com.brainoptimax.peakstate.viewmodel.emotion.EmotionViewModel
 
-class ResultPositiveAdapter(private var emotionList: List<Emotion>?, activity: FragmentActivity) :
-    RecyclerView.Adapter<ResultPositiveAdapter.ViewHolder>() {
+class ResultPositiveAdapter(
+    private var emotionList: List<Emotion>?,
+    private val activity: FragmentActivity
+) : RecyclerView.Adapter<ResultPositiveAdapter.ViewHolder>() {
 
     private lateinit var viewModel: EmotionViewModel
     private var totalAll = 0
-    private val activity = activity
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

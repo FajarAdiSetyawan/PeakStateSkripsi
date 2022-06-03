@@ -10,12 +10,12 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.databinding.BottomSheetBinding
-import com.brainoptimax.peakstate.model.valuegoals.ToDo
 import com.brainoptimax.peakstate.viewmodel.valuegoals.ValueGoalsViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 
 class EditBottomSheetGoals: BottomSheetDialogFragment() {
@@ -73,7 +73,7 @@ class EditBottomSheetGoals: BottomSheetDialogFragment() {
                 val idTodo = databaseReference.child("ToDo").push().key
 
                 viewModel.addToDoList(databaseReference.child("ToDo").child(idTodo!!), view, idTodo, txtToDo, "false")
-
+                Toast.makeText(requireActivity(), resources.getString(R.string.success_add) + " $txtToDo", Toast.LENGTH_SHORT).show()
                 binding.btnSetGoals.visibility = View.VISIBLE
 
                 binding.editText.setText("")

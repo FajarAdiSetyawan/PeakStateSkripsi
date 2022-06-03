@@ -386,7 +386,7 @@ class PreferenceFragment : PreferenceFragmentCompat(), OnLocaleChangedListener {
                 auth.signOut() // fungsi dari firebase auth untuk logout
                 startActivity(Intent(context, AuthActivity::class.java)) // pindah ke login
                 Animatoo.animateSlideUp(requireContext())
-                Toast.makeText(context, "Success Logout", Toast.LENGTH_SHORT)
+                Toast.makeText(context, resources.getString(R.string.success_logout), Toast.LENGTH_SHORT)
                     .show() // menambah toast
 
                 mGoogleSignInClient.signOut().addOnCompleteListener {

@@ -35,8 +35,8 @@ class PositiveEmotionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.rvEmotionsPositive.layoutManager =
-            GridLayoutManager(activity!!.applicationContext, 3)
-        positiveEmotionAdapter = PositiveEmotionAdapter(activity!!.applicationContext)
+            GridLayoutManager(requireActivity().applicationContext, 3)
+        positiveEmotionAdapter = PositiveEmotionAdapter(requireActivity().applicationContext)
         binding.rvEmotionsPositive.adapter = positiveEmotionAdapter
 
         //add data

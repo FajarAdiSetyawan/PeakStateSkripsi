@@ -82,7 +82,7 @@ class AddBottomSheetGoals: BottomSheetDialogFragment() {
                 viewModel.addToDoList(databaseReference.child("ToDo").child(idTodo!!), view, idTodo, txtToDo, "false")
 
                 binding.btnSetGoals.visibility = View.VISIBLE
-
+                Toast.makeText(requireActivity(), resources.getString(R.string.success_add) + " $txtToDo", Toast.LENGTH_SHORT).show()
                 binding.etGoals.setText("")
             }
         }

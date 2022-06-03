@@ -226,8 +226,8 @@ class SaveEmotionsActivity : AppCompatActivity() {
                     binding.etNote.error = null
 
                     MaterialAlertDialogBuilder(this, R.style.MaterialAlertDialogRounded)
-                        .setTitle("Confirm the action")
-                        .setMessage("Are you sure you add Emotion ?")
+                        .setTitle(resources.getString(R.string.confirm_action))
+                        .setMessage(resources.getString(R.string.desc_dialog_add_emotion))
                         .setPositiveButton("Ok") { _, _ ->
                             refEmotion.addListenerForSingleValueEvent(object : ValueEventListener {
                                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -286,7 +286,7 @@ class SaveEmotionsActivity : AppCompatActivity() {
                             })
                         }
                         .setNegativeButton(
-                            "Cancel"
+                            resources.getString(R.string.cancel)
                         ) { dialog, which -> }
                         .show()
                 }
@@ -304,7 +304,7 @@ class SaveEmotionsActivity : AppCompatActivity() {
     }
 
     private fun intentToMain() {
-        Toast.makeText(this, "Emotion Recorded", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, resources.getString(R.string.emotion_recorded), Toast.LENGTH_SHORT).show()
         startActivity(Intent(this, EmotionGaugeActivity::class.java))
         Animatoo.animateSlideDown(this)
         finish()

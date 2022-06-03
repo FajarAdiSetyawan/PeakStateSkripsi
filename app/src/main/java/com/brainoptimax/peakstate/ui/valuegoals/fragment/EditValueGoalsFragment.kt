@@ -359,8 +359,8 @@ class EditValueGoalsFragment : Fragment() {
 
         binding.btnDelete.setOnClickListener {
             MaterialAlertDialogBuilder(requireActivity(), R.style.MaterialAlertDialogRounded)
-                .setTitle("Confirm the action")
-                .setMessage("Are you sure you delete $value ?")
+                .setTitle(resources.getString(R.string.confirm_action))
+                .setMessage(resources.getString(R.string.are_sure_delete) +" $value ?")
                 .setPositiveButton("Ok") { _, _ ->
                     viewModel.deleteGoal(databaseReference, view, firebaseStorage, img!!)
                     viewModel.status.observe(viewLifecycleOwner) { status ->
@@ -368,7 +368,7 @@ class EditValueGoalsFragment : Fragment() {
                             //Reset status value at first to prevent multitriggering
                             //and to be available to trigger action again
                             viewModel.status.value = null
-                            Toast.makeText(requireActivity(), "Success Delete $value", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireActivity(), resources.getString(R.string.success_delete) + " $value", Toast.LENGTH_SHORT).show()
                             startActivity(Intent(context, ValueGoalsActivity::class.java)) // pindah ke login
                             Animatoo.animateSlideUp(requireContext())
                         }

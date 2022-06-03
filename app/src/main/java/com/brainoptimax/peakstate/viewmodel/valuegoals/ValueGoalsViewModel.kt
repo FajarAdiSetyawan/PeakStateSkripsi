@@ -135,7 +135,7 @@ class ValueGoalsViewModel: ViewModel(), ValueGoalsRepository.OnRealtimeDbTaskCom
         storage: FirebaseStorage,
         url: String
     ){
-        storage.getReferenceFromUrl(url).delete().addOnCompleteListener {
+        storage.getReferenceFromUrl(url).delete().addOnCompleteListener { it ->
             if (it.isSuccessful){
                 ref.removeValue().addOnCompleteListener {
                     if (it.isSuccessful) {

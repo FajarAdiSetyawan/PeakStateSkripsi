@@ -33,8 +33,8 @@ class NegativeEmotionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.rvEmotionsNegative.layoutManager =
-            GridLayoutManager(activity!!.applicationContext, 3)
-        negativeEmotionAdapter = NegativeEmotionAdapter(activity!!.applicationContext)
+            GridLayoutManager(requireActivity().applicationContext, 3)
+        negativeEmotionAdapter = NegativeEmotionAdapter(requireActivity().applicationContext)
         binding.rvEmotionsNegative.adapter = negativeEmotionAdapter
 
         //add data

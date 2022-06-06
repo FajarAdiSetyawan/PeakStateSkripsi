@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Peak State</string>
+    <string name="app_name">Peak Up Me</string>
 
 
     <!--  custom text   -->
@@ -541,4 +541,9 @@
     <string name="desc_result_energy">Profil Kesiapan Status Puncak Anda adalah (LIHAT KOLOM PROFIL). Profil Anda menunjukkan bahwa kesiapan Anda untuk mencapai kondisi puncak dapat ditingkatkan secara signifikan</string>
     <string name="_10_sec">10 Detik</string>
     <string name="_0_sec">0 Detik</string>
+    <string name="send_us_your_feedback">Kirimkan masukan Anda kepada kami!</string>
+    <string name="desc_feedback">Apakah Anda memiliki saran atau menemukan bug? beri tahu kami di kolom di bawah.</string>
+    <string name="how_was_your_experience">Bagaimana pengalaman Anda?</string>
+    <string name="not_bad">Tidak Buruk</string>
+    <string name="describe_your_experience_here">Jelaskan pengalaman Anda di sini...</string>
 </resources>

@@ -22,6 +22,7 @@ import androidx.preference.PreferenceFragmentCompat
 import com.brainoptimax.peakstate.R
 import com.brainoptimax.peakstate.ui.auth.AuthActivity
 import com.brainoptimax.peakstate.ui.dashboard.profile.EditProfileActivity
+import com.brainoptimax.peakstate.ui.dashboard.profile.FeedbackActivity
 import com.brainoptimax.peakstate.ui.intro.IntroEnergyTensionActivity
 import com.brainoptimax.peakstate.ui.intro.IntroPeakStateQuizActivity
 import com.brainoptimax.peakstate.ui.quiz.QuizActivity
@@ -338,7 +339,8 @@ class PreferenceFragment : PreferenceFragmentCompat(), OnLocaleChangedListener {
 
     private fun onPreferenceFeedback(): Preference.OnPreferenceClickListener =
         Preference.OnPreferenceClickListener {
-
+            startActivity(Intent(context, FeedbackActivity::class.java)) // pindah ke login
+            Animatoo.animateSwipeRight(requireContext())
             true
         }
 

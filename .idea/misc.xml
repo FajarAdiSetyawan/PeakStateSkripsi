@@ -14,7 +14,10 @@
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/drawable/bg_layout_breathing.xml" value="0.28854166666666664" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/drawable/bg_layout_top_radius.xml" value="0.28854166666666664" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/drawable/bg_text_shimmer.xml" value="0.2841025641025641" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/drawable/btn_bad_feedback.xml" value="0.173" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/drawable/btn_good_feedback.xml" value="0.173" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/drawable/btn_grey_rounded_normal.xml" value="0.28854166666666664" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/drawable/btn_notbad_feedback.xml" value="0.173" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/drawable/btn_orange_rounded_selector.xml" value="0.28854166666666664" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/drawable/circle_btn_dark_tosca.xml" value="0.28854166666666664" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/drawable/circle_btn_grey.xml" value="0.28854166666666664" />
@@ -57,6 +60,7 @@
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_edit_value_goals.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_emotion_gauge.xml" value="0.264" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_energy_quiz.xml" value="0.27239583333333334" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_feedback.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_forgot_password.xml" value="0.264" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_goals_entity.xml" value="0.27239583333333334" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/layout/activity_intro_anchoring.xml" value="0.2" />

@@ -78,8 +78,6 @@
     <string name="update_profile">UPDATE PROFILE</string>
     <string name="desc_update_profile">Are you sure want to Update Profile ?</string>
     <string name="feedback">Feedback</string>
-    <string name="feedback">Feedback</string>
-    <string name="feedback">Feedback</string>
     <string name="account">Account</string>
     <string name="arelogout">Are you sure <b>Logout ?</b></string>
     <string name="exitquiz">End the Quiz ?</string>
@@ -560,5 +558,12 @@
     <string name="completed">Completed!</string>
     <string name="_10_sec">10 Sec</string>
     <string name="_0_sec">0 Sec</string>
+    <string name="send_us_your_feedback">Send us your feedback!</string>
+    <string name="desc_feedback">Do you have a suggestion or found some bug? let us know in the feld bellow.</string>
+    <string name="how_was_your_experience">How was your experience ?</string>
+    <string name="not_bad">Not Bad</string>
+    <string name="describe_your_experience_here">Describe your experience here...</string>
+    <string name="error" translatable="false">Error</string>
+    <string name="bug" translatable="false">Bug</string>
 
 </resources>

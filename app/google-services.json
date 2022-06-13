@@ -1,23 +1,24 @@
 {
   "project_info": {
     "project_number": "175191691077",
+    "firebase_url": "https://peakstate-be063-default-rtdb.firebaseio.com",
     "project_id": "peakstate-be063",
     "storage_bucket": "peakstate-be063.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:175191691077:android:7330f84098eecc6bd5f82c",
+        "mobilesdk_app_id": "1:175191691077:android:5ad5001b3cbf504dd5f82c",
         "android_client_info": {
-          "package_name": "com.brainoptimax.peakstate"
+          "package_name": "com.brainoptimax.peakmeup"
         }
       },
       "oauth_client": [
         {
-          "client_id": "175191691077-irmal03rdfnrfhi7v6jvnegk6qhhhcv0.apps.googleusercontent.com",
+          "client_id": "175191691077-pove35cfi3m2cqutfk71duja82h50p6c.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.brainoptimax.peakstate",
+            "package_name": "com.brainoptimax.peakmeup",
             "certificate_hash": "83a9c638ac4ab50124844edccc090e20c50c5a69"
           }
         },

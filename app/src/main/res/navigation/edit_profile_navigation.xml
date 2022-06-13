@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/updatePasswordFragment"
-        android:name="com.brainoptimax.peakstate.ui.dashboard.profile.fragment.editprofile.UpdatePasswordFragment"
+        android:name="com.brainoptimax.peakmeup.ui.dashboard.profile.fragment.editprofile.UpdatePasswordFragment"
         android:label="fragment_update_password"
         tools:layout="@layout/fragment_update_password" >
         <action
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="com.brainoptimax.peakstate.ui.dashboard.profile.fragment.editprofile.EditProfileFragment"
+        android:name="com.brainoptimax.peakmeup.ui.dashboard.profile.fragment.editprofile.EditProfileFragment"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" >
         <action
@@ -44,7 +44,7 @@
     </fragment>
     <fragment
         android:id="@+id/updateEmailFragment"
-        android:name="com.brainoptimax.peakstate.ui.dashboard.profile.fragment.editprofile.UpdateEmailFragment"
+        android:name="com.brainoptimax.peakmeup.ui.dashboard.profile.fragment.editprofile.UpdateEmailFragment"
         android:label="fragment_update_email"
         tools:layout="@layout/fragment_update_email" >
         <action
@@ -55,11 +55,11 @@
     </fragment>
     <activity
         android:id="@+id/authActivity"
-        android:name="com.brainoptimax.peakstate.ui.auth.AuthActivity"
+        android:name="com.brainoptimax.peakmeup.ui.auth.AuthActivity"
         android:label="activity_auth"
         tools:layout="@layout/activity_auth" />
     <activity
         android:id="@+id/mainActivity"
-        android:name="com.brainoptimax.peakstate.ui.MainActivity"
+        android:name="com.brainoptimax.peakmeup.ui.MainActivity"
         android:label="MainActivity" />
 </navigation>

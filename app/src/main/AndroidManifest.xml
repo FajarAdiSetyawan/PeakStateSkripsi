@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.brainoptimax.peakstate">
+    package="com.brainoptimax.peakmeup">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -29,126 +29,129 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PeakState">
         <activity
-            android:name=".ui.dashboard.profile.FeedbackActivity"
+            android:name="com.brainoptimax.peakmeup.ui.dashboard.profile.AboutActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.quiz.RecommendEnergyQuizActivity"
+            android:name="com.brainoptimax.peakmeup.ui.dashboard.profile.FeedbackActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.brainoptimax.peakmeup.ui.quiz.RecommendEnergyQuizActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name=".ui.quiz.RecommendPeakActivity"
+            android:name="com.brainoptimax.peakmeup.ui.quiz.RecommendPeakActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name=".ui.quiz.PeakQuizActivity"
+            android:name="com.brainoptimax.peakmeup.ui.quiz.PeakQuizActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name=".ui.quiz.EnergyQuizActivity"
+            android:name="com.brainoptimax.peakmeup.ui.quiz.EnergyQuizActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name=".ui.quiz.ResultEnergyQuizActivity"
+            android:name="com.brainoptimax.peakmeup.ui.quiz.ResultEnergyQuizActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name=".ui.quiz.ResultPeakQuizActivity"
+            android:name="com.brainoptimax.peakmeup.ui.quiz.ResultPeakQuizActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name=".ui.dashboard.profile.EditProfileActivity"
+            android:name="com.brainoptimax.peakmeup.ui.dashboard.profile.EditProfileActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name=".ui.auth.AuthActivity"
+            android:name="com.brainoptimax.peakmeup.ui.auth.AuthActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name="com.brainoptimax.peakstate.ui.emotion.SaveEmotionsActivity"
+            android:name="com.brainoptimax.peakmeup.ui.emotion.SaveEmotionsActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name="com.brainoptimax.peakstate.ui.emotion.ChooseEmotionsActivity"
+            android:name="com.brainoptimax.peakmeup.ui.emotion.ChooseEmotionsActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name="com.brainoptimax.peakstate.ui.intro.IntroValueGoalsActivity"
+            android:name="com.brainoptimax.peakmeup.ui.intro.IntroValueGoalsActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name=".ui.valuegoals.ValueGoalsActivity"
+            android:name="com.brainoptimax.peakmeup.ui.valuegoals.ValueGoalsActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name="com.brainoptimax.peakstate.ui.anchoring.AnchoringActivity"
+            android:name="com.brainoptimax.peakmeup.ui.anchoring.AnchoringActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name="com.brainoptimax.peakstate.ui.intro.IntroAnchoringActivity"
+            android:name="com.brainoptimax.peakmeup.ui.intro.IntroAnchoringActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name="com.brainoptimax.peakstate.ui.intro.IntroPeakStateQuizActivity"
+            android:name="com.brainoptimax.peakmeup.ui.intro.IntroPeakStateQuizActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name="com.brainoptimax.peakstate.ui.intro.IntroEnergyTensionActivity"
+            android:name="com.brainoptimax.peakmeup.ui.intro.IntroEnergyTensionActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name=".ui.quiz.QuizActivity"
+            android:name="com.brainoptimax.peakmeup.ui.quiz.QuizActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name="com.brainoptimax.peakstate.ui.breathing.CompletedBreathingActivity"
+            android:name="com.brainoptimax.peakmeup.ui.breathing.CompletedBreathingActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name="com.brainoptimax.peakstate.ui.intro.IntroBreathingActivity"
+            android:name="com.brainoptimax.peakmeup.ui.intro.IntroBreathingActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name="com.brainoptimax.peakstate.ui.breathing.MainBreathingActivity"
+            android:name="com.brainoptimax.peakmeup.ui.breathing.MainBreathingActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name="com.brainoptimax.peakstate.ui.emotion.RecommendationEmotionActivity"
+            android:name="com.brainoptimax.peakmeup.ui.emotion.RecommendationEmotionActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name="com.brainoptimax.peakstate.ui.emotion.ResultEmotionActivity"
+            android:name="com.brainoptimax.peakmeup.ui.emotion.ResultEmotionActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name="com.brainoptimax.peakstate.ui.emotion.EmotionGaugeActivity"
+            android:name="com.brainoptimax.peakmeup.ui.emotion.EmotionGaugeActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name="com.brainoptimax.peakstate.ui.intro.IntroEmotionActivity"
+            android:name="com.brainoptimax.peakmeup.ui.intro.IntroEmotionActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name="com.brainoptimax.peakstate.ui.reminders.DetailReminderActivity"
+            android:name="com.brainoptimax.peakmeup.ui.reminders.DetailReminderActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name="com.brainoptimax.peakstate.ui.reminders.AddRemindersActivity"
+            android:name="com.brainoptimax.peakmeup.ui.reminders.AddRemindersActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name="com.brainoptimax.peakstate.ui.reminders.ListRemindersActivity"
+            android:name="com.brainoptimax.peakmeup.ui.reminders.ListRemindersActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name=".ui.dashboard.activator.DetailActivatorActivity"
+            android:name="com.brainoptimax.peakmeup.ui.dashboard.activator.DetailActivatorActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name="com.brainoptimax.peakstate.ui.intro.IntroSliderActivity"
+            android:name="com.brainoptimax.peakmeup.ui.intro.IntroSliderActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name=".ui.SplashScreenActivity"
+            android:name="com.brainoptimax.peakmeup.ui.SplashScreenActivity"
             android:configChanges="locale"
             android:exported="true">
             <intent-filter>
@@ -158,13 +161,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.MainActivity"
+            android:name="com.brainoptimax.peakmeup.ui.MainActivity"
             android:configChanges="locale"
             android:exported="true" /> <!-- <activity -->
         <!-- android:name="com.theartofdev.edmodo.cropper.CropImageActivity" -->
         <!-- android:theme="@style/Base.Theme.AppCompat" /> &lt;!&ndash; Notification Reminder &ndash;&gt; -->
         <receiver
-            android:name=".services.AlarmReceiverReminder"
+            android:name="com.brainoptimax.peakmeup.services.AlarmReceiverReminder"
             android:enabled="true"
             android:label="AlarmReceiver" />
     </application>

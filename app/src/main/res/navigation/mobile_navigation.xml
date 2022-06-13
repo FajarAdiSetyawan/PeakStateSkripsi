@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/nav_homes"
-        android:name="com.brainoptimax.peakstate.ui.dashboard.home.HomeFragment"
+        android:name="com.brainoptimax.peakmeup.ui.dashboard.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/nav_profiles"
-        android:name="com.brainoptimax.peakstate.ui.dashboard.profile.ProfileFragment"
+        android:name="com.brainoptimax.peakmeup.ui.dashboard.profile.ProfileFragment"
         android:label="ProfileFragment"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/nav_activators"
-        android:name="com.brainoptimax.peakstate.ui.dashboard.activator.ActivatorFragment"
+        android:name="com.brainoptimax.peakmeup.ui.dashboard.activator.ActivatorFragment"
         android:label="activatorFragment"
         tools:layout="@layout/fragment_activator" />
 </navigation>

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Peak Up Me</string>
-
+    <string name="app_maker">App developer</string>
+    <string name="copyright_app" translatable="false">Copyright \u00a9 2022, Brain Optimax</string>
     <string name="web_client_id" translatable="false">175191691077-ugjndbtbjvp9joh36aub8d6gn13u9r2b.apps.googleusercontent.com</string>
 
     <!--  custom text   -->
@@ -10,10 +11,11 @@
     <string name="title_intro_slider_2">Mind &amp; Body Sync</string>
     <string name="title_intro_slider_3">Learned Self-Regulation</string>
     <string name="title_intro_slider_4">Self-Mastery</string>
-    <string name="description_intro_slider_1">The Peak State Mastery app is an integrated suite of science-based tools designed to help get you into a peak state, to excel in any situation</string>
+    <string name="description_intro_slider_1">The Peak Me Up app is an integrated suite of science-based tools designed to help get you into a peak state, to excel in any situation</string>
     <string name="description_intro_slider_2">by getting your mind and body into synchronization through the harnessing of the power within,</string>
     <string name="description_intro_slider_3">and controlling your brainwaves and autonomic nervous system (ANS) to enhance resilience, improve executive functions and wellness, among a host of other benefits.</string>
-    <string name="description_intro_slider_4">Ultimately, the Peak State Mastery App is designed to help you on your journey of self-mastery by developing self-control.</string>
+    <string name="description_intro_slider_4">Ultimately, the Peak Me Up App is designed to help you on your journey of self-mastery by developing self-control.</string>
+    <string name="description_app">The Peak Me Up app is an integrated suite of science-based tools designed to help get you into a peak state, to excel in any situation by getting your mind and body into synchronization through the harnessing of the power within, and controlling your brainwaves and autonomic nervous system (ANS) to enhance resilience, improve executive functions and wellness, among a host of other benefits. Ultimately, the Peak Me Up App is designed to help you on your journey of self-mastery by developing self-control.</string>
     <string name="finish">Finish</string>
     <string name="skip">Skip >></string>
     <string name="change">Change</string>
@@ -108,6 +110,7 @@
     <string name="pref_key_energy">pref_key_energy</string>
     <string name="pref_key_share">pref_key_share</string>
     <string name="pref_key_feedback">pref_key_feedback</string>
+    <string name="pref_key_about">pref_key_about</string>
     <string name="pref_key_logout">pref_key_logout</string>
     <string name="pref_theme_title">Theme</string>
     <string name="pref_lang_title">Language</string>
@@ -115,12 +118,14 @@
     <string name="pref_peak_title">Peak State Quiz</string>
     <string name="pref_energy_title">Energy Quiz Tension</string>
     <string name="pref_feedback_title">Feedback</string>
+    <string name="pref_about_title">About</string>
     <string name="pref_share_title">Share</string>
     <string name="pref_logout_title">Logout</string>
     <string name="pref_account_summary">Change profile</string>
     <string name="pref_peak_summary">Result Quiz</string>
     <string name="pref_energy_summary">Result Quiz</string>
     <string name="pref_feedback_summary">Send Feedback Application </string>
+    <string name="pref_about_summary">About Application </string>
     <string name="pref_share_summary">Share Application</string>
     <string name="pref_logout_summary">Logout Form Application</string>
     <string name="pref_theme_label_auto">System Default</string>

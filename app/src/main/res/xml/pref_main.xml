@@ -56,10 +56,17 @@
 
         <Preference
             app:iconSpaceReserved="false"
+            app:key="@string/pref_key_about"
+            app:icon="@drawable/ic_baseline_info_24"
+            app:summary="@string/pref_about_summary"
+            app:title="@string/pref_about_title" />
+
+        <Preference
+            app:iconSpaceReserved="false"
             app:key="@string/pref_key_feedback"
             app:icon="@drawable/ic_baseline_feedback_24"
             app:summary="@string/pref_feedback_summary"
-            app:title="@string/pref_feedback_title" />
+            app:title="@string/pref_about_title" />
 
         <Preference
             app:iconSpaceReserved="false"

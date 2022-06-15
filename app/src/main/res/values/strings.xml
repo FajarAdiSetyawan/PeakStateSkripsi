@@ -338,6 +338,8 @@
     <string name="anxious">Anxious</string>
     <string name="down">Down</string>
     <string name="data_for_emotion_empty">Data For Emotion Empty</string>
+    <string name="data_for_resourceful_empty">Data For Resourceful Empty</string>
+    <string name="data_for_memory_empty">Data For Memory Empty</string>
     <string name="breathing_exercise">Breathing Exercise</string>
     <string name="intro_desc_breathing">Regular respiration exercise helps to increase HRV for enhanced psychological and physiological performance, raise or lower arousal to match situational demands and increase your threshold for stress</string>
     <string name="let_s_start">LET\'S START</string>

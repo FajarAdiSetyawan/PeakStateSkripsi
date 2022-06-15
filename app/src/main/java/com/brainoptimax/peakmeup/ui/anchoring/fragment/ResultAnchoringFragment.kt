@@ -12,6 +12,7 @@ import com.brainoptimax.peakmeup.utils.Animatoo
 import com.brainoptimax.peakmeup.viewmodel.anchoring.AnchoringViewModel
 import com.brainoptimax.peakmeup.R
 import com.brainoptimax.peakmeup.databinding.FragmentResultAnchoringBinding
+import com.brainoptimax.peakmeup.utils.Preferences
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 // TODO: Rename parameter arguments, choose names that match
@@ -31,6 +32,8 @@ class ResultAnchoringFragment : Fragment() {
 
     private var fragmentResultAnchoringBinding: FragmentResultAnchoringBinding? = null
     private val binding get() = fragmentResultAnchoringBinding!!
+
+    private lateinit var preference: Preferences
 
     private lateinit var viewModel: AnchoringViewModel
 
@@ -89,6 +92,9 @@ class ResultAnchoringFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this)[AnchoringViewModel::class.java]
 
+        preference = Preferences(requireActivity())
+        val uidUser = preference.getValues("uid")
+
         binding.tvDateTime.text = datetime
         binding.tvResult.text = resourceful
         binding.tvMemory.text = memory
@@ -104,7 +110,7 @@ class ResultAnchoringFragment : Fragment() {
                 .setTitle(resources.getString(R.string.confirm_action))
                 .setMessage(resources.getString(R.string.are_sure_delete) + " " + resourceful)
                 .setPositiveButton("Ok") { _, _ ->
-                    viewModel.deleteAnchoring(id!!)
+                    viewModel.deleteAnchoring(uidUser!!, id!!)
                     startActivity(Intent(requireActivity(), AnchoringActivity::class.java)) // pindah ke login
                     Animatoo.animateSlideUp(requireContext())
                 }

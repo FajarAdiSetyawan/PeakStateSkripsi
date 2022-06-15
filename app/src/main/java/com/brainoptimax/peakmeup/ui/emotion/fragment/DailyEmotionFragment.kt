@@ -16,6 +16,7 @@ import com.brainoptimax.peakmeup.adapter.emotions.DailyEmotionAdapter
 import com.brainoptimax.peakmeup.viewmodel.emotion.EmotionViewModel
 import com.brainoptimax.peakmeup.R
 import com.brainoptimax.peakmeup.databinding.FragmentDailyEmotionBinding
+import com.brainoptimax.peakmeup.utils.Preferences
 import com.github.jhonnyx2012.horizontalpicker.DatePickerListener
 import org.joda.time.DateTime
 import java.text.SimpleDateFormat
@@ -27,6 +28,8 @@ class DailyEmotionFragment : Fragment(), DatePickerListener {
     private var emotionDayAdapter: DailyEmotionAdapter? = null
 
     private lateinit var viewModel: EmotionViewModel
+
+    private lateinit var preference: Preferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +45,7 @@ class DailyEmotionFragment : Fragment(), DatePickerListener {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this)[EmotionViewModel::class.java]
 
+        preference = Preferences(requireActivity())
 
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
         binding.rvEmotion.layoutManager = layoutManager
@@ -75,9 +79,10 @@ class DailyEmotionFragment : Fragment(), DatePickerListener {
         val sdf = SimpleDateFormat("EEE, dd MMM yyyy")
         val day = sdf.format(result)
 
+        val uidUser = preference.getValues("uid")
 
         binding.progressBarEmotion.visibility = View.VISIBLE
-        viewModel.allEmotions(day)
+        viewModel.allEmotions(uidUser!!, day)
         viewModel.emotionMutableLiveData.observe(requireActivity()){ emotions ->
             Log.d("TAG", "onDataChangeGoals: $emotions")
             binding.progressBarEmotion.visibility = View.INVISIBLE

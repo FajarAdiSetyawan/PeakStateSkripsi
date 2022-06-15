@@ -1,5 +1,6 @@
 package com.brainoptimax.peakmeup.ui.anchoring.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import com.brainoptimax.peakmeup.R
 import com.brainoptimax.peakmeup.adapter.anchoring.MemoryAdapter
 import com.brainoptimax.peakmeup.databinding.FragmentAnchoring3Binding
 import com.brainoptimax.peakmeup.ui.anchoring.bottomsheet.MemoryBottomSheet
+import com.brainoptimax.peakmeup.utils.Preferences
 import com.brainoptimax.peakmeup.viewmodel.anchoring.AnchoringViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -27,6 +29,7 @@ class Anchoring3Fragment : Fragment() {
     private var memoryAdapter: MemoryAdapter? = null
     private lateinit var viewModel: AnchoringViewModel
 
+    private lateinit var preference: Preferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,10 +40,14 @@ class Anchoring3Fragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mBundle: Bundle? = arguments
         val resourceful =  mBundle!!.getString("resourceful")
+
+        preference = Preferences(requireActivity())
+        val uidUser = preference.getValues("uid")
 
         viewModel = ViewModelProviders.of(this)[AnchoringViewModel::class.java]
 
@@ -50,12 +57,19 @@ class Anchoring3Fragment : Fragment() {
         binding.rvMemory.adapter = memoryAdapter
 
         binding.progressBar.visibility = View.VISIBLE
-        viewModel.allMemory
+        viewModel.allMemory(uidUser!!)
         viewModel.memoryMutableLiveData.observe(requireActivity()) { memory ->
             binding.progressBar.visibility = View.GONE
-
-            memoryAdapter!!.setMemory(memory)
-            memoryAdapter!!.notifyDataSetChanged()
+            if (memory!!.isEmpty()){
+                binding.layoutEmpty.visibility = View.VISIBLE
+                binding.rvMemory.visibility = View.INVISIBLE
+            }else{
+                binding.layoutEmpty.visibility = View.INVISIBLE
+                binding.progressBar.visibility = View.GONE
+                memoryAdapter!!.setMemory(memory)
+                memoryAdapter!!.notifyDataSetChanged()
+                binding.rvMemory.visibility = View.VISIBLE
+            }
         }
         viewModel.databaseErrorMemory.observe(
             requireActivity()
@@ -84,7 +98,7 @@ class Anchoring3Fragment : Fragment() {
                 .setMessage(resources.getString(R.string.are_sure_delete) + " ${memory.memory} ?")
                 .setPositiveButton("Ok") { _, _ ->
 
-                    viewModel.deleteMemory(memory.id!!)
+                    viewModel.deleteMemory(uidUser, memory.id!!)
                     Toast.makeText(requireActivity(), resources.getString(R.string.success_delete) + " ${memory.memory}", Toast.LENGTH_SHORT).show()
                 }
                 .setNegativeButton(

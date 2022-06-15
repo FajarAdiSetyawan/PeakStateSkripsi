@@ -76,7 +76,19 @@ open class HomeFragment : Fragment() {
 
         viewModelReminder = ViewModelProviders.of(this)[ReminderViewModel::class.java]
 
+        preference = Preferences(requireActivity().applicationContext)
+        val uidUser = preference.getValues("uid")
 
+        binding.tvName.text = preference.getValues("username")
+
+        val imgUrl = preference.getValues("imgUrl")!!
+        if (imgUrl.isEmpty() || imgUrl == "" || imgUrl == "" || imgUrl.isBlank() || imgUrl == "blank"){
+            binding.ivAvatarHome.setImageResource(R.drawable.ic_profile)
+        }else{
+            Glide.with(this)
+                .load(imgUrl)
+                .into(binding.ivAvatarHome)
+        }
 
         binding.ivAvatarHome.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction().also { fragmentTransaction ->
@@ -151,7 +163,7 @@ open class HomeFragment : Fragment() {
         binding.btnAnchor.setOnClickListener {
             viewModelAnchoring = ViewModelProviders.of(this)[AnchoringViewModel::class.java]
 
-            viewModelAnchoring.allAnchoring
+            viewModelAnchoring.allAnchoring(uidUser!!)
             viewModelAnchoring.anchroingMutableLiveData.observe(requireActivity()) { anchoring ->
                 if (anchoring!!.isEmpty()){
                     val intent = Intent(requireActivity(), IntroAnchoringActivity::class.java)
@@ -205,17 +217,7 @@ open class HomeFragment : Fragment() {
                 .show()
         }
 
-        preference = Preferences(requireActivity().applicationContext)
-        binding.tvName.text = preference.getValues("username")
 
-        val imgUrl = preference.getValues("imgUrl")!!
-        if (imgUrl.isEmpty() || imgUrl == "" || imgUrl == "" || imgUrl.isBlank() || imgUrl == "blank"){
-            binding.ivAvatarHome.setImageResource(R.drawable.ic_profile)
-        }else{
-            Glide.with(this)
-                .load(imgUrl)
-                .into(binding.ivAvatarHome)
-        }
 
         updateRecyclerView()
 

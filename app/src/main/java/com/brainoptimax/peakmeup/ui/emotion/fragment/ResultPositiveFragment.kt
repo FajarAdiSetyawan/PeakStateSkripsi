@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.brainoptimax.peakmeup.adapter.emotions.ResultPositiveAdapter
 import com.brainoptimax.peakmeup.viewmodel.emotion.EmotionViewModel
 import com.brainoptimax.peakmeup.databinding.FragmentResultPositiveBinding
+import com.brainoptimax.peakmeup.utils.Preferences
 
 
 class ResultPositiveFragment : Fragment() {
@@ -23,6 +24,9 @@ class ResultPositiveFragment : Fragment() {
 
     private lateinit var viewModel: EmotionViewModel
     private var resultPositiveAdapter: ResultPositiveAdapter? = null
+
+    private lateinit var preference: Preferences
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,11 +41,14 @@ class ResultPositiveFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this)[EmotionViewModel::class.java]
 
+        preference = Preferences(requireActivity())
+        val uidUser = preference.getValues("uid")
+
         showLoading()
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
         binding.rvEmotionsPositive.layoutManager = layoutManager
         binding.rvEmotionsPositive.hasFixedSize()
-        viewModel.allPositive
+        viewModel.allPositive(uidUser!!)
         viewModel.positiveMutableLiveData.observe(requireActivity()) { emotions ->
             Log.d("TAG", "onDataChangePositive: $emotions")
             goneLoading()

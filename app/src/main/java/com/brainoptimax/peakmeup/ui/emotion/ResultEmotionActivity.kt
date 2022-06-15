@@ -17,23 +17,29 @@ import com.brainoptimax.peakmeup.utils.Animatoo
 import com.brainoptimax.peakmeup.viewmodel.emotion.EmotionViewModel
 import com.brainoptimax.peakmeup.R
 import com.brainoptimax.peakmeup.databinding.ActivityResultEmotionBinding
+import com.brainoptimax.peakmeup.utils.Preferences
 
 class ResultEmotionActivity : AppCompatActivity() {
 
     private var activityResultEmotionBinding: ActivityResultEmotionBinding? = null
     private val binding get() = activityResultEmotionBinding!!
     private lateinit var viewModel: EmotionViewModel
+    private lateinit var preference: Preferences
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this)[EmotionViewModel::class.java]
         window.statusBarColor = ContextCompat.getColor(this, R.color.md_yellow_600)
 
+        preference = Preferences(this)
+        val uidUser = preference.getValues("uid")
+
         activityResultEmotionBinding = ActivityResultEmotionBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
-        viewModel.totalAllEmotion
+        viewModel.totalAllEmotion(uidUser!!)
         viewModel.totalAllEmotionMutableLiveData.observe(this) { totalAllEmotion ->
             Log.d("TAG", "totalAllEmotion: $totalAllEmotion")
 

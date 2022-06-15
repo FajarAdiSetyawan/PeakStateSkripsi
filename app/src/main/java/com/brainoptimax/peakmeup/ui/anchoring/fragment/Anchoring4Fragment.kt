@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.brainoptimax.peakmeup.viewmodel.anchoring.AnchoringViewModel
 import com.brainoptimax.peakmeup.R
 import com.brainoptimax.peakmeup.databinding.FragmentAnchoring4Binding
+import com.brainoptimax.peakmeup.utils.Preferences
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -27,7 +28,9 @@ class Anchoring4Fragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var databaseReference: DatabaseReference
-    
+
+    private lateinit var preference: Preferences
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,11 +43,15 @@ class Anchoring4Fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this)[AnchoringViewModel::class.java]
-        auth = FirebaseAuth.getInstance()
-        databaseReference =
-            FirebaseDatabase.getInstance().reference.child("Users").child(auth.currentUser!!.uid)
-                .child("Anchoring").child("Result").push()
-        val idAnchoring = databaseReference.key
+
+        preference = Preferences(requireActivity())
+        val uidUser = preference.getValues("uid")
+
+        //        auth = FirebaseAuth.getInstance()
+//        databaseReference =
+//            FirebaseDatabase.getInstance().reference.child("Users").child(auth.currentUser!!.uid)
+//                .child("Anchoring").child("Result").push()
+//        val idAnchoring = databaseReference.key
         
         val mBundle: Bundle? = arguments
         val resourceful =  mBundle!!.getString("resourceful")
@@ -58,13 +65,9 @@ class Anchoring4Fragment : Fragment() {
             if (note.isEmpty()){
                 Toast.makeText(requireActivity(), resources.getString(R.string.note_blank), Toast.LENGTH_SHORT).show()
             }else{
-                viewModel.addAnchoring(databaseReference, view, idAnchoring!!, resourceful, memory, note, currentDateAndTime)
-                viewModel.status.observe(viewLifecycleOwner) { status ->
-                    status?.let {
-                        //Reset status value at first to prevent multitriggering
-                        //and to be available to trigger action again
-                        viewModel.status.value = null
-
+                viewModel.addAnchoring(uidUser!!, memory, resourceful, note, currentDateAndTime)
+                viewModel.addAnchoringLiveData.observe(requireActivity()) { success ->
+                    if (success.equals("success")){
                         val fragment = Anchoring5Fragment() // replace your custom fragment class
                         val fragmentTransaction: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
                         fragmentTransaction.addToBackStack(null)
@@ -72,6 +75,8 @@ class Anchoring4Fragment : Fragment() {
                         fragmentTransaction.commit()
                     }
                 }
+
+
             }
         }
     }

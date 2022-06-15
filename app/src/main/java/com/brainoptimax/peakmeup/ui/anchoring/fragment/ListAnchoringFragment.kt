@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.brainoptimax.peakmeup.adapter.anchoring.AnchoringAdapter
 import com.brainoptimax.peakmeup.viewmodel.anchoring.AnchoringViewModel
 import com.brainoptimax.peakmeup.databinding.FragmentListAnchoringBinding
+import com.brainoptimax.peakmeup.utils.Preferences
 
 class ListAnchoringFragment : Fragment() {
     private var fragmentListAnchoringBinding: FragmentListAnchoringBinding? = null
@@ -20,6 +21,8 @@ class ListAnchoringFragment : Fragment() {
 
     private var anchoringAdapter: AnchoringAdapter? = null
     private lateinit var viewModel: AnchoringViewModel
+
+    private lateinit var preference: Preferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,13 +39,16 @@ class ListAnchoringFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this)[AnchoringViewModel::class.java]
 
+        preference = Preferences(requireActivity())
+        val uidUser = preference.getValues("uid")
+
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireActivity())
         binding.rvAnchoring.layoutManager = layoutManager
         anchoringAdapter = AnchoringAdapter(requireActivity())
         binding.rvAnchoring.adapter = anchoringAdapter
 
         showLoading()
-        viewModel.allAnchoring
+        viewModel.allAnchoring(uidUser!!)
         viewModel.anchroingMutableLiveData.observe(requireActivity()) { anchoring ->
             hideLoading()
             if (anchoring!!.isEmpty()){

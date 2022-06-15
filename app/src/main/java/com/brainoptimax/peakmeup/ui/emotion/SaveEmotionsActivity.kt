@@ -10,6 +10,7 @@ import com.brainoptimax.peakmeup.utils.Animatoo
 import com.brainoptimax.peakmeup.viewmodel.emotion.EmotionViewModel
 import com.brainoptimax.peakmeup.R
 import com.brainoptimax.peakmeup.databinding.ActivitySaveEmotionsBinding
+import com.brainoptimax.peakmeup.utils.Preferences
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -22,10 +23,11 @@ class SaveEmotionsActivity : AppCompatActivity() {
 
     private var emotionsSelected: String? = null
 
-    private lateinit var auth: FirebaseAuth
     private lateinit var databaseReference: DatabaseReference
 
     private lateinit var viewModel: EmotionViewModel
+
+    private lateinit var preference: Preferences
 
     companion object {
         const val EXTRA_EMOTION = "extra_emotion"
@@ -40,18 +42,19 @@ class SaveEmotionsActivity : AppCompatActivity() {
 
         viewModel = ViewModelProviders.of(this)[EmotionViewModel::class.java]
 
-        auth = FirebaseAuth.getInstance()
         databaseReference = FirebaseDatabase.getInstance().reference
 
-        val refEmotion =
-            databaseReference.child("Users").child(auth.currentUser!!.uid).child("Emotion")
+        val refEmotion = databaseReference.child("Emotion")
+
+        preference = Preferences(this)
+        val uidUser = preference.getValues("uid")
 
         val emotions = intent.getStringExtra(EXTRA_EMOTION)
         val condition = intent.getStringExtra(EXTRA_CONDITION)
 
         binding.tvEmotion.text = emotions
 
-        viewModel.totalAllEmotion
+        viewModel.totalAllEmotion(uidUser!!)
         viewModel.totalAllEmotionMutableLiveData.observe(this) { totalAllEmotion ->
             Log.d("TAG", "totalAllEmotion: $totalAllEmotion")
 
@@ -177,7 +180,7 @@ class SaveEmotionsActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.totalPerEmotion(condition!!, emotionsSelected!!)
+        viewModel.totalPerEmotion(uidUser!!, condition!!, emotionsSelected!!)
         viewModel.totalPerEmotionMutableLiveData.observe(this) { totalPerEmotion ->
             Log.d("TAG", "totalPerEmotion: $totalPerEmotion")
             if (totalPerEmotion!!.isEmpty() || totalPerEmotion.equals(null) || totalPerEmotion == "null") {
@@ -234,7 +237,7 @@ class SaveEmotionsActivity : AppCompatActivity() {
                                     when {
                                         dataSnapshot.exists() -> {
                                             viewModel.addEmotion(
-                                                refEmotion,
+                                                uidUser!!,
                                                 view,
                                                 totalAllEmotion,
                                                 totalPerEmotion,
@@ -246,14 +249,18 @@ class SaveEmotionsActivity : AppCompatActivity() {
                                                 timeFormat
                                             )
 
-                                            intentToMain()
+                                            viewModel.emotionAddMutableLiveData.observe(this@SaveEmotionsActivity) { success ->
+                                                if (success.equals("success")){
+                                                    intentToMain()
+                                                }
+                                            }
                                         }
                                         else -> {
-                                            refEmotion.child("timestamp")
+                                            refEmotion.child(uidUser).child("timestamp")
                                                 .setValue(System.currentTimeMillis())
                                                 .addOnSuccessListener {
                                                     viewModel.addEmotion(
-                                                        refEmotion,
+                                                        uidUser!!,
                                                         view,
                                                         totalAllEmotion,
                                                         totalPerEmotion,
@@ -264,7 +271,11 @@ class SaveEmotionsActivity : AppCompatActivity() {
                                                         dateFormat,
                                                         timeFormat
                                                     )
-                                                    intentToMain()
+                                                    viewModel.emotionAddMutableLiveData.observe(this@SaveEmotionsActivity) { success ->
+                                                        if (success.equals("success")){
+                                                            intentToMain()
+                                                        }
+                                                    }
                                                 }.addOnFailureListener {
                                                 Toast.makeText(
                                                     applicationContext, "Emotion Not Recorded",

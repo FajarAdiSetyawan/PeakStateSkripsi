@@ -12,10 +12,21 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 
 class AnchoringViewModel : ViewModel(),
+    AnchoringRepository.OnRealtimeDbAddAnchoring,
+    AnchoringRepository.OnRealtimeDbAddMemory,
+    AnchoringRepository.OnRealtimeDbAddResourceful,
     AnchoringRepository.OnRealtimeDbAnchoring,
     AnchoringRepository.OnRealtimeDbResourceful,
     AnchoringRepository.OnRealtimeDbMemory
 {
+    val addResourcefulLiveData = MutableLiveData<String?>()
+    val databaseErrorAddResourceful = MutableLiveData<String?>()
+
+    val addMemoryLiveData = MutableLiveData<String?>()
+    val databaseErrorAddMemory = MutableLiveData<String?>()
+
+    val addAnchoringLiveData = MutableLiveData<String?>()
+    val databaseErrorAddAnchoring = MutableLiveData<String?>()
 
     val anchroingMutableLiveData = MutableLiveData<List<Anchoring>?>()
     val databaseErrorAnchroing = MutableLiveData<DatabaseError?>()
@@ -28,99 +39,100 @@ class AnchoringViewModel : ViewModel(),
 
     var status = MutableLiveData<Boolean?>()
 
-    private val anchoringRepository: AnchoringRepository = AnchoringRepository(this, this, this)
+    private val anchoringRepository: AnchoringRepository = AnchoringRepository(this, this, this, this, this, this, )
 
-    fun addAnchoring(
-        ref: DatabaseReference,
-        view: View?,
-        id: String,
-        resourceful: String?,
-        memory: String?,
-        descMemory: String?,
-        dateTime: String?
+//    fun addAnchoring(
+//        ref: DatabaseReference,
+//        view: View?,
+//        id: String,
+//        resourceful: String?,
+//        memory: String?,
+//        descMemory: String?,
+//        dateTime: String?
+//    ) {
+//        val anchoring = Anchoring(id, resourceful, memory, descMemory, dateTime)
+//        ref.setValue(anchoring).addOnCompleteListener {
+//            if (it.isSuccessful) {
+//                status.value = true
+//            } else {
+//                // tampilkan dialog error
+//                val message: String =
+//                    it.exception!!.message.toString() // mengambil pesan error
+//                Snackbar.make(view!!, message, Snackbar.LENGTH_LONG)
+//                    .show()
+//            }
+//        }
+//    }
+
+//    fun addResourceful(
+//        ref: DatabaseReference,
+//        view: View?,
+//        id: String,
+//        resourceful: String?
+//    ) {
+//        val resourcefulAdd = Resourceful(id, resourceful)
+//        ref.child(id).setValue(resourcefulAdd).addOnCompleteListener {
+//            if (it.isSuccessful) {
+//                status.value = true
+//            } else {
+//                // tampilkan dialog error
+//                val message: String =
+//                    it.exception!!.message.toString() // mengambil pesan error
+//                Snackbar.make(view!!, message, Snackbar.LENGTH_LONG)
+//                    .show()
+//            }
+//        }
+//    }
+
+    fun addMemory(
+        uid: String,
+        memory: String?
     ) {
-        val anchoring = Anchoring(id, resourceful, memory, descMemory, dateTime)
-        ref.setValue(anchoring).addOnCompleteListener {
-            if (it.isSuccessful) {
-                status.value = true
-            } else {
-                // tampilkan dialog error
-                val message: String =
-                    it.exception!!.message.toString() // mengambil pesan error
-                Snackbar.make(view!!, message, Snackbar.LENGTH_LONG)
-                    .show()
-            }
-        }
+        anchoringRepository.addMemory(uid, memory!!)
     }
 
     fun addResourceful(
-        ref: DatabaseReference,
-        view: View?,
-        id: String,
+        uid: String,
         resourceful: String?
     ) {
-        val resourcefulAdd = Resourceful(id, resourceful)
-        ref.child(id).setValue(resourcefulAdd).addOnCompleteListener {
-            if (it.isSuccessful) {
-                status.value = true
-            } else {
-                // tampilkan dialog error
-                val message: String =
-                    it.exception!!.message.toString() // mengambil pesan error
-                Snackbar.make(view!!, message, Snackbar.LENGTH_LONG)
-                    .show()
-            }
-        }
+        anchoringRepository.addResourceful(uid, resourceful!!)
     }
 
-    fun addMemory(
-        ref: DatabaseReference,
-        view: View?,
-        id: String,
-        memory: String?
+    fun addAnchoring(
+        uid: String,
+        memory: String?,
+        resourceful: String?,
+        note: String,
+        currentDateTime: String
     ) {
-        val memoryAdd = Memory(id, memory)
-        ref.child(id).setValue(memoryAdd).addOnCompleteListener {
-            if (it.isSuccessful) {
-                status.value = true
-            } else {
-                // tampilkan dialog error
-                val message: String =
-                    it.exception!!.message.toString() // mengambil pesan error
-                Snackbar.make(view!!, message, Snackbar.LENGTH_LONG)
-                    .show()
-            }
-        }
+        anchoringRepository.addAnchoring(uid, resourceful!!, memory!!, note, currentDateTime)
     }
-
 
     // TODO mengambil semua data dari firebase yg di kirim dari repository
-    val allAnchoring: Unit
-        get() {
-            anchoringRepository.getAnchoring()
-        }
 
-    val allResourceful: Unit
-        get() {
-            anchoringRepository.getResourceful()
-        }
+    fun allAnchoring(uid:String){
+        anchoringRepository.getAnchoring(uid)
+    }
 
-    val allMemory: Unit
-        get() {
-            anchoringRepository.getMemory()
-        }
+    fun allResourceful(uid:String){
+        anchoringRepository.getResourceful(uid)
+    }
+
+    fun allMemory(uid:String){
+        anchoringRepository.getMemory(uid)
+    }
 
     // TODO menghapus data
-    fun deleteResourceful(id: String) {
-        anchoringRepository.deleteResourceful(id)
+    fun deleteResourceful(uid:String, id: String) {
+        anchoringRepository.deleteResourceful(uid, id)
     }
 
-    fun deleteMemory(id: String) {
-        anchoringRepository.deleteMemory(id)
+    fun deleteMemory(uid:String, id: String) {
+        anchoringRepository.deleteMemory(uid, id)
     }
 
-    fun deleteAnchoring(id: String) {
-        anchoringRepository.deleteAnchoring(id)
+    fun deleteAnchoring(uid:String, id: String) {
+        anchoringRepository.deleteAnchoring(uid, id)
     }
 
     // TODO menjadikan data yg sudah diambil menjadi list
@@ -147,5 +159,29 @@ class AnchoringViewModel : ViewModel(),
 
     override fun onFailureMemory(error: DatabaseError?) {
         databaseErrorMemory.value = error
+    }
+
+    override fun onSuccessAddMemory(status: String?) {
+        addMemoryLiveData.value = status
+    }
+
+    override fun onFailureAddMemory(error: String?) {
+        databaseErrorAddMemory.value = error
+    }
+
+    override fun onSuccessAddResourceful(status: String?) {
+        addResourcefulLiveData.value = status
+    }
+
+    override fun onFailureAddResourceful(error: String?) {
+        databaseErrorAddResourceful.value = error
+    }
+
+    override fun onSuccessAddAnchoring(status: String?) {
+        addAnchoringLiveData.value = status
+    }
+
+    override fun onFailureAddAnchoring(error: String?) {
+        databaseErrorAddAnchoring.value = error
     }
 }

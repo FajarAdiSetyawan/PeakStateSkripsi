@@ -15,7 +15,9 @@ import com.brainoptimax.peakmeup.adapter.anchoring.ResourcefulAdapter
 import com.brainoptimax.peakmeup.ui.anchoring.bottomsheet.ResourcefulBottomSheet
 import com.brainoptimax.peakmeup.viewmodel.anchoring.AnchoringViewModel
 import com.brainoptimax.peakmeup.R
+import com.brainoptimax.peakmeup.adapter.emotions.DailyEmotionAdapter
 import com.brainoptimax.peakmeup.databinding.FragmentAnchoring1Binding
+import com.brainoptimax.peakmeup.utils.Preferences
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -26,6 +28,8 @@ class Anchoring1Fragment : Fragment() {
 
     private var resourcefulAdapter: ResourcefulAdapter? = null
     private lateinit var viewModel: AnchoringViewModel
+
+    private lateinit var preference: Preferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,17 +46,27 @@ class Anchoring1Fragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this)[AnchoringViewModel::class.java]
 
+        preference = Preferences(requireActivity())
+        val uidUser = preference.getValues("uid")
+
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireActivity())
         binding.rvResourceful.layoutManager = layoutManager
         resourcefulAdapter = ResourcefulAdapter()
         binding.rvResourceful.adapter = resourcefulAdapter
 
         binding.progressBar.visibility = View.VISIBLE
-        viewModel.allResourceful
-        viewModel.resourcefulMutableLiveData.observe(requireActivity()) { toDo ->
+        viewModel.allResourceful(uidUser!!)
+        viewModel.resourcefulMutableLiveData.observe(requireActivity()) { resourceful ->
             binding.progressBar.visibility = View.GONE
-            resourcefulAdapter!!.setResourceful(toDo)
-            resourcefulAdapter!!.notifyDataSetChanged()
+            if (resourceful!!.isEmpty()){
+                binding.layoutEmpty.visibility = View.VISIBLE
+                binding.rvResourceful.visibility = View.INVISIBLE
+            }else{
+                binding.layoutEmpty.visibility = View.INVISIBLE
+                resourcefulAdapter!!.setResourceful(resourceful)
+                resourcefulAdapter!!.notifyDataSetChanged()
+                binding.rvResourceful.visibility = View.VISIBLE
+            }
         }
         viewModel.databaseErrorResourceful.observe(
             requireActivity()
@@ -79,7 +93,7 @@ class Anchoring1Fragment : Fragment() {
                 .setMessage(resources.getString(R.string.are_sure_delete) + " ${resourceful.resourceful} ?")
                 .setPositiveButton("Ok") { _, _ ->
 
-                    viewModel.deleteResourceful(resourceful.id!!)
+                    viewModel.deleteResourceful(uidUser, resourceful.id!!)
                     Toast.makeText(requireActivity(), resources.getString(R.string.success_delete) + " ${resourceful.resourceful}", Toast.LENGTH_SHORT).show()
                 }
                 .setNegativeButton(

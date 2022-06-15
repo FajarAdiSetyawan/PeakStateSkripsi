@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.brainoptimax.peakmeup.viewmodel.anchoring.AnchoringViewModel
 import com.brainoptimax.peakmeup.R
 import com.brainoptimax.peakmeup.databinding.BottomSheetBinding
+import com.brainoptimax.peakmeup.utils.Preferences
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.auth.FirebaseAuth
@@ -26,6 +27,8 @@ class MemoryBottomSheet : BottomSheetDialogFragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var databaseReference: DatabaseReference
+
+    private lateinit var preference: Preferences
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,6 +49,9 @@ class MemoryBottomSheet : BottomSheetDialogFragment() {
         behavior.state = BottomSheetBehavior.STATE_EXPANDED
         behavior.peekHeight = 0
 
+        preference = Preferences(requireActivity())
+        val uidUser = preference.getValues("uid")
+
         // Disable Draggable behavior
         behavior.isDraggable = false
 
@@ -55,10 +61,10 @@ class MemoryBottomSheet : BottomSheetDialogFragment() {
         viewModel = ViewModelProviders.of(this)[AnchoringViewModel::class.java]
 
         // TODO: menginisiasi firebase
-        auth = FirebaseAuth.getInstance()
-        databaseReference =
-            FirebaseDatabase.getInstance().reference.child("Users").child(auth.currentUser!!.uid)
-                .child("Anchoring").child("Memory")
+//        auth = FirebaseAuth.getInstance()
+//        databaseReference =
+//            FirebaseDatabase.getInstance().reference.child("Users").child(auth.currentUser!!.uid)
+//                .child("Anchoring").child("Memory")
 
         //TODO: tambah todo list
         binding.ivAdd.setOnClickListener {
@@ -69,8 +75,8 @@ class MemoryBottomSheet : BottomSheetDialogFragment() {
                 Toast.makeText(requireActivity(), resources.getString(R.string.memory_empty), Toast.LENGTH_SHORT).show()
             }else{
                 // TODO: menambahakan todo list ke firebase menggunakan viewmodel
-                val id = databaseReference.push().key
-                viewModel.addMemory(databaseReference, view, id!!, getEditText)
+//                val id = databaseReference.push().key
+                viewModel.addMemory(uidUser!!, getEditText)
                 viewModel.status.observe(this) { status ->
                     status?.let {
                         //Reset status value at first to prevent multitriggering

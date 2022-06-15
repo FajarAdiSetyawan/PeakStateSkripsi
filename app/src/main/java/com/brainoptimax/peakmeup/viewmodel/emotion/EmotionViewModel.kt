@@ -5,11 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.brainoptimax.peakmeup.model.Emotion
 import com.brainoptimax.peakmeup.repository.EmotionRepository
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
 
 class EmotionViewModel : ViewModel(),
+    EmotionRepository.OnRealtimeAddDbEmotion,
     EmotionRepository.OnRealtimeDbEmotion,
     EmotionRepository.OnRealtimeDbPositive,
     EmotionRepository.OnRealtimeDbNegative,
@@ -17,7 +16,10 @@ class EmotionViewModel : ViewModel(),
     EmotionRepository.OnRealtimeDbTotalPerEmotion {
 
     private val emotionRepository: EmotionRepository =
-        EmotionRepository(this, this, this, this, this)
+        EmotionRepository(this, this, this, this, this, this)
+
+    val emotionAddMutableLiveData = MutableLiveData<String?>()
+    val databaseErrorAddEmotions = MutableLiveData<String?>()
 
     val emotionMutableLiveData = MutableLiveData<List<Emotion>?>()
     val databaseErrorEmotions = MutableLiveData<DatabaseError?>()
@@ -36,32 +38,28 @@ class EmotionViewModel : ViewModel(),
 
     var status = MutableLiveData<Boolean?>()
 
-    fun allEmotions(day: String) {
-        emotionRepository.getAllEmotion(day)
+    fun allEmotions(uid: String, day: String) {
+        emotionRepository.getAllEmotion(uid, day)
     }
 
-    val allPositive: Unit
-        get() {
-            emotionRepository.getEmotionPositive()
-        }
+    fun allPositive(uid: String) {
+        emotionRepository.getEmotionPositive(uid)
+    }
 
-    val allNegative: Unit
-        get() {
-            emotionRepository.getEmotionNegative()
-        }
+    fun allNegative(uid: String) {
+        emotionRepository.getEmotionNegative(uid)
+    }
 
-    val totalAllEmotion: Unit
-        get() {
-            emotionRepository.getTotalAllEmotions()
-        }
+    fun totalAllEmotion(uid: String) {
+        emotionRepository.getTotalAllEmotions(uid)
+    }
 
-
-    fun totalPerEmotion(condition: String, emotion: String) {
-        emotionRepository.getTotalPerEmotions(condition, emotion)
+    fun totalPerEmotion(uid: String, condition: String, emotion: String) {
+        emotionRepository.getTotalPerEmotions(uid, condition, emotion)
     }
 
     fun addEmotion(
-        ref: DatabaseReference,
+        uidUser: String,
         view: View?,
         totalAllEmotion: Int,
         totalPerEmotion: Int,
@@ -72,23 +70,17 @@ class EmotionViewModel : ViewModel(),
         dateFormat: String,
         timeFormat: String
     ) {
-        ref.child("totalAllEmotion").setValue(totalAllEmotion)
-        ref.child("EmotionName").child(condition).child(emotionSelected)
-            .setValue(Emotion(emotionSelected, totalAllEmotion, totalPerEmotion))
-        ref.child("daily").child(dateFormat).child(timeFormat)
-            .setValue(Emotion(emotionSelected, emotionNote, currentDateTime))
-            .addOnCompleteListener {
-                // jika berhasil disimpan
-                if (it.isSuccessful) {
-                    status.value = true
-                } else {
-                    // tampilkan dialog error
-                    val message: String =
-                        it.exception!!.message.toString() // mengambil pesan error
-                    Snackbar.make(view!!, message, Snackbar.LENGTH_LONG)
-                        .show()
-                }
-            }
+        emotionRepository.addAllEmotion(
+            uidUser,
+            totalAllEmotion,
+            totalPerEmotion,
+            condition,
+            emotionSelected,
+            emotionNote,
+            currentDateTime,
+            dateFormat,
+            timeFormat
+        )
     }
 
     override fun onSuccessEmotion(emotion: List<Emotion>?) {
@@ -129,6 +121,14 @@ class EmotionViewModel : ViewModel(),
 
     override fun onFailureEmotionTotalPerEmotion(error: DatabaseError?) {
         databaseErrorTotalPerEmotion.value = error
+    }
+
+    override fun onSuccessAddEmotion(emotion: String?) {
+        emotionAddMutableLiveData.value = emotion.toString()
+    }
+
+    override fun onFailureAddEmotion(error: String?) {
+        databaseErrorAddEmotions.value = error
     }
 
 }

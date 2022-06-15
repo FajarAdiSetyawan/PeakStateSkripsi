@@ -11,6 +11,7 @@ import com.brainoptimax.peakmeup.model.Emotion
 import com.brainoptimax.peakmeup.viewmodel.emotion.EmotionViewModel
 import com.brainoptimax.peakmeup.R
 import com.brainoptimax.peakmeup.databinding.ItemResultEmotionsBinding
+import com.brainoptimax.peakmeup.utils.Preferences
 
 class ResultNegativeAdapter(private var emotionList: List<Emotion>?, activity: FragmentActivity) :
     RecyclerView.Adapter<ResultNegativeAdapter.ViewHolder>() {
@@ -19,8 +20,11 @@ class ResultNegativeAdapter(private var emotionList: List<Emotion>?, activity: F
     private var totalAll = 0
     private val activity = activity
 
+    private lateinit var preference: Preferences
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         viewModel = ViewModelProviders.of(activity)[EmotionViewModel::class.java]
+        preference = Preferences(activity)
 
         val inflate =
             LayoutInflater.from(parent.context).inflate(R.layout.item_result_emotions, parent, false)
@@ -41,12 +45,13 @@ class ResultNegativeAdapter(private var emotionList: List<Emotion>?, activity: F
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = ItemResultEmotionsBinding.bind(view)
+        val uidUser = preference.getValues("uid")
 
         fun bind(emotion: Emotion) {
             val emotionName = emotion.emotionName
             val totalPerEmotion = emotion.totalPerEmotion
 
-            viewModel.totalAllEmotion
+            viewModel.totalAllEmotion(uidUser!!)
             viewModel.totalAllEmotionMutableLiveData.observe(activity) { totalAllEmotion ->
                 Log.d("TAG", "totalAllEmotion: $totalAllEmotion")
                 totalAll = if (totalAllEmotion!!.isEmpty() || totalAllEmotion.equals(null) || totalAllEmotion == "null") {

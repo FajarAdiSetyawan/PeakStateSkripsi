@@ -2,11 +2,10 @@ package com.brainoptimax.peakmeup.repository
 
 import android.util.Log
 import com.brainoptimax.peakmeup.model.Emotion
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import java.util.*
 
 class EmotionRepository(
+    private val onRealtimeAddDbEmotion: OnRealtimeAddDbEmotion,
     private val onRealtimeDbEmotion: OnRealtimeDbEmotion,
     private val onRealtimeDbPositive: OnRealtimeDbPositive,
     private val onRealtimeDbNegative: OnRealtimeDbNegative,
@@ -15,14 +14,35 @@ class EmotionRepository(
 
     ) {
 
-    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
     private var databaseReference: DatabaseReference =
-        FirebaseDatabase.getInstance().getReference("Users").child(auth.currentUser!!.uid)
-            .child("Emotion")
+        FirebaseDatabase.getInstance().getReference("Emotion")
 
+    fun addAllEmotion(
+        uid: String,
+        totalAllEmotion: Int,
+        totalPerEmotion: Int,
+        condition: String,
+        emotionSelected: String,
+        emotionNote: String,
+        currentDateTime: String,
+        dateFormat: String,
+        timeFormat: String
+    ) {
+        databaseReference.child(uid).child("totalAllEmotion").setValue(totalAllEmotion)
+        databaseReference.child(uid).child(condition).child(emotionSelected)
+            .setValue(Emotion(emotionSelected, totalAllEmotion, totalPerEmotion))
+        databaseReference.child(uid).child("daily").child(dateFormat).child(timeFormat)
+            .setValue(Emotion(emotionSelected, emotionNote, currentDateTime)).addOnCompleteListener {
+                if (it.isSuccessful){
+                    onRealtimeAddDbEmotion.onSuccessAddEmotion("success")
+                }else{
+                    onRealtimeAddDbEmotion.onFailureAddEmotion(it.exception!!.message.toString())
+                }
+            }
+    }
 
-    fun getAllEmotion(day: String) {
-        databaseReference.child("daily").child(day)
+    fun getAllEmotion(uid: String, day: String) {
+        databaseReference.child(uid).child("daily").child(day)
             .addListenerForSingleValueEvent(object :
                 ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -43,8 +63,8 @@ class EmotionRepository(
             })
     }
 
-    fun getTotalAllEmotions() {
-        databaseReference.child("totalAllEmotion")
+    fun getTotalAllEmotions(uid: String) {
+        databaseReference.child(uid).child("totalAllEmotion")
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     onRealtimeDbTotalAllEmotion.onSuccessEmotionTotalAllEmotion(snapshot.value.toString())
@@ -56,8 +76,8 @@ class EmotionRepository(
             })
     }
 
-    fun getTotalPerEmotions(condition: String, emotion: String) {
-        databaseReference.child("EmotionName").child(condition).child(emotion)
+    fun getTotalPerEmotions(uid: String, condition: String, emotion: String) {
+        databaseReference.child(uid).child(condition).child(emotion)
             .child("totalPerEmotion").addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     onRealtimeDbTotalPerEmotion.onSuccessEmotionTotalPerEmotion(snapshot.value.toString())
@@ -69,8 +89,8 @@ class EmotionRepository(
             })
     }
 
-    fun getEmotionPositive() {
-        databaseReference.child("EmotionName").child("Positive").get()
+    fun getEmotionPositive(uid: String) {
+        databaseReference.child(uid).child("Positive").get()
             .addOnCompleteListener { task ->
                 val emotion: MutableList<Emotion> = ArrayList()
 
@@ -91,8 +111,8 @@ class EmotionRepository(
             }
     }
 
-    fun getEmotionNegative() {
-        databaseReference.child("EmotionName").child("Negative").get()
+    fun getEmotionNegative(uid: String) {
+        databaseReference.child(uid).child("Negative").get()
             .addOnCompleteListener { task ->
                 val emotion: MutableList<Emotion> = ArrayList()
 
@@ -111,6 +131,11 @@ class EmotionRepository(
                     onRealtimeDbNegative.onFailureEmotionNegative(task.exception!!.message.toString())
                 }
             }
+    }
+
+    interface OnRealtimeAddDbEmotion {
+        fun onSuccessAddEmotion(emotion: String?)
+        fun onFailureAddEmotion(error: String?)
     }
 
     interface OnRealtimeDbEmotion {

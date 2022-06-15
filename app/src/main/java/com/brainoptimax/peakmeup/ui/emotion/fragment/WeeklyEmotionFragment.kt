@@ -14,6 +14,7 @@ import com.brainoptimax.peakmeup.utils.Animatoo
 import com.brainoptimax.peakmeup.viewmodel.emotion.EmotionViewModel
 import com.brainoptimax.peakmeup.R
 import com.brainoptimax.peakmeup.databinding.FragmentWeeklyEmotionBinding
+import com.brainoptimax.peakmeup.utils.Preferences
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -22,6 +23,10 @@ class WeeklyEmotionFragment : Fragment() {
     private var fragmentWeeklyEmotionBinding: FragmentWeeklyEmotionBinding? = null
     private val binding get() = fragmentWeeklyEmotionBinding!!
     private lateinit var viewModel: EmotionViewModel
+
+    private lateinit var preference: Preferences
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,11 +41,14 @@ class WeeklyEmotionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this)[EmotionViewModel::class.java]
 
+        preference = Preferences(requireActivity())
+        val uidUser = preference.getValues("uid")
+
         val sdf = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
         val currentDateAndTime = sdf.format(Date())
         binding.tvMonthEmotion.text = currentDateAndTime
 
-        viewModel.totalAllEmotion
+        viewModel.totalAllEmotion(uidUser!!)
         viewModel.totalAllEmotionMutableLiveData.observe(requireActivity()) { totalAllEmotion ->
             Log.d("TAG", "totalAllEmotion: $totalAllEmotion")
 

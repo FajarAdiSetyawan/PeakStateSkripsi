@@ -40,7 +40,7 @@ class AddToDoAdapter :
 
         fun bind(toDo: ToDo) {
             with(binding) {
-                tvListGoals.text = toDo.goals
+                tvListGoals.text = toDo.todo
             }
 
         }

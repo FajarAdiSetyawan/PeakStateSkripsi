@@ -15,11 +15,11 @@ import com.brainoptimax.peakmeup.R
 import com.brainoptimax.peakmeup.databinding.ItemValueGoalsListBinding
 import com.bumptech.glide.Glide
 
-class ValueGoalsAdapter(var data: List<ValueGoals>?, var context: Context): RecyclerView.Adapter<ValueGoalsAdapter.ViewHolder>()  {
+class ValueGoalsAdapter(var context: Context): RecyclerView.Adapter<ValueGoalsAdapter.ViewHolder>()  {
+    private var goalsList: List<ValueGoals>? = null
 
-//    private var data: List<ValueGoals>? = null
     fun setGoals(goals: List<ValueGoals>?) {
-        this.data = goals
+        this.goalsList = goals
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,12 +29,12 @@ class ValueGoalsAdapter(var data: List<ValueGoals>?, var context: Context): Recy
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(data!![position])
+        holder.bind(goalsList!![position])
     }
 
     override fun getItemCount(): Int {
-        return if (data != null) {
-            data!!.size
+        return if (goalsList != null) {
+            goalsList!!.size
         } else {
             0
         }
@@ -61,7 +61,7 @@ class ValueGoalsAdapter(var data: List<ValueGoals>?, var context: Context): Recy
 
             itemView.setOnClickListener {
                 val fragment: Fragment = DetailGoalsFragment.newInstance(
-                    valueGoals.id!!,
+                    valueGoals.idGoals!!,
                     valueGoals.value!!,
                     valueGoals.statement!!,
                     valueGoals.descValue!!,
@@ -77,7 +77,7 @@ class ValueGoalsAdapter(var data: List<ValueGoals>?, var context: Context): Recy
             itemView.setOnLongClickListener {
 
                 val fragment: Fragment = EditValueGoalsFragment.newInstance(
-                    valueGoals.id!!,
+                    valueGoals.idGoals!!,
                     valueGoals.value!!,
                     valueGoals.statement!!,
                     valueGoals.descValue!!,

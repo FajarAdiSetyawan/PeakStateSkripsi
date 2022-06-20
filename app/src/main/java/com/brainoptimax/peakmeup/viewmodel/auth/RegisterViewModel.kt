@@ -1,5 +1,6 @@
 package com.brainoptimax.peakmeup.viewmodel.auth
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -7,6 +8,7 @@ import android.graphics.drawable.InsetDrawable
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
@@ -21,6 +23,7 @@ class RegisterViewModel : ViewModel() {
     private lateinit var alertDialogLoading: AlertDialog
     var status = MutableLiveData<Boolean?>()
 
+    @SuppressLint("NullSafeMutableLiveData")
     fun registerWithEmail(
         username: String,
         email: String,
@@ -28,7 +31,9 @@ class RegisterViewModel : ViewModel() {
         auth: FirebaseAuth,
         nav: NavController,
         view: View?
-    ) {
+    ) : LiveData<Users> {
+        val registerResult = MutableLiveData<Users>()
+
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 closeLoadingDialog()
@@ -41,6 +46,7 @@ class RegisterViewModel : ViewModel() {
                         email,
                         username,
                     )  // -> dengan data dari model Users
+                    registerResult.postValue(users)
                     // simpan sebagai user di firebase realtime database = root->users->(userid, email, username)
                     ref.setValue(users).addOnCompleteListener {
                         // jika berhasil disimpan
@@ -53,6 +59,7 @@ class RegisterViewModel : ViewModel() {
                                 it.exception!!.message.toString() // mengambil pesan error
                             Snackbar.make(view!!, message, Snackbar.LENGTH_LONG)
                                 .show()
+                            registerResult.postValue(null)
                         }
                     }
                 } else {
@@ -61,9 +68,10 @@ class RegisterViewModel : ViewModel() {
                         task.exception!!.message.toString() // mengambil pesan error
                     Snackbar.make(view!!, message, Snackbar.LENGTH_LONG)
                         .show()
+                    registerResult.postValue(null)
                 }
             }
-
+        return registerResult
     }
 
 

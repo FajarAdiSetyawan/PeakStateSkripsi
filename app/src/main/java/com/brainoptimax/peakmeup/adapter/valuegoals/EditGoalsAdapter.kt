@@ -16,20 +16,22 @@ import com.google.firebase.database.FirebaseDatabase
 class EditGoalsAdapter(private val goalId: String?) :
     RecyclerView.Adapter<EditGoalsAdapter.ViewHolder>() {
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var databaseReference: DatabaseReference
     private var idGoals: String? = null
 
     private var toDoList: List<ToDo>? = null
+
+    private var onItemClickListener:((ToDo)->Unit)? = null
+
+    fun setOnItemClickListener(listener: (ToDo)->Unit) {
+        onItemClickListener = listener
+    }
 
     fun setTodo(todo: List<ToDo>?) {
         this.toDoList = todo
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        auth = FirebaseAuth.getInstance()
         idGoals = goalId
-        databaseReference = FirebaseDatabase.getInstance().reference.child("Users").child(auth.currentUser!!.uid).child("ValueGoals").child(idGoals!!).child("ToDo")
 
         val inflate =
             LayoutInflater.from(parent.context)
@@ -53,23 +55,12 @@ class EditGoalsAdapter(private val goalId: String?) :
         private val binding = ItemEditGoalsBinding.bind(view)
         fun bind(toDo: ToDo) {
 
-            binding.tvListGoals.text = toDo.goals
+            binding.tvListGoals.text = toDo.todo
 
             binding.ivRemoveGoals.setOnClickListener {
-                MaterialAlertDialogBuilder(itemView.context, R.style.MaterialAlertDialogRounded)
-                    .setTitle("Confirm the action")
-                    .setMessage("Are you sure you delete Todo ${toDo.goals} ?")
-                    .setPositiveButton("Ok") { _, _ ->
-                        databaseReference.child(toDo.id!!).removeValue().addOnSuccessListener {
-                            Toast.makeText(itemView.context, "Success Delete", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                    .setNegativeButton(
-                        "Cancel"
-                    ) { dialog, which -> }
-                    .show()
-
-
+                onItemClickListener?.let{
+                    it(toDo)
+                }
             }
         }
     }

@@ -129,13 +129,17 @@ class RegisterFragment : Fragment() {
                 }
 
                 viewModel.openLoadingDialog(requireActivity())
-                viewModel.registerWithEmail(username, email, password, auth, nav, view)
-                preferences.setValues(PreferencesKey.STATUS, "1")
-                preferences.setValues(PreferencesKey.UID, auth.uid.toString())
-                preferences.setValues(PreferencesKey.EMAIL, email)
-                preferences.setValues(PreferencesKey.FULLNAME, "Fullname")
-                preferences.setValues(PreferencesKey.IMGURL, "")
-                preferences.setValues(PreferencesKey.USERNAME, username)
+                viewModel.registerWithEmail(username, email, password, auth, nav, view).observe(viewLifecycleOwner){ register ->
+                    if (register != null) {
+                        preferences.setValues(PreferencesKey.STATUS, "1")
+                        preferences.setValues(PreferencesKey.UID, auth.uid.toString())
+                        preferences.setValues(PreferencesKey.EMAIL, register.email!!)
+                        preferences.setValues(PreferencesKey.FULLNAME, "Fullname")
+                        preferences.setValues(PreferencesKey.IMGURL, "")
+                        preferences.setValues(PreferencesKey.USERNAME, register.username!!)
+                    }
+                }
+
             }
 
         }

@@ -80,7 +80,7 @@ class RecommendPeakActivity : AppCompatActivity() {
     }
 
     private fun moveMain(){
-        startActivity(Intent(this, ResultPeakQuizActivity::class.java))
+        startActivity(Intent(this, DetailResultPeakQuizActivity::class.java))
         Animatoo.animateSwipeRight(this)
         finish()
     }
@@ -88,7 +88,7 @@ class RecommendPeakActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        startActivity(Intent(this, ResultPeakQuizActivity::class.java))
+        startActivity(Intent(this, DetailResultPeakQuizActivity::class.java))
         Animatoo.animateSwipeRight(this)
         finish()
     }

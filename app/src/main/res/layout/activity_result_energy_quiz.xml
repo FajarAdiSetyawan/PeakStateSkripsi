@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.quiz.ResultEnergyQuizActivity"
+    tools:context=".ui.quiz.DetailResultEnergyQuizActivity"
     android:background="@color/bg_layout">
 
     <ScrollView
@@ -158,28 +158,9 @@
                             android:paddingTop="10dp"
                             android:fontFamily="@font/poppins"
                             android:paddingBottom="15dp"
-                            android:visibility="gone"
+                            android:visibility="visible"
                             android:text="Moderate Tension" />
 
-                        <com.facebook.shimmer.ShimmerFrameLayout
-                            android:id="@+id/shimmer_tension"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:visibility="visible"
-                            android:paddingTop="10dp"
-                            android:paddingBottom="15dp">
-
-                            <TextView
-                                android:layout_width="120dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:background="@drawable/bg_text_shimmer"
-                                android:textSize="16sp"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                        </com.facebook.shimmer.ShimmerFrameLayout>
 
                         <View
                             android:layout_width="3dp"
@@ -196,31 +177,24 @@
                             android:paddingTop="10dp"
                             android:fontFamily="@font/poppins"
                             android:paddingBottom="15dp"
-                            android:visibility="gone"
+                            android:visibility="visible"
                             android:text="Moderate Tension" />
 
-                        <com.facebook.shimmer.ShimmerFrameLayout
-                            android:id="@+id/shimmer_energy"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:paddingBottom="15dp"
-                            android:paddingTop="10dp"
-                            android:visibility="visible">
-
-                            <TextView
-                                android:layout_width="120dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:background="@drawable/bg_text_shimmer"
-                                android:textSize="16sp"
-                                android:gravity="center"
-                                android:textStyle="bold" />
-
-                        </com.facebook.shimmer.ShimmerFrameLayout>
                     </LinearLayout>
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/md_orange_600"/>
 
+                    <TextView
+                        android:id="@+id/tv_date_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/date"
+                        android:padding="5dp"
+                        android:textAlignment="center"/>
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>

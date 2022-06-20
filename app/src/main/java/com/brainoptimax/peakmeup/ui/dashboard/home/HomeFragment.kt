@@ -9,10 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.brainoptimax.peakmeup.adapter.reminder.HomeReminderAdapter
-import com.brainoptimax.peakmeup.adapter.reminder.ReminderClickListener
-import com.brainoptimax.peakmeup.model.Reminders
 import com.brainoptimax.peakmeup.ui.anchoring.AnchoringActivity
 import com.brainoptimax.peakmeup.ui.intro.IntroBreathingActivity
 import com.brainoptimax.peakmeup.ui.emotion.EmotionGaugeActivity
@@ -22,16 +19,14 @@ import com.brainoptimax.peakmeup.ui.intro.IntroAnchoringActivity
 import com.brainoptimax.peakmeup.ui.intro.IntroEmotionActivity
 import com.brainoptimax.peakmeup.ui.intro.IntroValueGoalsActivity
 import com.brainoptimax.peakmeup.ui.quiz.QuizActivity
-import com.brainoptimax.peakmeup.ui.reminders.AddRemindersActivity
-import com.brainoptimax.peakmeup.ui.reminders.DetailReminderActivity
-import com.brainoptimax.peakmeup.ui.reminders.ListRemindersActivity
 import com.brainoptimax.peakmeup.utils.Animatoo
 import com.brainoptimax.peakmeup.utils.Preferences
 import com.brainoptimax.peakmeup.viewmodel.anchoring.AnchoringViewModel
-import com.brainoptimax.peakmeup.viewmodel.reminder.ReminderViewModel
 import com.brainoptimax.peakmeup.viewmodel.valuegoals.ValueGoalsViewModel
 import com.brainoptimax.peakmeup.R
 import com.brainoptimax.peakmeup.databinding.FragmentHomeBinding
+import com.brainoptimax.peakmeup.ui.reminders.ReminderActivity
+import com.brainoptimax.peakmeup.viewmodel.reminder.ReminderViewModel
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -102,13 +97,13 @@ open class HomeFragment : Fragment() {
         }
 
         binding.llReminders.setOnClickListener {
-            val intent = Intent(requireActivity(), ListRemindersActivity::class.java)
+            val intent = Intent(requireActivity(), ReminderActivity::class.java)
             startActivity(intent)
             Animatoo.animateSlideLeft(requireActivity())
         }
 
         binding.tvMoreRemainder.setOnClickListener {
-            val intent = Intent(requireActivity(), ListRemindersActivity::class.java)
+            val intent = Intent(requireActivity(), ReminderActivity::class.java)
             startActivity(intent)
             Animatoo.animateSlideLeft(requireActivity())
 
@@ -164,7 +159,7 @@ open class HomeFragment : Fragment() {
             viewModelAnchoring = ViewModelProviders.of(this)[AnchoringViewModel::class.java]
 
             viewModelAnchoring.allAnchoring(uidUser!!)
-            viewModelAnchoring.anchroingMutableLiveData.observe(requireActivity()) { anchoring ->
+            viewModelAnchoring.anchoringMutableLiveData.observe(requireActivity()) { anchoring ->
                 if (anchoring!!.isEmpty()){
                     val intent = Intent(requireActivity(), IntroAnchoringActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -177,7 +172,7 @@ open class HomeFragment : Fragment() {
                     Animatoo.animateSlideLeft(requireActivity())
                 }
             }
-            viewModelAnchoring.databaseErrorAnchroing.observe(
+            viewModelAnchoring.databaseErrorAnchoring.observe(
                 requireActivity()
             ) { error ->
                 Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT).show()
@@ -187,7 +182,7 @@ open class HomeFragment : Fragment() {
         binding.btnGoals.setOnClickListener {
             viewModelValueGoals = ViewModelProviders.of(this)[ValueGoalsViewModel::class.java]
 
-            viewModelValueGoals.allData
+            viewModelValueGoals.allGoals(uidUser!!)
             viewModelValueGoals.goalsMutableLiveData.observe(requireActivity()) { goals ->
                 if (goals!!.isEmpty()){
                     val intent = Intent(requireActivity(), IntroValueGoalsActivity::class.java)
@@ -219,51 +214,51 @@ open class HomeFragment : Fragment() {
 
 
 
-        updateRecyclerView()
+//        updateRecyclerView()
 
     }
 
 
-    private val clickListener: ReminderClickListener = object : ReminderClickListener {
-        override fun click(reminders: Reminders?) {
-            val intent = Intent(requireActivity(), DetailReminderActivity::class.java)
-            intent.putExtra(DetailReminderActivity.EXTRA_TITLE, reminders!!.title)
-            intent.putExtra(DetailReminderActivity.EXTRA_DESC, reminders.description)
-            intent.putExtra(DetailReminderActivity.EXTRA_SUBTITLE, reminders.subtitle)
-            intent.putExtra(DetailReminderActivity.EXTRA_DATE, reminders.date)
-            intent.putExtra(DetailReminderActivity.EXTRA_TIME, reminders.time)
-            startActivity(intent)
-        }
+//    private val clickListener: ReminderClickListener = object : ReminderClickListener {
+//        override fun click(reminders: Reminders?) {
+//            val intent = Intent(requireActivity(), DetailReminderActivity::class.java)
+//            intent.putExtra(DetailReminderActivity.EXTRA_TITLE, reminders!!.title)
+//            intent.putExtra(DetailReminderActivity.EXTRA_DESC, reminders.description)
+//            intent.putExtra(DetailReminderActivity.EXTRA_SUBTITLE, reminders.subtitle)
+//            intent.putExtra(DetailReminderActivity.EXTRA_DATE, reminders.date)
+//            intent.putExtra(DetailReminderActivity.EXTRA_TIME, reminders.time)
+//            startActivity(intent)
+//        }
+//
+//        override fun OnLongClick(reminders: Reminders?) {
+//            val intent = Intent(requireActivity(), AddRemindersActivity::class.java)
+//            intent.putExtra("updateReminders", reminders)
+//            startActivity(intent)
+//        }
+//    }
 
-        override fun OnLongClick(reminders: Reminders?) {
-            val intent = Intent(requireActivity(), AddRemindersActivity::class.java)
-            intent.putExtra("updateReminders", reminders)
-            startActivity(intent)
-        }
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun updateRecyclerView() {
-        binding.rvHorizontalReminder.hasFixedSize()
-        val llm = LinearLayoutManager(requireActivity())
-        llm.orientation = LinearLayoutManager.HORIZONTAL
-        binding.rvHorizontalReminder.layoutManager = llm
-
-        viewModelReminder.getAllReminders!!.observe(viewLifecycleOwner) { reminderEntities: List<Reminders?>? ->
-
-            if (reminderEntities!!.isNotEmpty()) {
-                binding.rvHorizontalReminder.visibility = View.VISIBLE
-                binding.layoutEmptyRemainderHome.visibility = View.GONE
-            } else {
-                binding.rvHorizontalReminder.visibility = View.GONE
-                binding.layoutEmptyRemainderHome.visibility = View.VISIBLE
-            }
-
-            adapter = HomeReminderAdapter(reminderEntities as MutableList<Reminders>, requireActivity(), clickListener)
-            binding.rvHorizontalReminder.adapter = adapter
-            adapter.notifyDataSetChanged()
-        }
-    }
+//    @SuppressLint("NotifyDataSetChanged")
+//    fun updateRecyclerView() {
+//        binding.rvHorizontalReminder.hasFixedSize()
+//        val llm = LinearLayoutManager(requireActivity())
+//        llm.orientation = LinearLayoutManager.HORIZONTAL
+//        binding.rvHorizontalReminder.layoutManager = llm
+//
+//        viewModelReminder.getAllReminders!!.observe(viewLifecycleOwner) { reminderEntities: List<Reminders?>? ->
+//
+//            if (reminderEntities!!.isNotEmpty()) {
+//                binding.rvHorizontalReminder.visibility = View.VISIBLE
+//                binding.layoutEmptyRemainderHome.visibility = View.GONE
+//            } else {
+//                binding.rvHorizontalReminder.visibility = View.GONE
+//                binding.layoutEmptyRemainderHome.visibility = View.VISIBLE
+//            }
+//
+//            adapter = HomeReminderAdapter(reminderEntities as MutableList<Reminders>, requireActivity(), clickListener)
+//            binding.rvHorizontalReminder.adapter = adapter
+//            adapter.notifyDataSetChanged()
+//        }
+//    }
 
     override fun onDestroy() {
         super.onDestroy()

@@ -94,6 +94,7 @@
     <string name="check_email_reset_pass">Cek Email Kamu\n Untuk Reset Password</string>
     <string name="msg_upload_pict_value">Harap tunggu, semenetara kami mengunggah foto anda</string>
     <string name="msg_send_forgot_pass">Harap tunggu, semenetara kami sedang mengirim email ke anda</string>
+    <string name="msg_send_save_reminder">Harap tunggu, semenetara kami sedang menyimpan pengingat anda</string>
     <string name="save_quiz">Menyimpan Informasi, harap tunggu...</string>
     <string name="exitquiz">Keluar dari kuis?</string>
     <string name="exitaddgoals">Keluar dari menambah tujuan ?</string>
@@ -253,7 +254,7 @@
     <string name="upcoming_events">Upcoming events</string>
     <string name="more">lainnya</string>
     <string name="lorem_ipsum_dolor_sit_amet_nconsectetur_adipisicing_elit">Lorem ipsum dolor sit amet,\nconsectetur adipisicing elit.</string>
-    <string name="set_reminders_for_routines_exercises_and_nactivities_that_help_you_thrive">Set reminders for routines, exercises and\nactivities that help you thrive.</string>
+    <string name="set_reminders_for_routines_exercises_and_nactivities_that_help_you_thrive">Setel pengingat untuk rutinitas, latihan, dan \naktivitas yang membantu Anda berkembang.</string>
 
 
     <!--  Reminder  -->
@@ -271,6 +272,7 @@
     <string name="confirm_action">Konfirmasi tindakan</string>
     <string name="desc_dialog_add_emotion">Apakah Anda yakin menambahkan Emosi?</string>
     <string name="dialog_reminder_add_msg">Anda yakin menambahkan Pengingat ?</string>
+    <string name="dialog_reminder_update_msg">Anda yakin mengedit Pengingat ?</string>
     <string name="added_success">Berhasil Ditambahkan</string>
     <string name="update_success">Berhasil Diperbarui</string>
     <string name="success_add">Berhasil menambah</string>
@@ -341,6 +343,7 @@
     <string name="down">Jatuh</string>
     <string name="joyful">Menyenangkan</string>
     <string name="data_for_emotion_empty">Data Untuk Emosi Kosong</string>
+    <string name="data_for_quiz_empty">Data Untuk Quiz Kosong</string>
     <string name="data_for_resourceful_empty">Data Untuk Resourceful Kosong</string>
     <string name="data_for_memory_empty">Data Untuk Ingatan Kosong</string>
     <!--  END EMOTION GAUGE  -->
@@ -371,9 +374,12 @@
     <string name="see_recommendations">lihat rekomendasi</string>
     <string name="training_energizer">Pelatihan Energizer</string>
     <string name="energy_tension">Tegangan Energi</string>
+    <string name="energy">Energi</string>
+    <string name="tension">Ketegangan</string>
     <string name="low_readiness">Kesiapan Rendah</string>
     <string name="med_readiness">Kesiapan Sedang</string>
     <string name="high_readiness">Kesiapan Tinggi</string>
+    <string name="readiness">Kesiapan </string>
     <string name="relaxation">Relaksasi</string>
     <string name="add_memory">Tambah Ingatan Anda...</string>
     <string name="add_resourceful">Tambah Resourceful Anda...</string>
@@ -544,6 +550,8 @@
     <string name="completed">Selesai!</string>
     <string name="board_presentation">Papan Presentasi</string>
     <string name="take_the_quiz_again">Kerjakan Quiz Lagi</string>
+    <string name="take_the_quiz_peak_again">Kerjakan Quiz Peak State Lagi</string>
+    <string name="take_the_quiz_energy_again">Kerjakan Quiz Energy Tension Lagi</string>
     <string name="desc_result_energy">Profil Kesiapan Status Puncak Anda adalah (LIHAT KOLOM PROFIL). Profil Anda menunjukkan bahwa kesiapan Anda untuk mencapai kondisi puncak dapat ditingkatkan secara signifikan</string>
     <string name="_10_sec">10 Detik</string>
     <string name="_0_sec">0 Detik</string>
@@ -552,4 +560,5 @@
     <string name="how_was_your_experience">Bagaimana pengalaman Anda?</string>
     <string name="not_bad">Tidak Buruk</string>
     <string name="describe_your_experience_here">Jelaskan pengalaman Anda di sini...</string>
+    <string name="result_quiz">Hasil Quiz</string>
 </resources>

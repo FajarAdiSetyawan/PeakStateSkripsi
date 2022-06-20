@@ -56,7 +56,7 @@ class Anchoring1Fragment : Fragment() {
 
         binding.progressBar.visibility = View.VISIBLE
         viewModel.allResourceful(uidUser!!)
-        viewModel.resourcefulMutableLiveData.observe(requireActivity()) { resourceful ->
+        viewModel.resourcefulMutableLiveData.observe(viewLifecycleOwner) { resourceful ->
             binding.progressBar.visibility = View.GONE
             if (resourceful!!.isEmpty()){
                 binding.layoutEmpty.visibility = View.VISIBLE
@@ -93,7 +93,7 @@ class Anchoring1Fragment : Fragment() {
                 .setMessage(resources.getString(R.string.are_sure_delete) + " ${resourceful.resourceful} ?")
                 .setPositiveButton("Ok") { _, _ ->
 
-                    viewModel.deleteResourceful(uidUser, resourceful.id!!)
+                    viewModel.deleteResourceful(uidUser, resourceful.idResourceful!!)
                     Toast.makeText(requireActivity(), resources.getString(R.string.success_delete) + " ${resourceful.resourceful}", Toast.LENGTH_SHORT).show()
                 }
                 .setNegativeButton(

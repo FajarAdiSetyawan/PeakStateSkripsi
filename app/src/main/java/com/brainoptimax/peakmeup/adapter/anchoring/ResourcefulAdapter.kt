@@ -49,7 +49,7 @@ class ResourcefulAdapter :RecyclerView.Adapter<ResourcefulAdapter.ViewHolder>() 
 
         fun bind(resourceful: Resourceful) {
             val resourcefulS = resourceful.resourceful
-            val id = resourceful.id
+            val id = resourceful.idResourceful
             with(binding){
                 tvListResourceful.text = resourcefulS
             }

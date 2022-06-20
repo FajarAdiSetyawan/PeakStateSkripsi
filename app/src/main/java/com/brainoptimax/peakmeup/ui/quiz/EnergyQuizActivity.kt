@@ -25,6 +25,7 @@ import com.brainoptimax.peakmeup.utils.NetworkMonitorUtil
 import com.brainoptimax.peakmeup.viewmodel.quiz.QuizViewModel
 import com.brainoptimax.peakmeup.R
 import com.brainoptimax.peakmeup.databinding.ActivityEnergyQuizBinding
+import com.brainoptimax.peakmeup.utils.Preferences
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -49,6 +50,8 @@ class EnergyQuizActivity : AppCompatActivity() {
     private var resultTension: String? = null
     private var resultEnergy: String? = null
 
+    private lateinit var preference: Preferences
+
     private val animation = Render(this)
 
     private lateinit var viewModel: QuizViewModel
@@ -59,6 +62,10 @@ class EnergyQuizActivity : AppCompatActivity() {
         activityEnergyQuizBinding = ActivityEnergyQuizBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+
+        preference = Preferences(this)
+        val uidUser = preference.getValues("uid")
 
         window.statusBarColor = ContextCompat.getColor(this, R.color.md_orange_400)
 
@@ -244,10 +251,22 @@ class EnergyQuizActivity : AppCompatActivity() {
                         in 19..24 -> resultTension = "High"
                     }
                     viewModel.openLoadingDialog(this)
-                    viewModel.saveEnergyQuiz(databaseReference, resultEnergy, resultTension)
-                    startActivity(Intent(this, ResultEnergyQuizActivity::class.java))
-                    Animatoo.animateSwipeRight(this)
-                    finish()
+                    viewModel.saveEnergyQuiz(uidUser!!, resultEnergy, resultTension)
+                    viewModel.addEnergyQuizMutableLiveData.observe(this){ status ->
+                        if (status.equals("success")){
+                            viewModel.closeLoadingDialog()
+
+                            startActivity(Intent(this, ResultQuizListActivity::class.java))
+                            Animatoo.animateSwipeRight(this)
+                            finish()
+                        }
+                    }
+
+                    viewModel.databaseErrorAddEnergy.observe(this) { error ->
+                        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
+                    }
+
+
                 }
 
             } else {

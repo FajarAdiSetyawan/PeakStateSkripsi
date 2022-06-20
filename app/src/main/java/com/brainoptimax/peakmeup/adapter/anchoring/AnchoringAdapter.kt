@@ -48,7 +48,7 @@ class AnchoringAdapter(var context: Context): RecyclerView.Adapter<AnchoringAdap
             }
             itemView.setOnClickListener {
                 val fragment: Fragment = ResultAnchoringFragment.newInstance(
-                    anchoring.id!!,
+                    anchoring.idAnchoring!!,
                     anchoring.resourceful!!,
                     anchoring.memory!!,
                     anchoring.descMemory!!,

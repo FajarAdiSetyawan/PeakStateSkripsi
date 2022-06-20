@@ -1,10 +1,13 @@
 package com.brainoptimax.peakmeup.ui.valuegoals.fragment
 
 import android.annotation.SuppressLint
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
+import android.app.*
+import android.content.Context
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.text.format.DateFormat
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,11 +20,10 @@ import com.brainoptimax.peakmeup.ui.valuegoals.fragment.bottomsheet.AddBottomShe
 import com.brainoptimax.peakmeup.viewmodel.valuegoals.ValueGoalsViewModel
 import com.brainoptimax.peakmeup.R
 import com.brainoptimax.peakmeup.databinding.FragmentAddGoalsBinding
+import com.brainoptimax.peakmeup.services.AlarmReceiverValueGoals
+import com.brainoptimax.peakmeup.utils.Preferences
+import com.brainoptimax.peakmeup.utils.ReminderUtils
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import java.text.SimpleDateFormat
 import java.util.*
 
 // mengambil data dari adapter value
@@ -36,14 +38,13 @@ class AddGoalsFragment : Fragment() {
     private var value: String? = null
     private var statement: String? = null
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var databaseReference: DatabaseReference
-    private var datePickerDialog: DatePickerDialog? = null
-    private var dates: String? = null
+    private lateinit var preference: Preferences
 
     private lateinit var viewModel: ValueGoalsViewModel
 
     private lateinit var navController: NavController
+
+    private var calendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,8 +52,6 @@ class AddGoalsFragment : Fragment() {
             value = it.getString(VALUE)
             statement = it.getString(STATEMENT)
         }
-
-
     }
 
     companion object {
@@ -88,39 +87,23 @@ class AddGoalsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        preference = Preferences(requireActivity())
+        val uidUser = preference.getValues("uid")
+
         navController = Navigation.findNavController(requireView())
-
-        auth = FirebaseAuth.getInstance()
-        databaseReference =
-            FirebaseDatabase.getInstance().reference.child("Users").child(auth.currentUser!!.uid)
-                .child("ValueGoals")
-
-        val dbPush = databaseReference.push()
-        val id = dbPush.key
 
         viewModel = ViewModelProviders.of(this)[ValueGoalsViewModel::class.java]
 
+        createNotificationChannel()
+
         binding.tvSelectValue.text = value
 
-        val calendar = Calendar.getInstance()
-        val year = calendar[Calendar.YEAR]
-        val month = calendar[Calendar.MONTH]
-        val date = calendar[Calendar.DATE]
         binding.cardDateGoals.setOnClickListener {
-            datePickerDialog = DatePickerDialog(
-                requireActivity(),
-                { _, year, month, dayOfMonth ->
-                    dates = getDateString(dayOfMonth, month, year)
-                    val date = dayOfMonth.toString() + "-" + (month + 1) + "-" + year
-                    binding.tvDateGoals.text = date
-                }, year, month, date
-            )
-            datePickerDialog!!.datePicker.minDate = System.currentTimeMillis() - 1000
-            datePickerDialog!!.show()
+            setDate()
         }
 
         binding.cardTimeGoals.setOnClickListener {
-            showTimeDialog()
+            setTime()
         }
 
         binding.fab.setOnClickListener {
@@ -152,29 +135,21 @@ class AddGoalsFragment : Fragment() {
                     ).show()
                 }
                 else -> {
-                    viewModel.saveGoal(
-                        dbPush,
-                        view,
-                        id!!,
-                        value!!,
-                        statement!!,
-                        date,
-                        time,
-                        desc,
-                        "",
-                    )
-                    viewModel.status.observe(viewLifecycleOwner) { status ->
-                        status?.let {
-                            //Reset status value at first to prevent multitriggering
-                            //and to be available to trigger action again
-                            viewModel.status.value = null
-
+                    viewModel.addGoal(uidUser!!, value!!, statement!!, date, time, desc)
+                    viewModel.idGoalsMutableLiveData.observe(viewLifecycleOwner) { idGoals ->
+                        if (idGoals!!.isNotEmpty()){
                             val args = Bundle()
-                            args.putString("key", id)
+                            args.putString("key", idGoals)
                             val newFragment: BottomSheetDialogFragment = AddBottomSheetGoals()
                             newFragment.arguments = args
                             newFragment.show(requireActivity().supportFragmentManager, "TAG")
+                            setNotification(value!!, statement!!)
                         }
+
+                    }
+
+                    viewModel.databaseErrorAddGoals.observe(viewLifecycleOwner) { error ->
+                        Toast.makeText(requireActivity(), error, Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -182,60 +157,70 @@ class AddGoalsFragment : Fragment() {
 
     }
 
-    @SuppressLint("SimpleDateFormat")
-    private fun getDateString(year: Int, mMonth: Int, mDay: Int): String? {
-        val calendar = Calendar.getInstance()
-        calendar[year, mMonth] = mDay
-        val dateFormat = SimpleDateFormat("dd-MM-yyyy")
-        return dateFormat.format(calendar.time)
+    private fun setDate() {
+        val Year = calendar[Calendar.YEAR]
+        val Month = calendar[Calendar.MONTH]
+        val date = calendar[Calendar.DATE]
+        val datePickerDialog = DatePickerDialog(requireActivity(), { view, YEAR, MONTH, DATE ->
+            calendar[Calendar.YEAR] = YEAR
+            calendar[Calendar.MONTH] = MONTH
+            calendar[Calendar.DATE] = DATE
+        }, Year, Month, date)
+        datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
+        datePickerDialog.show()
+        updateDate()
     }
 
-    private fun showTimeDialog() {
-        /**
-         * Calendar untuk mendapatkan waktu saat ini
-         */
-        val calendar = Calendar.getInstance()
+    private fun updateDate() {
+        val formattedDate =
+            ReminderUtils.getFormattedDateInString(calendar.timeInMillis, "dd-MMM-yyyy")
+        binding.tvDateGoals.text = formattedDate
+    }
 
-        /**
-         * Initialize TimePicker Dialog
-         */
-        val timePickerDialog = TimePickerDialog(
-            requireActivity(),
-            { view, hourOfDay, minute ->
-                /**
-                 * Method ini dipanggil saat kita selesai memilih waktu di DatePicker
-                 */
-                /**
-                 * Method ini dipanggil saat kita selesai memilih waktu di DatePicker
-                 */
-                /**
-                 * Method ini dipanggil saat kita selesai memilih waktu di DatePicker
-                 */
-
-                /**
-                 * Method ini dipanggil saat kita selesai memilih waktu di DatePicker
-                 */
-                binding.tvTimeGoals.text = "$hourOfDay:$minute"
-            },
-            /**
-             * Tampilkan jam saat ini ketika TimePicker pertama kali dibuka
-             */
-            /**
-             * Tampilkan jam saat ini ketika TimePicker pertama kali dibuka
-             */
-            calendar[Calendar.HOUR_OF_DAY],
-            calendar[Calendar.MINUTE],
-            /**
-             * Cek apakah format waktu menggunakan 24-hour format
-             */
-            /**
-             * Cek apakah format waktu menggunakan 24-hour format
-             */
-            DateFormat.is24HourFormat(requireActivity())
-        )
+    private fun setTime() {
+        val Hour = calendar[Calendar.HOUR_OF_DAY]
+        val Minute = calendar[Calendar.MINUTE]
+        val timePickerDialog = TimePickerDialog(requireActivity(), { view, hour, minute ->
+            calendar[Calendar.HOUR_OF_DAY] = hour
+            calendar[Calendar.MINUTE] = minute
+            calendar[Calendar.SECOND] = 0
+            calendar[Calendar.MILLISECOND] = 0
+            updateTime(hour, minute)
+        }, Hour, Minute, true)
         timePickerDialog.show()
     }
 
+    @SuppressLint("SetTextI18n")
+    private fun updateTime(hour: Int, minute: Int) {
+        binding.tvTimeGoals.text = "$hour:$minute"
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun setNotification(value: String, statement: String) {
+        val intent = Intent(requireActivity(), AlarmReceiverValueGoals::class.java)
+        intent.action = "com.brainoptimax.peakstate.valuegoals"
+        intent.putExtra("GoalsTitle", value)
+        intent.putExtra("GoalsStatement", statement)
+        Log.d("TAG", "onNotifyGoal: $value")
+
+        val pendingIntent = PendingIntent.getBroadcast(requireActivity(), 101, intent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
+        val alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+    }
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name: CharSequence = "goals_notify"
+            val description = "To Notify Goals"
+            val importance = NotificationManager.IMPORTANCE_HIGH
+            val channel = NotificationChannel("goals_notify", name, importance)
+            channel.description = description
+            val notificationManager = requireActivity().getSystemService(
+                NotificationManager::class.java)
+            notificationManager!!.createNotificationChannel(channel)
+        }
+    }
 
     override fun onDestroy() {
         super.onDestroy()

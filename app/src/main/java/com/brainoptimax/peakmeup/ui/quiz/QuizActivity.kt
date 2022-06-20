@@ -26,6 +26,7 @@ import com.brainoptimax.peakmeup.utils.NetworkMonitorUtil
 import com.brainoptimax.peakmeup.viewmodel.quiz.QuizViewModel
 import com.brainoptimax.peakmeup.R
 import com.brainoptimax.peakmeup.databinding.ActivityQuizBinding
+import com.brainoptimax.peakmeup.utils.Preferences
 
 class QuizActivity : AppCompatActivity() {
 
@@ -35,6 +36,8 @@ class QuizActivity : AppCompatActivity() {
     private val networkMonitor = NetworkMonitorUtil(this)
 
     private lateinit var viewModel: QuizViewModel
+
+    private lateinit var preference: Preferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +50,9 @@ class QuizActivity : AppCompatActivity() {
 
         checkConnection()
 
+        preference = Preferences(this)
+        val uidUser = preference.getValues("uid")
+
         viewModel = ViewModelProviders.of(this)[QuizViewModel::class.java]
 
         binding.btnLater.setOnClickListener {
@@ -56,14 +62,14 @@ class QuizActivity : AppCompatActivity() {
         }
 
         binding.btnEt.setOnClickListener {
-            viewModel.energyQuizResult
+            viewModel.getResultEnergy(uidUser!!)
             viewModel.energyQuizMutableLiveData.observe(this){ energy ->
-                if (energy == "null" || energy!!.isEmpty() || energy.equals(null)){
+                if (energy!!.isEmpty()){
                     startActivity(Intent(this, IntroEnergyTensionActivity::class.java))
                     Animatoo.animateSlideLeft(this)
                     finish()
                 }else{
-                    startActivity(Intent(this, ResultEnergyQuizActivity::class.java))
+                    startActivity(Intent(this, ResultQuizListActivity::class.java))
                     Animatoo.animateSlideLeft(this)
                     finish()
                 }
@@ -71,14 +77,14 @@ class QuizActivity : AppCompatActivity() {
         }
 
         binding.btnPsr.setOnClickListener {
-            viewModel.peakQuizResult
+            viewModel.getResultPeak(uidUser!!)
             viewModel.peakQuizMutableLiveData.observe(this){ peak ->
-                if (peak == "null" || peak!!.isEmpty() || peak.equals(null)){
+                if (peak!!.isEmpty()){
                     startActivity(Intent(this, IntroPeakStateQuizActivity::class.java))
                     Animatoo.animateSlideLeft(this)
                     finish()
                 }else{
-                    startActivity(Intent(this, ResultPeakQuizActivity::class.java))
+                    startActivity(Intent(this, ResultQuizListActivity::class.java))
                     Animatoo.animateSlideLeft(this)
                     finish()
                 }

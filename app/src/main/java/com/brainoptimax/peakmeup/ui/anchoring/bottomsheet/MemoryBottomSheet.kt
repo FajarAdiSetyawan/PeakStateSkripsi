@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
 import com.brainoptimax.peakmeup.viewmodel.anchoring.AnchoringViewModel
 import com.brainoptimax.peakmeup.R
 import com.brainoptimax.peakmeup.databinding.BottomSheetBinding
+import com.brainoptimax.peakmeup.ui.anchoring.fragment.Anchoring5Fragment
 import com.brainoptimax.peakmeup.utils.Preferences
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -60,12 +62,6 @@ class MemoryBottomSheet : BottomSheetDialogFragment() {
         // TODO: memanggil viewmodel
         viewModel = ViewModelProviders.of(this)[AnchoringViewModel::class.java]
 
-        // TODO: menginisiasi firebase
-//        auth = FirebaseAuth.getInstance()
-//        databaseReference =
-//            FirebaseDatabase.getInstance().reference.child("Users").child(auth.currentUser!!.uid)
-//                .child("Anchoring").child("Memory")
-
         //TODO: tambah todo list
         binding.ivAdd.setOnClickListener {
             // TODO: mengambil text dari etgoals
@@ -75,15 +71,18 @@ class MemoryBottomSheet : BottomSheetDialogFragment() {
                 Toast.makeText(requireActivity(), resources.getString(R.string.memory_empty), Toast.LENGTH_SHORT).show()
             }else{
                 // TODO: menambahakan todo list ke firebase menggunakan viewmodel
-//                val id = databaseReference.push().key
                 viewModel.addMemory(uidUser!!, getEditText)
-                viewModel.status.observe(this) { status ->
-                    status?.let {
-                        //Reset status value at first to prevent multitriggering
-                        //and to be available to trigger action again
-                        viewModel.status.value = null
+
+                viewModel.addMemoryLiveData.observe(viewLifecycleOwner) { status ->
+                    if (status.equals("success")){
                         Toast.makeText(requireActivity(), resources.getString(R.string.success_add) + " $getEditText", Toast.LENGTH_SHORT).show()
+                    }else{
+                        Toast.makeText(requireActivity(), status, Toast.LENGTH_SHORT).show()
                     }
+                }
+
+                viewModel.databaseErrorAddMemory.observe(requireActivity()) { error ->
+                    Toast.makeText(requireActivity(), error, Toast.LENGTH_SHORT).show()
                 }
 
                 binding.btnSetGoals.visibility = View.VISIBLE

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/reminder_navigation"
+    app:startDestination="@id/listReminderFragment">
+
+
+    <fragment
+        android:id="@+id/addReminderFragment"
+        android:name="com.brainoptimax.peakmeup.ui.reminders.fragment.AddReminderFragment"
+        android:label="fragment_add_reminder"
+        tools:layout="@layout/fragment_add_reminder" >
+        <action
+            android:id="@+id/action_addReminderFragment_to_listReminderFragment"
+            app:destination="@id/listReminderFragment"
+            app:enterAnim="@anim/animate_slide_in_left"
+            app:exitAnim="@anim/animate_slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/listReminderFragment"
+        android:name="com.brainoptimax.peakmeup.ui.reminders.fragment.ListReminderFragment"
+        android:label="fragment_list_reminder"
+        tools:layout="@layout/fragment_list_reminder" >
+        <action
+            android:id="@+id/action_listReminderFragment_to_addReminderFragment"
+            app:destination="@id/addReminderFragment"
+            app:enterAnim="@anim/animate_slide_left_enter"
+            app:exitAnim="@anim/animate_slide_left_exit" />
+        <action
+            android:id="@+id/action_listReminderFragment_to_editReminderFragment"
+            app:destination="@id/editReminderFragment"
+            app:enterAnim="@anim/animate_slide_left_enter"
+            app:exitAnim="@anim/animate_slide_left_exit" />
+        <action
+            android:id="@+id/action_listReminderFragment_to_detailReminderFragment"
+            app:destination="@id/detailReminderFragment"
+            app:enterAnim="@anim/animate_slide_left_enter"
+            app:exitAnim="@anim/animate_slide_left_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/editReminderFragment"
+        android:name="com.brainoptimax.peakmeup.ui.reminders.fragment.EditReminderFragment"
+        android:label="fragment_edit_reminder"
+        tools:layout="@layout/fragment_edit_reminder" >
+        <action
+            android:id="@+id/action_editReminderFragment_to_listReminderFragment"
+            app:destination="@id/listReminderFragment"
+            app:enterAnim="@anim/animate_slide_in_left"
+            app:exitAnim="@anim/animate_slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailReminderFragment"
+        android:name="com.brainoptimax.peakmeup.ui.reminders.fragment.DetailReminderFragment"
+        android:label="fragment_detail_reminder"
+        tools:layout="@layout/fragment_detail_reminder" >
+        <action
+            android:id="@+id/action_detailReminderFragment_to_listReminderFragment"
+            app:destination="@id/listReminderFragment"
+            app:enterAnim="@anim/animate_slide_in_left"
+            app:exitAnim="@anim/animate_slide_out_right" />
+    </fragment>
+</navigation>

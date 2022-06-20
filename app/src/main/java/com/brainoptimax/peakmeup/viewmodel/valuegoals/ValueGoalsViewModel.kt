@@ -1,6 +1,5 @@
 package com.brainoptimax.peakmeup.viewmodel.valuegoals
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -9,7 +8,6 @@ import android.net.Uri
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.airbnb.lottie.LottieAnimationView
@@ -17,200 +15,129 @@ import com.brainoptimax.peakmeup.R
 import com.brainoptimax.peakmeup.model.valuegoals.ToDo
 import com.brainoptimax.peakmeup.model.valuegoals.ValueGoals
 import com.brainoptimax.peakmeup.repository.ValueGoalsRepository
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 
 
-class ValueGoalsViewModel: ViewModel(), ValueGoalsRepository.OnRealtimeDbTaskComplete, ValueGoalsRepository.OnRealtimeDbTaskCompleteTodo {
+class ValueGoalsViewModel : ViewModel(),
+    ValueGoalsRepository.OnRealtimeDbAddValueGoals,
+    ValueGoalsRepository.OnRealtimeDbAllValueGoals,
+    ValueGoalsRepository.OnRealtimeDbImageGoals,
+    ValueGoalsRepository.OnRealtimeDbDeleteGoals,
+    ValueGoalsRepository.OnRealtimeDbUpdateGoals,
+    ValueGoalsRepository.OnRealtimeDbTodo,
+    ValueGoalsRepository.OnRealtimeDbDoneTodo,
+    ValueGoalsRepository.OnRealtimeDbNotDoneTodo,
+    ValueGoalsRepository.OnRealtimeDbAddTodo,
+    ValueGoalsRepository.OnRealtimeDbDeleteTodo
+{
+
+    val idGoalsMutableLiveData = MutableLiveData<String?>()
+    val databaseErrorAddGoals = MutableLiveData<String?>()
+
+    val imageGoalsMutableLiveData = MutableLiveData<String?>()
+    val databaseErrorImageGoals = MutableLiveData<String?>()
+
+    val deleteGoalsMutableLiveData = MutableLiveData<String?>()
+    val databaseErrorDeleteGoals = MutableLiveData<String?>()
+
+    val updateGoalsMutableLiveData = MutableLiveData<String?>()
+    val databaseErrorUpdateGoals = MutableLiveData<String?>()
 
     val goalsMutableLiveData = MutableLiveData<List<ValueGoals>?>()
     val databaseErrorGoals = MutableLiveData<String?>()
 
+    val addTodoMutableLiveData = MutableLiveData<String?>()
+    val databaseErrorAddTodo = MutableLiveData<String?>()
+
     val todoMutableLiveData = MutableLiveData<List<ToDo>?>()
     val databaseErrorToDo = MutableLiveData<DatabaseError?>()
 
+    val doneTodoMutableLiveData = MutableLiveData<String?>()
+    val databaseErrorDoneTodo = MutableLiveData<String?>()
+
+    val notDoneTodoMutableLiveData = MutableLiveData<String?>()
+    val databaseErrorNotDoneTodo = MutableLiveData<String?>()
+
+    val deleteTodoMutableLiveData = MutableLiveData<String?>()
+    val databaseErrorDeleteTodo = MutableLiveData<String?>()
+
     private lateinit var alertDialogLoading: AlertDialog
 
-
-    private val valueGoalsRepository: ValueGoalsRepository = ValueGoalsRepository(this, this)
+    private val valueGoalsRepository: ValueGoalsRepository = ValueGoalsRepository(this,this,this, this, this,this, this, this, this, this)
 
     var status = MutableLiveData<Boolean?>()
 
-    val allData: Unit
-        get() {
-            valueGoalsRepository.getAllGoals()
-        }
-
-    fun allToDo(idGoals: String){
-        valueGoalsRepository.getAllTodo(idGoals)
+    fun allGoals(uidUser: String) {
+        valueGoalsRepository.getAllGoals(uidUser)
     }
 
-    override fun onSuccess(valueGoals: List<ValueGoals>?) {
-        goalsMutableLiveData.value = valueGoals
+    fun allToDo(uidUser: String, idGoals: String) {
+        valueGoalsRepository.getAllTodo(uidUser, idGoals)
     }
 
-    override fun onFailure(error: String?) {
-        databaseErrorGoals.value = error
-    }
-
-
-    override fun onSuccessTodo(todo: List<ToDo>?) {
-        todoMutableLiveData.value = todo
-    }
-
-    override fun onFailureTodo(error: DatabaseError?) {
-        databaseErrorToDo.value = error!!
-    }
-
-    fun saveGoal(
-        ref: DatabaseReference,
-        view: View?,
-        id: String,
+    fun addGoal(
+        uidUser: String,
         value: String,
         state: String,
         date: String,
         time: String,
         desc: String,
-        img: String
     ) {
-        val valueGoals = ValueGoals(
-            id,
-            value,
-            state,
-            time,
-            date,
-            desc,
-            img
-        )  // -> dengan data dari model Users
-        ref.setValue(valueGoals).addOnCompleteListener {
-            // jika berhasil disimpan
-            if (it.isSuccessful) {
-                status.value = true
-            } else {
-                // tampilkan dialog error
-                val message: String =
-                    it.exception!!.message.toString() // mengambil pesan error
-                Snackbar.make(view!!, message, Snackbar.LENGTH_LONG)
-                    .show()
-            }
-        }
+        valueGoalsRepository.addValueGoals(uidUser, value, state, date, time, desc)
     }
 
     fun updateGoal(
-        ref: DatabaseReference,
-        view: View?,
-        id: String,
+        uidUser: String,
+        idGoals: String,
         value: String,
         state: String,
         date: String,
         time: String,
         desc: String
     ) {
-        val map: HashMap<String, Any> = HashMap()
-        map["id"] = id
-        map["value"] = value
-        map["statement"] = state
-        map["date"] = date
-        map["time"] = time
-        map["descValue"] = desc
-        ref.updateChildren(map).addOnCompleteListener {
-            // jika berhasil disimpan
-            if (it.isSuccessful) {
-                status.value = true
-            } else {
-                // tampilkan dialog error
-                val message: String =
-                    it.exception!!.message.toString() // mengambil pesan error
-                Snackbar.make(view!!, message, Snackbar.LENGTH_LONG)
-                    .show()
-            }
-        }
+        valueGoalsRepository.updateValueGoals(uidUser, idGoals,value, state, date, time, desc)
+    }
+
+    fun setImageGoals(uidUser: String, idGoals: String, filePath: Uri){
+        valueGoalsRepository.setImgValueGoal(uidUser, idGoals, filePath)
     }
 
     fun deleteGoal(
-        ref: DatabaseReference,
-        view: View,
-        storage: FirebaseStorage,
-        url: String
-    ){
-        storage.getReferenceFromUrl(url).delete().addOnCompleteListener { it ->
-            if (it.isSuccessful){
-                ref.removeValue().addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        status.value = true
-                    } else {
-                        // tampilkan dialog error
-                        val message: String =
-                            it.exception!!.message.toString() // mengambil pesan error
-                        Snackbar.make(view, message, Snackbar.LENGTH_LONG)
-                            .show()
-                    }
-                }
-            }
-        }
+        uidUser: String,
+        idGoals: String,
+        imgUrl: String
+    ) {
+        valueGoalsRepository.deleteGoals(uidUser, idGoals, imgUrl)
+    }
+
+    fun removeGoal(
+        uidUser: String,
+        idGoals: String,
+    ) {
+        valueGoalsRepository.removeGoals(uidUser, idGoals)
     }
 
     fun addToDoList(
-        refGoals: DatabaseReference,
-        view: View?,
-        id: String,
-        goals: String,
-        isCompleted: String,
-    ){
-        val toDo = ToDo(id, goals, isCompleted)
-        refGoals.setValue(toDo).addOnCompleteListener {
-            if (it.isSuccessful){
-                status.value = true
-            }else{
-                val message: String =
-                    it.exception!!.message.toString() // mengambil pesan error
-                Snackbar.make(view!!, message, Snackbar.LENGTH_LONG)
-                    .show()
-            }
-        }
+        uidUser: String,
+        idGoals: String,
+        todo: String,
+    ) {
+        valueGoalsRepository.addTodo(uidUser, idGoals, todo)
     }
 
-
-    @SuppressLint("NullSafeMutableLiveData")
-    internal fun setImgValueGoal(
-        mDatabase: DatabaseReference,
-        mStorageRef: StorageReference,
-        uid: String,
-        filePath: Uri,
-        view: View?
-    ): LiveData<String> {
-        val signUpPhotoScreenResult = MutableLiveData<String>()
-        val ref = mStorageRef.child("value_goals/$uid/image.jpg")
-
-        ref.putFile(filePath)
-            .addOnSuccessListener {
-                ref.downloadUrl.addOnSuccessListener {
-                    // Insert url data to user
-                    closeLoadingDialog()
-                    mDatabase.child("img").setValue(it.toString())
-                    signUpPhotoScreenResult.postValue(it.toString())
-
-                    Snackbar.make(view!!, "Image Uploaded", Snackbar.LENGTH_LONG)
-                        .show()
-                }
-            }
-            .addOnFailureListener {
-                closeLoadingDialog()
-                signUpPhotoScreenResult.postValue(null)
-
-                Snackbar.make(view!!, it.message.toString(), Snackbar.LENGTH_LONG)
-                    .show()
-            }
-
-        return signUpPhotoScreenResult
+    fun doneTodo(uidUser: String, idGoals: String, idTodo: String){
+        valueGoalsRepository.doneTodo(uidUser, idGoals, idTodo)
     }
 
+    fun notDoneTodo(uidUser: String, idGoals: String, idTodo: String){
+        valueGoalsRepository.notDoneTodo(uidUser, idGoals, idTodo)
+    }
+
+    fun deleteTodo(uidUser: String, idGoals: String, idTodo: String){
+        valueGoalsRepository.deleteTodo(uidUser, idGoals, idTodo)
+    }
 
     fun openLoadingDialog(fragmentActivity: FragmentActivity) {
-
         val progress = AlertDialog.Builder(fragmentActivity)
         val dialogView = fragmentActivity.layoutInflater.inflate(R.layout.dialog_loading, null)
         progress.setView(dialogView)
@@ -221,15 +148,96 @@ class ValueGoalsViewModel: ViewModel(), ValueGoalsRepository.OnRealtimeDbTaskCom
         alertDialogLoading.show()
         val titleView = dialogView.findViewById<View>(R.id.tv_msg_dialog) as TextView
         titleView.text = fragmentActivity.resources.getString(R.string.msg_upload_pict)
-        val lottie = dialogView.findViewById<View>(R.id.lottie_dialog_loading) as LottieAnimationView
+        val lottie =
+            dialogView.findViewById<View>(R.id.lottie_dialog_loading) as LottieAnimationView
         lottie.playAnimation()
         lottie.setAnimation(R.raw.upload)
         alertDialogLoading.window!!.setBackgroundDrawable(inset)
         alertDialogLoading.show()
     }
 
-    private fun closeLoadingDialog() {
+    fun closeLoadingDialog() {
         alertDialogLoading.dismiss()
+    }
+
+    override fun onSuccessAddValueGoals(idGoals: String?) {
+        idGoalsMutableLiveData.value = idGoals
+    }
+
+    override fun onFailureAddValueGoals(error: String?) {
+        databaseErrorAddGoals.value = error
+    }
+
+    override fun onSuccessAllValueGoals(valueGoals: List<ValueGoals>?) {
+        goalsMutableLiveData.value = valueGoals
+    }
+
+    override fun onFailureAllValueGoals(error: String?) {
+        databaseErrorGoals.value = error
+    }
+
+    override fun onSuccessAddTodo(status: String?) {
+        addTodoMutableLiveData.value = status
+    }
+
+    override fun onFailureAddTodo(error: String?) {
+        databaseErrorAddTodo.value = error
+    }
+
+    override fun onSuccessImageGoals(status: String?) {
+        imageGoalsMutableLiveData.value = status
+    }
+
+    override fun onFailureImageGoals(error: String?) {
+        databaseErrorImageGoals.value = error
+    }
+
+    override fun onSuccessTodo(todo: List<ToDo>?) {
+        todoMutableLiveData.value = todo
+    }
+
+    override fun onFailureTodo(error: DatabaseError?) {
+        databaseErrorToDo.value = error!!
+    }
+
+    override fun onSuccessDeleteGoals(status: String?) {
+        deleteGoalsMutableLiveData.value = status
+    }
+
+    override fun onFailureDeleteGoals(error: String?) {
+        databaseErrorDeleteGoals.value = error
+    }
+
+    override fun onSuccessDoneTodo(status: String?) {
+        doneTodoMutableLiveData.value = status
+    }
+
+    override fun onFailureDoneTodo(error: String?) {
+        databaseErrorDoneTodo.value = error
+    }
+
+    override fun onSuccessNotDoneTodo(status: String?) {
+        notDoneTodoMutableLiveData.value = status
+    }
+
+    override fun onFailureNotDoneTodo(error: String?) {
+        databaseErrorNotDoneTodo.value = error
+    }
+
+    override fun onSuccessUpdateGoals(status: String?) {
+        updateGoalsMutableLiveData.value = status
+    }
+
+    override fun onFailureUpdateGoals(error: String?) {
+        databaseErrorUpdateGoals.value = error
+    }
+
+    override fun onSuccessDeleteTodo(status: String?) {
+        deleteTodoMutableLiveData.value = status
+    }
+
+    override fun onFailureDeleteTodo(error: String?) {
+        databaseErrorDeleteTodo.value = error
     }
 
 }

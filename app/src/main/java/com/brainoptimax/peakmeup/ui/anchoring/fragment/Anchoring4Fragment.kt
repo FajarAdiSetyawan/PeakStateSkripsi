@@ -26,9 +26,6 @@ class Anchoring4Fragment : Fragment() {
 
     private lateinit var viewModel: AnchoringViewModel
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var databaseReference: DatabaseReference
-
     private lateinit var preference: Preferences
 
     override fun onCreateView(
@@ -47,12 +44,6 @@ class Anchoring4Fragment : Fragment() {
         preference = Preferences(requireActivity())
         val uidUser = preference.getValues("uid")
 
-        //        auth = FirebaseAuth.getInstance()
-//        databaseReference =
-//            FirebaseDatabase.getInstance().reference.child("Users").child(auth.currentUser!!.uid)
-//                .child("Anchoring").child("Result").push()
-//        val idAnchoring = databaseReference.key
-        
         val mBundle: Bundle? = arguments
         val resourceful =  mBundle!!.getString("resourceful")
         val memory =  mBundle.getString("memory")
@@ -66,7 +57,7 @@ class Anchoring4Fragment : Fragment() {
                 Toast.makeText(requireActivity(), resources.getString(R.string.note_blank), Toast.LENGTH_SHORT).show()
             }else{
                 viewModel.addAnchoring(uidUser!!, memory, resourceful, note, currentDateAndTime)
-                viewModel.addAnchoringLiveData.observe(requireActivity()) { success ->
+                viewModel.addAnchoringLiveData.observe(viewLifecycleOwner) { success ->
                     if (success.equals("success")){
                         val fragment = Anchoring5Fragment() // replace your custom fragment class
                         val fragmentTransaction: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
@@ -75,7 +66,9 @@ class Anchoring4Fragment : Fragment() {
                         fragmentTransaction.commit()
                     }
                 }
-
+                viewModel.databaseErrorAddAnchoring.observe(viewLifecycleOwner) { error ->
+                    Toast.makeText(requireActivity(), error, Toast.LENGTH_SHORT).show()
+                }
 
             }
         }

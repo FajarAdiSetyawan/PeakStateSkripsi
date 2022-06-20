@@ -18,6 +18,7 @@ import com.brainoptimax.peakmeup.utils.Animatoo
 import com.brainoptimax.peakmeup.viewmodel.valuegoals.ValueGoalsViewModel
 import com.brainoptimax.peakmeup.R
 import com.brainoptimax.peakmeup.databinding.BottomSheetGoalsBinding
+import com.brainoptimax.peakmeup.utils.Preferences
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -31,10 +32,12 @@ class AddBottomSheetGoals: BottomSheetDialogFragment() {
     private lateinit var binding: BottomSheetGoalsBinding
     private lateinit var viewModel: ValueGoalsViewModel
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var databaseReference: DatabaseReference
+//    private lateinit var auth: FirebaseAuth
+//    private lateinit var databaseReference: DatabaseReference
 
     private var toDoAdapter: AddToDoAdapter? = null
+
+    private lateinit var preference: Preferences
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,6 +51,10 @@ class AddBottomSheetGoals: BottomSheetDialogFragment() {
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        preference = Preferences(requireActivity())
+        val uidUser = preference.getValues("uid")
+
         dialog?.setCanceledOnTouchOutside(false)
         val bottomSheet =
             dialog?.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)
@@ -65,8 +72,8 @@ class AddBottomSheetGoals: BottomSheetDialogFragment() {
         viewModel = ViewModelProviders.of(this)[ValueGoalsViewModel::class.java]
 
         // TODO: menginisiasi firebase
-        auth = FirebaseAuth.getInstance()
-        databaseReference = FirebaseDatabase.getInstance().reference.child("Users").child(auth.currentUser!!.uid).child("ValueGoals").child(myValue!!)
+//        auth = FirebaseAuth.getInstance()
+//        databaseReference = FirebaseDatabase.getInstance().reference.child("Users").child(auth.currentUser!!.uid).child("ValueGoals").child(myValue!!)
 
         //TODO: tambah todo list
         binding.ivAdd.setOnClickListener {
@@ -77,13 +84,23 @@ class AddBottomSheetGoals: BottomSheetDialogFragment() {
                 Toast.makeText(requireActivity(), resources.getString(R.string.todoblank), Toast.LENGTH_SHORT).show()
             }else{
                 // TODO: menambahakan todo list ke firebase menggunakan viewmodel
-                val idTodo = databaseReference.child("ToDo").push().key
+//                val idTodo = databaseReference.child("ToDo").push().key
+//
+//                viewModel.addToDoList(databaseReference.child("ToDo").child(idTodo!!), view, idTodo, txtToDo, "false")
+                viewModel.addToDoList(uidUser!!, myValue!!, txtToDo)
+                viewModel.addTodoMutableLiveData.observe(requireActivity()) { status ->
+                    if(status.equals("success")){
+                        binding.btnSetGoals.visibility = View.VISIBLE
+                        Toast.makeText(requireActivity(), resources.getString(R.string.success_add) + " $txtToDo", Toast.LENGTH_SHORT).show()
+                        binding.etGoals.setText("")
+                    }
+                }
 
-                viewModel.addToDoList(databaseReference.child("ToDo").child(idTodo!!), view, idTodo, txtToDo, "false")
+                viewModel.databaseErrorAddTodo.observe(requireActivity()
+                ) { error ->
+                    Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT).show()
+                }
 
-                binding.btnSetGoals.visibility = View.VISIBLE
-                Toast.makeText(requireActivity(), resources.getString(R.string.success_add) + " $txtToDo", Toast.LENGTH_SHORT).show()
-                binding.etGoals.setText("")
             }
         }
 
@@ -93,7 +110,7 @@ class AddBottomSheetGoals: BottomSheetDialogFragment() {
         toDoAdapter = AddToDoAdapter()
         binding.rvGoals.adapter = toDoAdapter
 
-        viewModel.allToDo(myValue)
+        viewModel.allToDo(uidUser!!, myValue!!)
         viewModel.todoMutableLiveData.observe(requireActivity()){ toDo ->
             toDoAdapter!!.setTodo(toDo)
             toDoAdapter!!.notifyDataSetChanged()
@@ -126,9 +143,20 @@ class AddBottomSheetGoals: BottomSheetDialogFragment() {
                                 // Respond to neutral button press
                             }
                             .setPositiveButton(resources.getString(R.string.accept)) { _, _ ->
-                                databaseReference.removeValue()
-                                startActivity(Intent(context, ValueGoalsActivity::class.java)) // pindah ke login
-                                Animatoo.animateSlideUp(requireContext())
+//                                databaseReference.removeValue()
+                                viewModel.removeGoal(uidUser, myValue)
+                                viewModel.deleteGoalsMutableLiveData.observe(requireActivity()) { success ->
+                                    if(success.equals("success")){
+                                        startActivity(Intent(context, ValueGoalsActivity::class.java)) // pindah ke login
+                                        Animatoo.animateSlideUp(requireContext())
+                                    }
+                                }
+
+                                viewModel.databaseErrorDeleteGoals.observe(requireActivity()
+                                ) { error ->
+                                    Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT).show()
+                                }
+
                             }
                             .show()
 

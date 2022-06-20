@@ -60,11 +60,6 @@ class ResourcefulBottomSheet : BottomSheetDialogFragment() {
         // TODO: memanggil viewmodel
         viewModel = ViewModelProviders.of(this)[AnchoringViewModel::class.java]
 
-        // TODO: menginisiasi firebase
-//        auth = FirebaseAuth.getInstance()
-//        databaseReference =
-//            FirebaseDatabase.getInstance().reference.child("Users").child(auth.currentUser!!.uid)
-//                .child("Anchoring").child("Resourceful")
 
         //TODO: tambah todo list
         binding.ivAdd.setOnClickListener {
@@ -76,13 +71,17 @@ class ResourcefulBottomSheet : BottomSheetDialogFragment() {
             }else{
                 // TODO: menambahakan todo list ke firebase menggunakan viewmodel
                 viewModel.addResourceful(uidUser!!, getEditText)
-                viewModel.status.observe(this) { status ->
-                    status?.let {
-                        //Reset status value at first to prevent multitriggering
-                        //and to be available to trigger action again
-                        viewModel.status.value = null
+
+                viewModel.addResourcefulLiveData.observe(viewLifecycleOwner) { status ->
+                    if (status.equals("success")){
                         Toast.makeText(requireActivity(), resources.getString(R.string.success_add) + " $getEditText", Toast.LENGTH_SHORT).show()
+                    }else{
+                        Toast.makeText(requireActivity(), status, Toast.LENGTH_SHORT).show()
                     }
+                }
+
+                viewModel.databaseErrorAddResourceful.observe(requireActivity()) { error ->
+                    Toast.makeText(requireActivity(), error, Toast.LENGTH_SHORT).show()
                 }
 
                 binding.btnSetGoals.visibility = View.VISIBLE

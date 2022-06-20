@@ -1,8 +1,8 @@
 package com.brainoptimax.peakmeup.model.valuegoals
 
 data class ToDo(
-    var id: String?,
-    var goals: String?,
+    var idTodo: String?,
+    var todo: String?,
     var isCompleted: String?
 ){
     constructor(): this("", "", "")

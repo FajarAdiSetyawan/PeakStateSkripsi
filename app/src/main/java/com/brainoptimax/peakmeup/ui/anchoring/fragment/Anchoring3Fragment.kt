@@ -58,7 +58,7 @@ class Anchoring3Fragment : Fragment() {
 
         binding.progressBar.visibility = View.VISIBLE
         viewModel.allMemory(uidUser!!)
-        viewModel.memoryMutableLiveData.observe(requireActivity()) { memory ->
+        viewModel.memoryMutableLiveData.observe(viewLifecycleOwner) { memory ->
             binding.progressBar.visibility = View.GONE
             if (memory!!.isEmpty()){
                 binding.layoutEmpty.visibility = View.VISIBLE
@@ -98,7 +98,7 @@ class Anchoring3Fragment : Fragment() {
                 .setMessage(resources.getString(R.string.are_sure_delete) + " ${memory.memory} ?")
                 .setPositiveButton("Ok") { _, _ ->
 
-                    viewModel.deleteMemory(uidUser, memory.id!!)
+                    viewModel.deleteMemory(uidUser, memory.idMemory!!)
                     Toast.makeText(requireActivity(), resources.getString(R.string.success_delete) + " ${memory.memory}", Toast.LENGTH_SHORT).show()
                 }
                 .setNegativeButton(

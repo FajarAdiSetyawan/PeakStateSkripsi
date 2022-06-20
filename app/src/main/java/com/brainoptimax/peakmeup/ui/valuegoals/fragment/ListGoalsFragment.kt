@@ -21,7 +21,9 @@ import com.brainoptimax.peakmeup.ui.MainActivity
 import com.brainoptimax.peakmeup.utils.Animatoo
 import com.brainoptimax.peakmeup.viewmodel.valuegoals.ValueGoalsViewModel
 import com.brainoptimax.peakmeup.R
+import com.brainoptimax.peakmeup.adapter.quiz.ResultEnergyQuizAdapter
 import com.brainoptimax.peakmeup.databinding.FragmentListGoalsBinding
+import com.brainoptimax.peakmeup.utils.Preferences
 
 
 class ListGoalsFragment : Fragment() {
@@ -31,6 +33,8 @@ class ListGoalsFragment : Fragment() {
 
     private var valueGoalsAdapter: ValueGoalsAdapter? = null
     private lateinit var viewModel: ValueGoalsViewModel
+
+    private lateinit var preference: Preferences
 
     private lateinit var nav : NavController
 
@@ -48,9 +52,10 @@ class ListGoalsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         nav = Navigation.findNavController(requireView())
 
+        preference = Preferences(requireActivity())
+        val uidUser = preference.getValues("uid")
+
         viewModel = ViewModelProviders.of(this)[ValueGoalsViewModel::class.java]
-        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
-        binding.rvValue.layoutManager = layoutManager
 
         binding.backMain.setOnClickListener {
             startActivity(Intent(context, MainActivity::class.java)) // pindah ke login
@@ -61,26 +66,25 @@ class ListGoalsFragment : Fragment() {
             nav.navigate(R.id.action_listGoalsFragment_to_addValueFragment)
         }
 
-        binding.rvValue.hasFixedSize()
-        val linearLayoutManager = LinearLayoutManager(activity)
-        binding.rvValue.layoutManager = linearLayoutManager
-
         showLoading()
-        viewModel.allData
+        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireActivity())
+        binding.rvValue.layoutManager = layoutManager
+        valueGoalsAdapter = ValueGoalsAdapter(requireActivity())
+        binding.rvValue.adapter = valueGoalsAdapter
+
+        viewModel.allGoals(uidUser!!)
         viewModel.goalsMutableLiveData.observe(requireActivity()){ valueGoals ->
             Log.d("TAG", "onDataChangeGoals: $valueGoals")
+            goneLoading()
             if (valueGoals!!.isEmpty()){
-                goneLoading()
+                binding.rvValue.visibility = View.GONE
                 binding.layoutEmptyValue.visibility = View.VISIBLE
-                binding.rvValue.visibility = View.INVISIBLE
             }else{
-                goneLoading()
-                binding.layoutEmptyValue.visibility = View.INVISIBLE
-                valueGoalsAdapter = ValueGoalsAdapter(valueGoals, requireActivity())
-                binding.rvValue.adapter = valueGoalsAdapter
-                valueGoalsAdapter!!.notifyDataSetChanged()
                 binding.rvValue.visibility = View.VISIBLE
+                binding.layoutEmptyValue.visibility = View.INVISIBLE
             }
+            valueGoalsAdapter!!.setGoals(valueGoals)
+            valueGoalsAdapter!!.notifyDataSetChanged()
         }
 
         viewModel.databaseErrorGoals.observe(requireActivity()

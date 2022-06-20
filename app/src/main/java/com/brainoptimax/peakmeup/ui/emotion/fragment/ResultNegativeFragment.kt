@@ -49,6 +49,7 @@ class ResultNegativeFragment : Fragment() {
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
         binding.rvEmotionsNegative.layoutManager = layoutManager
         binding.rvEmotionsNegative.hasFixedSize()
+
         viewModel.allNegative(uidUser!!)
         viewModel.negativeMutableLiveData.observe(requireActivity()) { emotions ->
             Log.d("TAG", "onDataChangeNegative: $emotions")

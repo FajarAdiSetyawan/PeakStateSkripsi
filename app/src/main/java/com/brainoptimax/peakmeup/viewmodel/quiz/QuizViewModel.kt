@@ -11,88 +11,74 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.airbnb.lottie.LottieAnimationView
 import com.brainoptimax.peakmeup.R
+import com.brainoptimax.peakmeup.model.Quiz
+import com.brainoptimax.peakmeup.model.anchoring.Resourceful
 import com.brainoptimax.peakmeup.repository.QuizRepository
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 
 class QuizViewModel : ViewModel(),
+    QuizRepository.OnRealtimeDbAddPeak,
     QuizRepository.OnRealtimeDbPeak,
+    QuizRepository.OnRealtimeDbAddEnergy,
     QuizRepository.OnRealtimeDbEnergy,
-        QuizRepository.OnRealtimeDbTension
+    QuizRepository.OnRealtimeDbDeletePeak,
+    QuizRepository.OnRealtimeDbDeleteEnergy
 {
-    val energyQuizMutableLiveData = MutableLiveData<String?>()
+    val addEnergyQuizMutableLiveData = MutableLiveData<String?>()
+    val databaseErrorAddEnergy = MutableLiveData<String?>()
+
+    val addPeakQuizMutableLiveData = MutableLiveData<String?>()
+    val databaseErrorAddPeak = MutableLiveData<String?>()
+
+    val energyQuizMutableLiveData = MutableLiveData<List<Quiz>?>()
     val databaseErrorEnergy = MutableLiveData<DatabaseError?>()
 
-    val tensionQuizMutableLiveData = MutableLiveData<String?>()
-    val databaseErrorTension = MutableLiveData<DatabaseError?>()
-
-    val peakQuizMutableLiveData = MutableLiveData<String?>()
+    val peakQuizMutableLiveData = MutableLiveData<List<Quiz>?>()
     val databaseErrorPeak = MutableLiveData<DatabaseError?>()
+
+    val deletePeakQuizMutableLiveData = MutableLiveData<String?>()
+    val databaseErrorDeletePeak = MutableLiveData<String?>()
+
+    val deleteEnergyQuizMutableLiveData = MutableLiveData<String?>()
+    val databaseErrorDeleteEnergy = MutableLiveData<String?>()
 
     private lateinit var alertDialogLoading: AlertDialog
 
-    private val quizRepository: QuizRepository = QuizRepository(this, this, this)
+    private val quizRepository: QuizRepository = QuizRepository(this, this, this, this, this, this)
 
-    val peakQuizResult: Unit
-        get() {
-            quizRepository.getResultPeakQuiz()
-        }
+    fun getResultPeak(uid: String){
+        quizRepository.getResultPeakQuiz(uid)
+    }
 
-    val energyQuizResult: Unit
-        get() {
-            quizRepository.getResultEnergyQuiz()
-        }
+    fun getResultEnergy(uid: String){
+        quizRepository.getResultEnergyQuiz(uid)
+    }
 
-    val tensionQuizResult: Unit
-        get() {
-            quizRepository.getResultTensionQuiz()
-        }
+    fun deleteEnergyQuiz(uid: String, idQuiz: String){
+        quizRepository.deleteEnergyQuiz(uid, idQuiz)
+    }
 
-    fun saveEnergyQuiz(
-        ref: DatabaseReference,
-        energy: String?,
-        tension: String?
-    ){
-        ref.child("Energy").setValue(energy).addOnCompleteListener {
-            closeLoadingDialog()
-        }
-        ref.child("Tension").setValue(tension).addOnCompleteListener {
-            closeLoadingDialog()
-        }
+    fun deletePeakQuiz(uid: String, idQuiz: String){
+        quizRepository.deletePeakQuiz(uid, idQuiz)
     }
 
     fun savePeakQuiz(
-        ref: DatabaseReference,
+        uid: String,
         peak: String?
     ){
-        ref.child("PSR").setValue(peak).addOnCompleteListener {
-            closeLoadingDialog()
-        }
+        quizRepository.addPeakQuiz(uid, peak!!)
     }
 
-    override fun onSuccessPeakQuiz(peak: String?) {
-        peakQuizMutableLiveData.value = peak
+    fun saveEnergyQuiz(
+        uid: String,
+        energy: String?,
+        tension: String?
+    ){
+        quizRepository.addEnergyQuiz(uid, energy!!, tension!!)
     }
 
-    override fun onFailurePeakQuiz(error: DatabaseError?) {
-        databaseErrorPeak.value = error
-    }
 
-    override fun onSuccessEnergyQuiz(energy: String?) {
-        energyQuizMutableLiveData.value = energy
-    }
-
-    override fun onFailureEnergyQuiz(error: DatabaseError?) {
-        databaseErrorEnergy.value = error
-    }
-
-    override fun onSuccessTensionQuiz(tension: String?) {
-        tensionQuizMutableLiveData.value = tension
-    }
-
-    override fun onFailureTensionQuiz(error: DatabaseError?) {
-        databaseErrorTension.value = error
-    }
 
     fun openLoadingDialog(fragmentActivity: FragmentActivity) {
         val progress = AlertDialog.Builder(fragmentActivity)
@@ -112,8 +98,56 @@ class QuizViewModel : ViewModel(),
         alertDialogLoading.show()
     }
 
-    private fun closeLoadingDialog() {
+    fun closeLoadingDialog() {
         alertDialogLoading.dismiss()
+    }
+
+    override fun onSuccessPeakQuiz(peak: List<Quiz>?) {
+        peakQuizMutableLiveData.value = peak
+    }
+
+    override fun onFailurePeakQuiz(error: DatabaseError?) {
+        databaseErrorPeak.value = error
+    }
+
+    override fun onSuccessEnergyQuiz(energy: List<Quiz>?) {
+        energyQuizMutableLiveData.value = energy
+    }
+
+    override fun onFailureEnergyQuiz(error: DatabaseError?) {
+        databaseErrorEnergy.value = error
+    }
+
+    override fun onSuccessAddPeakQuiz(status: String?) {
+        addPeakQuizMutableLiveData.value = status
+    }
+
+    override fun onFailureAddPeakQuiz(error: String?) {
+        databaseErrorAddPeak.value = error
+    }
+
+    override fun onSuccessAddEnergyQuiz(status: String?) {
+        addEnergyQuizMutableLiveData.value = status
+    }
+
+    override fun onFailureAddEnergyQuiz(error: String?) {
+        databaseErrorAddEnergy.value = error
+    }
+
+    override fun onSuccessDeleteEnergy(status: String?) {
+        deleteEnergyQuizMutableLiveData.value = status
+    }
+
+    override fun onFailureDeleteEnergy(error: String?) {
+        databaseErrorDeleteEnergy.value = error
+    }
+
+    override fun onSuccessDeletePeak(status: String?) {
+        deletePeakQuizMutableLiveData.value = status
+    }
+
+    override fun onFailureDeletePeak(error: String?) {
+        databaseErrorDeletePeak.value = error
     }
 
 

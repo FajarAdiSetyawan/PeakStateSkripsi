@@ -236,116 +236,116 @@ class PreferenceFragment : PreferenceFragmentCompat(), OnLocaleChangedListener {
     private fun onPreferenceEnergy(): Preference.OnPreferenceClickListener =
         Preference.OnPreferenceClickListener {
             // mengambil data hasil quiz energi tension
-            viewModelQuiz.energyQuizResult
-            viewModelQuiz.energyQuizMutableLiveData.observe(viewLifecycleOwner){ energy ->
-                if (energy == "null" || energy!!.isEmpty() || energy.equals(null)){
-                    // buat dialog error internet
-                    val li = LayoutInflater.from(requireActivity())
-                    // panggil layout dialog error
-                    val promptsView: View = li.inflate(R.layout.dialog_quiz, null)
-                    val alertDialogBuilder = AlertDialog.Builder(
-                        requireActivity()
-                    )
-                    alertDialogBuilder.setView(promptsView)
-                    // dialog error tidak dapat di tutup selain menekan tombol close
-                    alertDialogBuilder.setCancelable(true)
-                    val alertDialog = alertDialogBuilder.create()
-                    val back = ColorDrawable(Color.TRANSPARENT)
-                    val inset = InsetDrawable(back, 20)
-                    alertDialog.window!!.setBackgroundDrawable(inset)
-
-                    val cardView = promptsView.findViewById<View>(R.id.card_dialog_quiz) as MaterialCardView
-                    cardView.strokeColor = ContextCompat.getColor(requireActivity(), R.color.md_orange_400)
-                    cardView.strokeWidth = 5
-
-                    // panggil textview judul error dari layout dialog
-                    val titleView = promptsView.findViewById<View>(R.id.tv_title_dialog_quiz) as TextView
-                    titleView.text = (resources.getString(R.string.take_quiz_energy))
-
-                    // panggil gambar close error dari layout dialog
-                    val ivDismiss = promptsView.findViewById<View>(R.id.iv_dismiss_dialog_quiz) as ImageView
-                    ivDismiss.setOnClickListener {
-                        alertDialog.dismiss()
-                    }
-
-                    val noTake = promptsView.findViewById<View>(R.id.tv_no_take_quiz) as TextView
-                    noTake.setOnClickListener {
-                        alertDialog.dismiss()
-                    }
-
-                    val takeQuiz = promptsView.findViewById<View>(R.id.tv_take_quiz) as TextView
-                    takeQuiz.setOnClickListener {
-                        startActivity(Intent(requireActivity(), IntroEnergyTensionActivity::class.java)) // pindah ke login
-                        Animatoo.animateSwipeLeft(requireActivity())
-                    }
-                    alertDialog.show()
-                }else{
-                    startActivity(Intent(requireActivity(), QuizActivity::class.java)) // pindah ke login
-                    Animatoo.animateSwipeLeft(requireActivity())
-                }
-            }
+//            viewModelQuiz.energyQuizResult
+//            viewModelQuiz.energyQuizMutableLiveData.observe(viewLifecycleOwner){ energy ->
+//                if (energy == "null" || energy!!.isEmpty() || energy.equals(null)){
+//                    // buat dialog error internet
+//                    val li = LayoutInflater.from(requireActivity())
+//                    // panggil layout dialog error
+//                    val promptsView: View = li.inflate(R.layout.dialog_quiz, null)
+//                    val alertDialogBuilder = AlertDialog.Builder(
+//                        requireActivity()
+//                    )
+//                    alertDialogBuilder.setView(promptsView)
+//                    // dialog error tidak dapat di tutup selain menekan tombol close
+//                    alertDialogBuilder.setCancelable(true)
+//                    val alertDialog = alertDialogBuilder.create()
+//                    val back = ColorDrawable(Color.TRANSPARENT)
+//                    val inset = InsetDrawable(back, 20)
+//                    alertDialog.window!!.setBackgroundDrawable(inset)
+//
+//                    val cardView = promptsView.findViewById<View>(R.id.card_dialog_quiz) as MaterialCardView
+//                    cardView.strokeColor = ContextCompat.getColor(requireActivity(), R.color.md_orange_400)
+//                    cardView.strokeWidth = 5
+//
+//                    // panggil textview judul error dari layout dialog
+//                    val titleView = promptsView.findViewById<View>(R.id.tv_title_dialog_quiz) as TextView
+//                    titleView.text = (resources.getString(R.string.take_quiz_energy))
+//
+//                    // panggil gambar close error dari layout dialog
+//                    val ivDismiss = promptsView.findViewById<View>(R.id.iv_dismiss_dialog_quiz) as ImageView
+//                    ivDismiss.setOnClickListener {
+//                        alertDialog.dismiss()
+//                    }
+//
+//                    val noTake = promptsView.findViewById<View>(R.id.tv_no_take_quiz) as TextView
+//                    noTake.setOnClickListener {
+//                        alertDialog.dismiss()
+//                    }
+//
+//                    val takeQuiz = promptsView.findViewById<View>(R.id.tv_take_quiz) as TextView
+//                    takeQuiz.setOnClickListener {
+//                        startActivity(Intent(requireActivity(), IntroEnergyTensionActivity::class.java)) // pindah ke login
+//                        Animatoo.animateSwipeLeft(requireActivity())
+//                    }
+//                    alertDialog.show()
+//                }else{
+//                    startActivity(Intent(requireActivity(), QuizActivity::class.java)) // pindah ke login
+//                    Animatoo.animateSwipeLeft(requireActivity())
+//                }
+//            }
 
             true
         }
 
     private fun onPreferencePeak(): Preference.OnPreferenceClickListener =
         Preference.OnPreferenceClickListener {
-            viewModelQuiz.peakQuizResult
-            viewModelQuiz.peakQuizMutableLiveData.observe(viewLifecycleOwner){ peak ->
-                if (peak == "null" || peak!!.isEmpty() || peak.equals(null)){
-                    // buat dialog error internet
-                    val li = LayoutInflater.from(requireActivity())
-                    // panggil layout dialog error
-                    val promptsView: View = li.inflate(R.layout.dialog_quiz, null)
-                    val alertDialogBuilder = AlertDialog.Builder(
-                        requireActivity()
-                    )
-                    alertDialogBuilder.setView(promptsView)
-                    // dialog error tidak dapat di tutup selain menekan tombol close
-                    alertDialogBuilder.setCancelable(true)
-                    val alertDialog = alertDialogBuilder.create()
-                    val back = ColorDrawable(Color.TRANSPARENT)
-                    val inset = InsetDrawable(back, 20)
-                    alertDialog.window!!.setBackgroundDrawable(inset)
-
-                    val cardView = promptsView.findViewById<View>(R.id.card_dialog_quiz) as MaterialCardView
-                    cardView.strokeColor = ContextCompat.getColor(requireActivity(), R.color.dark_tosca)
-                    cardView.strokeWidth = 5
-
-                    val dividerVertical = promptsView.findViewById(R.id.divider_vertical) as View
-                    dividerVertical.setBackgroundColor(resources.getColor(R.color.dark_tosca))
-
-                    val dividerHorizontal = promptsView.findViewById(R.id.divider_horizontal) as View
-                    dividerHorizontal.setBackgroundColor(resources.getColor(R.color.dark_tosca))
-
-                    // panggil textview judul error dari layout dialog
-                    val titleView = promptsView.findViewById<View>(R.id.tv_title_dialog_quiz) as TextView
-                    titleView.text = (resources.getString(R.string.take_quiz_psr))
-
-                    // panggil gambar close error dari layout dialog
-                    val ivDismiss = promptsView.findViewById<View>(R.id.iv_dismiss_dialog_quiz) as ImageView
-                    ivDismiss.setColorFilter(requireContext().resources.getColor(R.color.dark_tosca))
-                    ivDismiss.setOnClickListener {
-                        alertDialog.dismiss()
-                    }
-
-                    val noTake = promptsView.findViewById<View>(R.id.tv_no_take_quiz) as TextView
-                    noTake.setOnClickListener {
-                        alertDialog.dismiss()
-                    }
-
-                    val takeQuiz = promptsView.findViewById<View>(R.id.tv_take_quiz) as TextView
-                    takeQuiz.setTextColor(requireContext().resources.getColor(R.color.dark_tosca))
-                    takeQuiz.setOnClickListener {
-                        startActivity(Intent(requireActivity(), IntroPeakStateQuizActivity::class.java)) // pindah ke login
-                        Animatoo.animateSwipeLeft(requireActivity())
-                    }
-                    alertDialog.show()
-                }else{
-                    startActivity(Intent(requireActivity(), QuizActivity::class.java)) // pindah ke login
-                    Animatoo.animateSwipeLeft(requireActivity())
-                }
-            }
+//            viewModelQuiz.peakQuizResult
+//            viewModelQuiz.peakQuizMutableLiveData.observe(viewLifecycleOwner){ peak ->
+//                if (peak == "null" || peak!!.isEmpty() || peak.equals(null)){
+//                    // buat dialog error internet
+//                    val li = LayoutInflater.from(requireActivity())
+//                    // panggil layout dialog error
+//                    val promptsView: View = li.inflate(R.layout.dialog_quiz, null)
+//                    val alertDialogBuilder = AlertDialog.Builder(
+//                        requireActivity()
+//                    )
+//                    alertDialogBuilder.setView(promptsView)
+//                    // dialog error tidak dapat di tutup selain menekan tombol close
+//                    alertDialogBuilder.setCancelable(true)
+//                    val alertDialog = alertDialogBuilder.create()
+//                    val back = ColorDrawable(Color.TRANSPARENT)
+//                    val inset = InsetDrawable(back, 20)
+//                    alertDialog.window!!.setBackgroundDrawable(inset)
+//
+//                    val cardView = promptsView.findViewById<View>(R.id.card_dialog_quiz) as MaterialCardView
+//                    cardView.strokeColor = ContextCompat.getColor(requireActivity(), R.color.dark_tosca)
+//                    cardView.strokeWidth = 5
+//
+//                    val dividerVertical = promptsView.findViewById(R.id.divider_vertical) as View
+//                    dividerVertical.setBackgroundColor(resources.getColor(R.color.dark_tosca))
+//
+//                    val dividerHorizontal = promptsView.findViewById(R.id.divider_horizontal) as View
+//                    dividerHorizontal.setBackgroundColor(resources.getColor(R.color.dark_tosca))
+//
+//                    // panggil textview judul error dari layout dialog
+//                    val titleView = promptsView.findViewById<View>(R.id.tv_title_dialog_quiz) as TextView
+//                    titleView.text = (resources.getString(R.string.take_quiz_psr))
+//
+//                    // panggil gambar close error dari layout dialog
+//                    val ivDismiss = promptsView.findViewById<View>(R.id.iv_dismiss_dialog_quiz) as ImageView
+//                    ivDismiss.setColorFilter(requireContext().resources.getColor(R.color.dark_tosca))
+//                    ivDismiss.setOnClickListener {
+//                        alertDialog.dismiss()
+//                    }
+//
+//                    val noTake = promptsView.findViewById<View>(R.id.tv_no_take_quiz) as TextView
+//                    noTake.setOnClickListener {
+//                        alertDialog.dismiss()
+//                    }
+//
+//                    val takeQuiz = promptsView.findViewById<View>(R.id.tv_take_quiz) as TextView
+//                    takeQuiz.setTextColor(requireContext().resources.getColor(R.color.dark_tosca))
+//                    takeQuiz.setOnClickListener {
+//                        startActivity(Intent(requireActivity(), IntroPeakStateQuizActivity::class.java)) // pindah ke login
+//                        Animatoo.animateSwipeLeft(requireActivity())
+//                    }
+//                    alertDialog.show()
+//                }else{
+//                    startActivity(Intent(requireActivity(), QuizActivity::class.java)) // pindah ke login
+//                    Animatoo.animateSwipeLeft(requireActivity())
+//                }
+//            }
 
 
             true

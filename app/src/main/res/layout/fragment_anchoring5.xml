@@ -54,7 +54,6 @@
 
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_add"
             style="@style/Widget.Material3.CardView.Filled"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,6 +62,7 @@
             app:cardUseCompatPadding="true"
             android:layout_marginStart="100dp"
             android:layout_marginEnd="100dp"
+            android:onClick="@null"
             app:layout_constraintBottom_toTopOf="@+id/btn_start"
             app:cardBackgroundColor="@color/md_blue_400"
             app:layout_constraintEnd_toEndOf="parent"

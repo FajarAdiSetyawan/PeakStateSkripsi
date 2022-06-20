@@ -25,10 +25,8 @@ import com.brainoptimax.peakmeup.utils.NetworkMonitorUtil
 import com.brainoptimax.peakmeup.viewmodel.quiz.QuizViewModel
 import com.brainoptimax.peakmeup.R
 import com.brainoptimax.peakmeup.databinding.ActivityPeakQuizBinding
+import com.brainoptimax.peakmeup.utils.Preferences
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import render.animations.Fade
 import render.animations.Render
 import render.animations.Slide
@@ -38,8 +36,6 @@ class PeakQuizActivity : AppCompatActivity() {
     private var activityPeakQuizBinding : ActivityPeakQuizBinding? = null
     private val binding get() = activityPeakQuizBinding!!
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var databaseReference: DatabaseReference
 
     private val networkMonitor = NetworkMonitorUtil(this)
 
@@ -51,6 +47,8 @@ class PeakQuizActivity : AppCompatActivity() {
 
     private lateinit var viewModel: QuizViewModel
 
+    private lateinit var preference: Preferences
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,12 +57,12 @@ class PeakQuizActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        preference = Preferences(this)
+        val uidUser = preference.getValues("uid")
+
         checkConnection()
 
         window.statusBarColor = ContextCompat.getColor(this, R.color.dark_tosca)
-
-        auth = FirebaseAuth.getInstance()
-        databaseReference = FirebaseDatabase.getInstance().reference.child("Users").child(auth.currentUser!!.uid).child("Quiz")
 
         viewModel = ViewModelProviders.of(this)[QuizViewModel::class.java]
 
@@ -254,10 +252,21 @@ class PeakQuizActivity : AppCompatActivity() {
                         mResult >= 12 -> rResult = "Low"
                     }
                     viewModel.openLoadingDialog(this)
-                    viewModel.savePeakQuiz(databaseReference, rResult)
-                    startActivity(Intent(this, ResultPeakQuizActivity::class.java))
-                    Animatoo.animateSwipeRight(this)
-                    finish()
+                    viewModel.savePeakQuiz(uidUser!!, rResult)
+                    viewModel.addPeakQuizMutableLiveData.observe(this){ status ->
+                        if (status.equals("success")){
+                            viewModel.closeLoadingDialog()
+
+                            startActivity(Intent(this, ResultQuizListActivity::class.java))
+                            Animatoo.animateSwipeRight(this)
+                            finish()
+                        }
+                    }
+
+                    viewModel.databaseErrorAddPeak.observe(this) { error ->
+                        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
+                    }
+
                 }
             } else {
                 Toast.makeText(this, resources.getString(R.string.select_choise), Toast.LENGTH_SHORT).show()

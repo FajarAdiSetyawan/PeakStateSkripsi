@@ -116,7 +116,7 @@
     <string name="pref_lang_title">Language</string>
     <string name="pref_account_title">Account</string>
     <string name="pref_peak_title">Peak State Quiz</string>
-    <string name="pref_energy_title">Energy Quiz Tension</string>
+    <string name="pref_energy_title">Energy Tension Quiz</string>
     <string name="pref_feedback_title">Feedback</string>
     <string name="pref_about_title">About</string>
     <string name="pref_share_title">Share</string>
@@ -160,6 +160,7 @@
     <string name="msg_upload_pict">Please wait, while we upload your profile picture</string>
     <string name="msg_upload_pict_value">Please wait, while we upload your value picture</string>
     <string name="msg_send_forgot_pass">Please wait, while we send password reset to email</string>
+    <string name="msg_send_save_reminder">Please wait, while we save your reminder</string>
     <string name="save_quiz">Saving Information, Please wait...</string>
     <string name="check_email_reset_pass">Check your email to reset password</string>
     <string name="connect">Connect</string>
@@ -190,6 +191,7 @@
     <string name="confirm_action">Confirm the action</string>
     <string name="desc_dialog_add_emotion">Are you sure add Emotion ?</string>
     <string name="dialog_reminder_add_msg">Are you sure you add Reminder ?</string>
+    <string name="dialog_reminder_update_msg">Are you sure you Update Reminder ?</string>
 
     <!-- activator   -->
     <string name="activator" translatable="false">Activator</string>
@@ -338,6 +340,7 @@
     <string name="anxious">Anxious</string>
     <string name="down">Down</string>
     <string name="data_for_emotion_empty">Data For Emotion Empty</string>
+    <string name="data_for_quiz_empty">Data For Quiz Empty</string>
     <string name="data_for_resourceful_empty">Data For Resourceful Empty</string>
     <string name="data_for_memory_empty">Data For Memory Empty</string>
     <string name="breathing_exercise">Breathing Exercise</string>
@@ -366,9 +369,12 @@
     <string name="see_recommendations">see recommendations</string>
     <string name="training_energizer">Training Energizer</string>
     <string name="energy_tension">Energy Tension</string>
+    <string name="energy">Energy</string>
+    <string name="tension">Tension</string>
     <string name="low_readiness">Low Readiness</string>
     <string name="med_readiness">Medium Readiness</string>
     <string name="high_readiness">High Readiness</string>
+    <string name="readiness">Readiness </string>
     <string name="relaxation">Relaxation</string>
     <string name="maintenance">Maintenance</string>
     <string name="recommend_low_1">Your profile suggests that your readiness for attaining peak state can be significantly improved. None of us were given a user’s guide at birth to fully avail of the resources of our mind and body we need to surmount the challenges and navigate the difficult terrains of life. The good news is that by making a commitment to swiftly adopt and practice new routines, develop new habits suggested here, you can experience an elevation in your peak state score and live a fulfilling life</string>
@@ -556,6 +562,8 @@
     <string name="your_to_do_list">Your to-do list</string>
     <string name="board_presentation">Board Presentation</string>
     <string name="take_the_quiz_again">Take the Quiz again</string>
+    <string name="take_the_quiz_peak_again">Take the Peak State Quiz again</string>
+    <string name="take_the_quiz_energy_again">Take the Energy Tension Quiz again</string>
     <string name="desc_result_energy">Your Peak State Readiness profile is (SEE PROFILE COLUMN). Your profile suggests that your readiness for attaining peak state can be significantly improved</string>
     <string name="breathe_in">Breathe in</string>
     <string name="hold">Hold</string>
@@ -572,5 +580,6 @@
     <string name="describe_your_experience_here">Describe your experience here...</string>
     <string name="error" translatable="false">Error</string>
     <string name="bug" translatable="false">Bug</string>
+    <string name="result_quiz">Result Quiz</string>
 
 </resources>

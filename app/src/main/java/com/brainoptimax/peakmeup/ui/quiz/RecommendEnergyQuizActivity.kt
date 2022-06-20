@@ -70,7 +70,7 @@ class RecommendEnergyQuizActivity : AppCompatActivity() {
     }
 
     private fun moveMain(){
-        startActivity(Intent(this, ResultEnergyQuizActivity::class.java))
+        startActivity(Intent(this, DetailResultEnergyQuizActivity::class.java))
         Animatoo.animateSwipeRight(this)
         finish()
     }
@@ -78,7 +78,7 @@ class RecommendEnergyQuizActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        startActivity(Intent(this, ResultEnergyQuizActivity::class.java))
+        startActivity(Intent(this, DetailResultEnergyQuizActivity::class.java))
         Animatoo.animateSwipeRight(this)
         finish()
     }

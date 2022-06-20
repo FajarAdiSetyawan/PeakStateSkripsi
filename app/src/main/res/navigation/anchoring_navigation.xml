@@ -79,6 +79,11 @@
             app:destination="@id/resultAnchoringFragment"
             app:enterAnim="@anim/animate_slide_in_left"
             app:exitAnim="@anim/animate_slide_out_right" />
+        <action
+            android:id="@+id/action_listAnchoringFragment_to_anchoring1Fragment"
+            app:destination="@id/anchoring1Fragment"
+            app:enterAnim="@anim/animate_slide_in_left"
+            app:exitAnim="@anim/animate_slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/anchoringMenuFragment"

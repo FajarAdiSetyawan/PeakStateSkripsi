@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.brainoptimax.peakmeup.model.valuegoals.ToDo
 import com.brainoptimax.peakmeup.R
 import com.brainoptimax.peakmeup.databinding.ItemDetailValueGoalsBinding
+import com.brainoptimax.peakmeup.model.anchoring.Resourceful
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -15,21 +16,27 @@ import com.google.firebase.database.FirebaseDatabase
 
 class DetailValueGoalsAdapter(private val goalsID: String?) :
     RecyclerView.Adapter<DetailValueGoalsAdapter.ViewHolder>() {
+    private var toDoList: List<ToDo>? = null
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var databaseReference: DatabaseReference
+    private var onItemDoneClickListener:((ToDo)->Unit)? = null
+    private var onItemNotDoneClickListener:((ToDo)->Unit)? = null
+
     private var idGoals: String? = null
 
-    private var toDoList: List<ToDo>? = null
+    fun setOnItemDoneClickListener(listener: (ToDo)->Unit) {
+        onItemDoneClickListener = listener
+    }
+
+    fun setOnItemNotDoneClickListener(listener: (ToDo)->Unit) {
+        onItemNotDoneClickListener = listener
+    }
 
     fun setTodo(todo: List<ToDo>?) {
         this.toDoList = todo
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        auth = FirebaseAuth.getInstance()
         idGoals = goalsID
-        databaseReference = FirebaseDatabase.getInstance().reference.child("Users").child(auth.currentUser!!.uid).child("ValueGoals").child(idGoals!!).child("ToDo")
 
         val inflate =
             LayoutInflater.from(parent.context)
@@ -55,27 +62,22 @@ class DetailValueGoalsAdapter(private val goalsID: String?) :
         fun bind(toDo: ToDo) {
 
             with(binding) {
-                cbGoalsList.text = toDo.goals
+                cbGoalsList.text = toDo.todo
                 val checked = toDo.isCompleted.toString()
                 cbGoalsList.isChecked = checked == "true"
 
-                val idTodo = toDo.id
-                val dbTodo = databaseReference.child(idTodo!!).child("completed")
-
                 cbGoalsList.setOnCheckedChangeListener { _, _ ->
                     if (cbGoalsList.isChecked) {
-                        dbTodo.setValue("true").addOnSuccessListener {
-                                Toast.makeText(itemView.context, "Done", Toast.LENGTH_SHORT).show()
-                            }
+                        onItemDoneClickListener?.let{
+                            it(toDo)
+                        }
                     } else {
-                        dbTodo.setValue("false").addOnSuccessListener {
-                                Toast.makeText(itemView.context, "Not Done", Toast.LENGTH_SHORT)
-                                    .show()
-                            }
+                        onItemNotDoneClickListener?.let{
+                            it(toDo)
+                        }
                     }
                 }
             }
         }
-
     }
 }

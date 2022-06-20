@@ -1,18 +1,18 @@
 package com.brainoptimax.peakmeup.ui.valuegoals.fragment
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
+import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.text.format.DateFormat
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -24,22 +24,18 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.brainoptimax.peakmeup.adapter.valuegoals.EditGoalsAdapter
-import com.brainoptimax.peakmeup.model.valuegoals.ToDo
 import com.brainoptimax.peakmeup.ui.valuegoals.ValueGoalsActivity
 import com.brainoptimax.peakmeup.ui.valuegoals.fragment.bottomsheet.EditBottomSheetGoals
 import com.brainoptimax.peakmeup.utils.Animatoo
 import com.brainoptimax.peakmeup.viewmodel.valuegoals.ValueGoalsViewModel
 import com.brainoptimax.peakmeup.R
 import com.brainoptimax.peakmeup.databinding.FragmentEditValueGoalsBinding
+import com.brainoptimax.peakmeup.services.AlarmReceiverValueGoals
+import com.brainoptimax.peakmeup.utils.Preferences
+import com.brainoptimax.peakmeup.utils.ReminderUtils
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
 import id.zelory.compressor.Compressor
 import id.zelory.compressor.constraint.format
@@ -70,7 +66,7 @@ private const val TIME = "time"
  */
 class EditValueGoalsFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var id: String? = null
+    private var idGoals: String? = null
     private var value: String? = null
     private var statement: String? = null
     private var desc: String? = null
@@ -81,25 +77,21 @@ class EditValueGoalsFragment : Fragment() {
     private var fragmentEditValueGoalsBinding: FragmentEditValueGoalsBinding? = null
     private val binding get() = fragmentEditValueGoalsBinding!!
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var databaseReference: DatabaseReference
-    private lateinit var storageReference: StorageReference
-    private lateinit var firebaseStorage: FirebaseStorage
-
     private lateinit var pathUri: Uri
+    val calendar = Calendar.getInstance()
 
-    private var datePickerDialog: DatePickerDialog? = null
-    private var dates: String? = null
     private lateinit var viewModel: ValueGoalsViewModel
 
-    private lateinit var goals: MutableList<ToDo>
+    private lateinit var preference: Preferences
+
+    var uidUser: String = ""
 
     private var editGoalsAdapter: EditGoalsAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            id = it.getString(ID)
+            idGoals = it.getString(ID)
             value = it.getString(VALUE)
             statement = it.getString(STATEMENT)
             desc = it.getString(DESC)
@@ -131,7 +123,7 @@ class EditValueGoalsFragment : Fragment() {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(
-            id: String,
+            idGoals: String,
             value: String,
             statement: String,
             desc: String,
@@ -141,7 +133,7 @@ class EditValueGoalsFragment : Fragment() {
         ) =
             EditValueGoalsFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ID, id)
+                    putString(ID, idGoals)
                     putString(VALUE, value)
                     putString(STATEMENT, statement)
                     putString(DESC, desc)
@@ -156,13 +148,8 @@ class EditValueGoalsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        auth = FirebaseAuth.getInstance()
-        databaseReference =
-            FirebaseDatabase.getInstance().reference.child("Users").child(auth.currentUser!!.uid)
-                .child("ValueGoals").child(id!!)
-        // Initialize Firebase Storage
-        firebaseStorage = FirebaseStorage.getInstance()
-        storageReference = FirebaseStorage.getInstance().reference
+        preference = Preferences(requireActivity())
+        uidUser = preference.getValues("uid")!!
 
         viewModel = ViewModelProviders.of(this)[ValueGoalsViewModel::class.java]
 
@@ -171,6 +158,8 @@ class EditValueGoalsFragment : Fragment() {
         binding.tvDateGoals.text = date
         binding.tvTimeGoals.text = time
         binding.etDesc.setText(desc)
+
+        createNotificationChannel()
 
         if (img == "") {
             binding.ivIconValue.setImageResource(R.drawable.ic_family_placeholder)
@@ -181,10 +170,10 @@ class EditValueGoalsFragment : Fragment() {
         binding.rvGoals.hasFixedSize()
         val linearLayoutManager = LinearLayoutManager(activity)
         binding.rvGoals.layoutManager = linearLayoutManager
-        editGoalsAdapter = EditGoalsAdapter(id)
+        editGoalsAdapter = EditGoalsAdapter(idGoals)
         binding.rvGoals.adapter = editGoalsAdapter
 
-        viewModel.allToDo(id!!)
+        viewModel.allToDo(uidUser, idGoals!!)
         viewModel.todoMutableLiveData.observe(requireActivity()) { toDo ->
             editGoalsAdapter!!.setTodo(toDo)
             editGoalsAdapter!!.notifyDataSetChanged()
@@ -198,31 +187,18 @@ class EditValueGoalsFragment : Fragment() {
 
         binding.fabAddTodo.setOnClickListener {
             val args = Bundle()
-            args.putString("key", id)
+            args.putString("key", idGoals)
             val newFragment: BottomSheetDialogFragment = EditBottomSheetGoals()
             newFragment.arguments = args
             newFragment.show(requireActivity().supportFragmentManager, "TAG")
         }
 
-        val calendar = Calendar.getInstance()
-        val year = calendar[Calendar.YEAR]
-        val month = calendar[Calendar.MONTH]
-        val date = calendar[Calendar.DATE]
         binding.cardDateGoals.setOnClickListener {
-            datePickerDialog = DatePickerDialog(
-                requireActivity(),
-                { _, year, month, dayOfMonth ->
-                    dates = getDateString(dayOfMonth, month, year)
-                    val date = dayOfMonth.toString() + "-" + (month + 1) + "-" + year
-                    binding.tvDateGoals.text = date
-                }, year, month, date
-            )
-            datePickerDialog!!.datePicker.minDate = System.currentTimeMillis() - 1000
-            datePickerDialog!!.show()
+           setDate()
         }
 
         binding.cardTimeGoals.setOnClickListener {
-            showTimeDialog()
+            setTime()
         }
 
 
@@ -321,39 +297,27 @@ class EditValueGoalsFragment : Fragment() {
                 }
                 else -> {
                     MaterialAlertDialogBuilder(requireActivity(), R.style.MaterialAlertDialogRounded)
-                        .setTitle("Confirm the action")
-                        .setMessage("Are you sure you update Value Goal ?")
+                        .setTitle(resources.getString(R.string.confirm_action))
+                        .setMessage(resources.getString(R.string.are_sure_delete) + " $value ?")
                         .setPositiveButton("Ok") { _, _ ->
-                            viewModel.updateGoal(
-                                databaseReference,
-                                view,
-                                id!!,
-                                value,
-                                statement,
-                                date,
-                                time,
-                                desc,
-                            )
-                            viewModel.status.observe(viewLifecycleOwner) { status ->
-                                status?.let {
-                                    //Reset status value at first to prevent multitriggering
-                                    //and to be available to trigger action again
-                                    viewModel.status.value = null
-
+                            viewModel.updateGoal(uidUser, idGoals!!, value, statement, date, time, desc,)
+                            viewModel.updateGoalsMutableLiveData.observe(requireActivity()) { status ->
+                                if (status.equals("success")){
                                     Toast.makeText(requireActivity(), "Success Update", Toast.LENGTH_SHORT)
                                         .show()
-
                                     startActivity(Intent(context, ValueGoalsActivity::class.java)) // pindah ke login
                                     Animatoo.animateSlideUp(requireContext())
                                 }
                             }
+                            viewModel.databaseErrorUpdateGoals.observe(requireActivity()
+                            ) { error ->
+                                Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT).show()
+                            }
                         }
                         .setNegativeButton(
-                            "Cancel"
+                            resources.getString(R.string.cancel)
                         ) { dialog, which -> }
                         .show()
-
-
                 }
             }
         }
@@ -363,20 +327,44 @@ class EditValueGoalsFragment : Fragment() {
                 .setTitle(resources.getString(R.string.confirm_action))
                 .setMessage(resources.getString(R.string.are_sure_delete) +" $value ?")
                 .setPositiveButton("Ok") { _, _ ->
-                    viewModel.deleteGoal(databaseReference, view, firebaseStorage, img!!)
-                    viewModel.status.observe(viewLifecycleOwner) { status ->
-                        status?.let {
-                            //Reset status value at first to prevent multitriggering
-                            //and to be available to trigger action again
-                            viewModel.status.value = null
+                    viewModel.deleteGoal(uidUser, idGoals!!, img!!)
+                    viewModel.deleteGoalsMutableLiveData.observe(requireActivity()) { status ->
+                        if (status.equals("success")){
+                            setNotification(value!!, statement!!)
                             Toast.makeText(requireActivity(), resources.getString(R.string.success_delete) + " $value", Toast.LENGTH_SHORT).show()
                             startActivity(Intent(context, ValueGoalsActivity::class.java)) // pindah ke login
                             Animatoo.animateSlideUp(requireContext())
                         }
                     }
+                    viewModel.databaseErrorDeleteGoals.observe(requireActivity()
+                    ) { error ->
+                        Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT).show()
+                    }
                 }
                 .setNegativeButton(
-                    "Cancel"
+                    resources.getString(R.string.cancel)
+                ) { dialog, which -> }
+                .show()
+        }
+
+        editGoalsAdapter!!.setOnItemClickListener { toDo ->
+            MaterialAlertDialogBuilder(requireActivity(), R.style.MaterialAlertDialogRounded)
+                .setTitle(resources.getString(R.string.confirm_action))
+                .setMessage(resources.getString(R.string.are_sure_delete) +" ${toDo.todo} ?")
+                .setPositiveButton("Ok") { _, _ ->
+                    viewModel.deleteTodo(uidUser, idGoals!!, toDo.idTodo!!)
+                    viewModel.deleteTodoMutableLiveData.observe(requireActivity()) { status ->
+                        if (status.equals("success")){
+                            Toast.makeText(requireActivity(), resources.getString(R.string.success_delete) + " ${toDo.todo}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    viewModel.databaseErrorDeleteTodo.observe(requireActivity()
+                    ) { error ->
+                        Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT).show()
+                    }
+                }
+                .setNegativeButton(
+                    resources.getString(R.string.cancel)
                 ) { dialog, which -> }
                 .show()
         }
@@ -398,84 +386,69 @@ class EditValueGoalsFragment : Fragment() {
         })
     }
 
-    @SuppressLint("SimpleDateFormat")
-    private fun getDateString(year: Int, mMonth: Int, mDay: Int): String? {
-        val calendar = Calendar.getInstance()
-        calendar[year, mMonth] = mDay
-        val dateFormat = SimpleDateFormat("dd-MM-yyyy")
-        return dateFormat.format(calendar.time)
+    private fun setDate() {
+        val Year = calendar[Calendar.YEAR]
+        val Month = calendar[Calendar.MONTH]
+        val date = calendar[Calendar.DATE]
+        val datePickerDialog = DatePickerDialog(requireActivity(), { view, YEAR, MONTH, DATE ->
+            calendar[Calendar.YEAR] = YEAR
+            calendar[Calendar.MONTH] = MONTH
+            calendar[Calendar.DATE] = DATE
+        }, Year, Month, date)
+        datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
+        datePickerDialog.show()
+        updateDate()
     }
 
-    private fun showTimeDialog() {
-        /**
-         * Calendar untuk mendapatkan waktu saat ini
-         */
-        val calendar = Calendar.getInstance()
+    private fun updateDate() {
+        val formattedDate =
+            ReminderUtils.getFormattedDateInString(calendar.timeInMillis, "dd-MMM-yyyy")
+        binding.tvDateGoals.text = formattedDate
+    }
 
-        /**
-         * Initialize TimePicker Dialog
-         */
-        val timePickerDialog = TimePickerDialog(
-            requireActivity(),
-            { view, hourOfDay, minute ->
-                /**
-                 * Method ini dipanggil saat kita selesai memilih waktu di DatePicker
-                 */
-                /**
-                 * Method ini dipanggil saat kita selesai memilih waktu di DatePicker
-                 */
-                /**
-                 * Method ini dipanggil saat kita selesai memilih waktu di DatePicker
-                 */
-
-                /**
-                 * Method ini dipanggil saat kita selesai memilih waktu di DatePicker
-                 */
-                /**
-                 * Method ini dipanggil saat kita selesai memilih waktu di DatePicker
-                 */
-                /**
-                 * Method ini dipanggil saat kita selesai memilih waktu di DatePicker
-                 */
-
-                /**
-                 * Method ini dipanggil saat kita selesai memilih waktu di DatePicker
-                 */
-
-                /**
-                 * Method ini dipanggil saat kita selesai memilih waktu di DatePicker
-                 */
-                binding.tvTimeGoals.text = "$hourOfDay:$minute"
-            },
-            /**
-             * Tampilkan jam saat ini ketika TimePicker pertama kali dibuka
-             */
-            /**
-             * Tampilkan jam saat ini ketika TimePicker pertama kali dibuka
-             */
-            /**
-             * Tampilkan jam saat ini ketika TimePicker pertama kali dibuka
-             */
-            /**
-             * Tampilkan jam saat ini ketika TimePicker pertama kali dibuka
-             */
-            calendar[Calendar.HOUR_OF_DAY],
-            calendar[Calendar.MINUTE],
-            /**
-             * Cek apakah format waktu menggunakan 24-hour format
-             */
-            /**
-             * Cek apakah format waktu menggunakan 24-hour format
-             */
-            /**
-             * Cek apakah format waktu menggunakan 24-hour format
-             */
-            /**
-             * Cek apakah format waktu menggunakan 24-hour format
-             */
-            DateFormat.is24HourFormat(requireActivity())
-        )
+    private fun setTime() {
+        val Hour = calendar[Calendar.HOUR_OF_DAY]
+        val Minute = calendar[Calendar.MINUTE]
+        val timePickerDialog = TimePickerDialog(requireActivity(), { view, hour, minute ->
+            calendar[Calendar.HOUR_OF_DAY] = hour
+            calendar[Calendar.MINUTE] = minute
+            calendar[Calendar.SECOND] = 0
+            calendar[Calendar.MILLISECOND] = 0
+            updateTime(hour, minute)
+        }, Hour, Minute, true)
         timePickerDialog.show()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun updateTime(hour: Int, minute: Int) {
+        binding.tvTimeGoals.text = "$hour:$minute"
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun setNotification(value: String, statement: String) {
+        val intent = Intent(requireActivity(), AlarmReceiverValueGoals::class.java)
+        intent.action = "com.brainoptimax.peakstate.valuegoals"
+        intent.putExtra("GoalsTitle", value)
+        intent.putExtra("GoalsStatement", statement)
+        Log.d("TAG", "onNotifyGoal: $value")
+
+        val pendingIntent = PendingIntent.getBroadcast(requireActivity(), 101, intent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
+        val alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+    }
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name: CharSequence = "goals_notify"
+            val description = "To Notify Goals"
+            val importance = NotificationManager.IMPORTANCE_HIGH
+            val channel = NotificationChannel("goals_notify", name, importance)
+            channel.description = description
+            val notificationManager = requireActivity().getSystemService(
+                NotificationManager::class.java)
+            notificationManager!!.createNotificationChannel(channel)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -563,20 +536,20 @@ class EditValueGoalsFragment : Fragment() {
     private fun uploadImageToFirebase(imgUri: Uri) {
 
         viewModel.openLoadingDialog(requireActivity())
-        viewModel.setImgValueGoal(
-            databaseReference,
-            storageReference,
-            id!!,
-            imgUri,
-            view
-        ).observe(this) { url ->
-            if (url != null) {
+        viewModel.setImageGoals(uidUser, idGoals!!, imgUri)
+
+        viewModel.imageGoalsMutableLiveData.observe(requireActivity()) { success ->
+            viewModel.closeLoadingDialog()
+            if (success.equals("success")){
                 binding.ivIconValue.setImageURI(imgUri)
-            } else {
-                Snackbar.make(requireView(), "Upload Failed ", Snackbar.LENGTH_LONG)
-                    .show()
             }
         }
+        viewModel.databaseErrorImageGoals.observe(requireActivity()) { error ->
+            viewModel.closeLoadingDialog()
+            Toast.makeText(requireActivity(), error, Toast.LENGTH_SHORT).show()
+        }
+
+
     }
 
     override fun onDestroy() {

@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.brainoptimax.peakmeup.model.Reminders
-import com.brainoptimax.peakmeup.ui.reminders.DetailReminderActivity
 import com.brainoptimax.peakmeup.R
 import com.brainoptimax.peakmeup.databinding.ItemRemindersHomeBinding
 
@@ -70,13 +69,13 @@ class HomeRemindersAdapter: RecyclerView.Adapter<HomeRemindersAdapter.ViewHolder
 
 
             itemView.setOnClickListener {
-                val intent = Intent(itemView.context, DetailReminderActivity::class.java)
-                intent.putExtra(DetailReminderActivity.EXTRA_TITLE, reminder.title)
-                intent.putExtra(DetailReminderActivity.EXTRA_SUBTITLE, reminder.subtitle)
-                intent.putExtra(DetailReminderActivity.EXTRA_DESC, reminder.description)
-                intent.putExtra(DetailReminderActivity.EXTRA_DATE, reminder.date)
-                intent.putExtra(DetailReminderActivity.EXTRA_TIME, reminder.time)
-                itemView.context.startActivity(intent)
+//                val intent = Intent(itemView.context, DetailReminderActivity::class.java)
+//                intent.putExtra(DetailReminderActivity.EXTRA_TITLE, reminder.title)
+//                intent.putExtra(DetailReminderActivity.EXTRA_SUBTITLE, reminder.subtitle)
+//                intent.putExtra(DetailReminderActivity.EXTRA_DESC, reminder.description)
+//                intent.putExtra(DetailReminderActivity.EXTRA_DATE, reminder.date)
+//                intent.putExtra(DetailReminderActivity.EXTRA_TIME, reminder.time)
+//                itemView.context.startActivity(intent)
             }
 
 

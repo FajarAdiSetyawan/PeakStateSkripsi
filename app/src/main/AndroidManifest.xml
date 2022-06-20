@@ -29,33 +29,39 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PeakState">
         <activity
+            android:name=".ui.reminders.ReminderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.quiz.ResultQuizListActivity"
+            android:exported="false" />
+        <activity
             android:name="com.brainoptimax.peakmeup.ui.dashboard.profile.AboutActivity"
             android:exported="false" />
         <activity
             android:name="com.brainoptimax.peakmeup.ui.dashboard.profile.FeedbackActivity"
             android:exported="false" />
         <activity
-            android:name="com.brainoptimax.peakmeup.ui.quiz.RecommendEnergyQuizActivity"
+            android:name=".ui.quiz.RecommendEnergyQuizActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name="com.brainoptimax.peakmeup.ui.quiz.RecommendPeakActivity"
+            android:name=".ui.quiz.RecommendPeakActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name="com.brainoptimax.peakmeup.ui.quiz.PeakQuizActivity"
+            android:name=".ui.quiz.PeakQuizActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name="com.brainoptimax.peakmeup.ui.quiz.EnergyQuizActivity"
+            android:name=".ui.quiz.EnergyQuizActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name="com.brainoptimax.peakmeup.ui.quiz.ResultEnergyQuizActivity"
+            android:name=".ui.quiz.DetailResultPeakQuizActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name="com.brainoptimax.peakmeup.ui.quiz.ResultPeakQuizActivity"
+            android:name=".ui.quiz.DetailResultEnergyQuizActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
@@ -99,7 +105,7 @@
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name="com.brainoptimax.peakmeup.ui.quiz.QuizActivity"
+            android:name=".ui.quiz.QuizActivity"
             android:configChanges="locale"
             android:exported="true" />
         <activity
@@ -131,18 +137,6 @@
             android:configChanges="locale"
             android:exported="true" />
         <activity
-            android:name="com.brainoptimax.peakmeup.ui.reminders.DetailReminderActivity"
-            android:configChanges="locale"
-            android:exported="true" />
-        <activity
-            android:name="com.brainoptimax.peakmeup.ui.reminders.AddRemindersActivity"
-            android:configChanges="locale"
-            android:exported="true" />
-        <activity
-            android:name="com.brainoptimax.peakmeup.ui.reminders.ListRemindersActivity"
-            android:configChanges="locale"
-            android:exported="true" />
-        <activity
             android:name="com.brainoptimax.peakmeup.ui.dashboard.activator.DetailActivatorActivity"
             android:configChanges="locale"
             android:exported="true" />
@@ -168,6 +162,10 @@
         <!-- android:theme="@style/Base.Theme.AppCompat" /> &lt;!&ndash; Notification Reminder &ndash;&gt; -->
         <receiver
             android:name="com.brainoptimax.peakmeup.services.AlarmReceiverReminder"
+            android:enabled="true"
+            android:label="AlarmReceiver" />
+        <receiver
+            android:name="com.brainoptimax.peakmeup.services.AlarmReceiverValueGoals"
             android:enabled="true"
             android:label="AlarmReceiver" />
     </application>

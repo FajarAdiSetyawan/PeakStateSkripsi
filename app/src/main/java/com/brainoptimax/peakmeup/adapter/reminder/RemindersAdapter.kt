@@ -74,6 +74,7 @@ class RemindersAdapter(
         private val binding = ItemRemindersBinding.bind(view)
 
         fun bind(reminders: Reminders) {
+
             when (reminders.title) {
                 itemView.context.resources.getString(R.string.morning_routine) -> {
                     binding.tvTitleRemainder.setTextColor(Color.parseColor("#F4D35E"))

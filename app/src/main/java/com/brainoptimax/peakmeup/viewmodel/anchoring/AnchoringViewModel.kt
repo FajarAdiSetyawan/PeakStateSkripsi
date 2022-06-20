@@ -28,8 +28,8 @@ class AnchoringViewModel : ViewModel(),
     val addAnchoringLiveData = MutableLiveData<String?>()
     val databaseErrorAddAnchoring = MutableLiveData<String?>()
 
-    val anchroingMutableLiveData = MutableLiveData<List<Anchoring>?>()
-    val databaseErrorAnchroing = MutableLiveData<DatabaseError?>()
+    val anchoringMutableLiveData = MutableLiveData<List<Anchoring>?>()
+    val databaseErrorAnchoring = MutableLiveData<DatabaseError?>()
 
     val resourcefulMutableLiveData = MutableLiveData<List<Resourceful>?>()
     val databaseErrorResourceful = MutableLiveData<DatabaseError?>()
@@ -40,49 +40,6 @@ class AnchoringViewModel : ViewModel(),
     var status = MutableLiveData<Boolean?>()
 
     private val anchoringRepository: AnchoringRepository = AnchoringRepository(this, this, this, this, this, this, )
-
-//    fun addAnchoring(
-//        ref: DatabaseReference,
-//        view: View?,
-//        id: String,
-//        resourceful: String?,
-//        memory: String?,
-//        descMemory: String?,
-//        dateTime: String?
-//    ) {
-//        val anchoring = Anchoring(id, resourceful, memory, descMemory, dateTime)
-//        ref.setValue(anchoring).addOnCompleteListener {
-//            if (it.isSuccessful) {
-//                status.value = true
-//            } else {
-//                // tampilkan dialog error
-//                val message: String =
-//                    it.exception!!.message.toString() // mengambil pesan error
-//                Snackbar.make(view!!, message, Snackbar.LENGTH_LONG)
-//                    .show()
-//            }
-//        }
-//    }
-
-//    fun addResourceful(
-//        ref: DatabaseReference,
-//        view: View?,
-//        id: String,
-//        resourceful: String?
-//    ) {
-//        val resourcefulAdd = Resourceful(id, resourceful)
-//        ref.child(id).setValue(resourcefulAdd).addOnCompleteListener {
-//            if (it.isSuccessful) {
-//                status.value = true
-//            } else {
-//                // tampilkan dialog error
-//                val message: String =
-//                    it.exception!!.message.toString() // mengambil pesan error
-//                Snackbar.make(view!!, message, Snackbar.LENGTH_LONG)
-//                    .show()
-//            }
-//        }
-//    }
 
     fun addMemory(
         uid: String,
@@ -137,12 +94,12 @@ class AnchoringViewModel : ViewModel(),
 
     // TODO menjadikan data yg sudah diambil menjadi list
     override fun onSuccess(anchoring: List<Anchoring>?) {
-        anchroingMutableLiveData.value = anchoring
+        anchoringMutableLiveData.value = anchoring
     }
 
     // TODO mengambil jika terjadi error
     override fun onFailure(error: DatabaseError?) {
-        databaseErrorAnchroing.value = error
+        databaseErrorAnchoring.value = error
     }
 
     override fun onSuccessResourceful(resourceful: List<Resourceful>?) {

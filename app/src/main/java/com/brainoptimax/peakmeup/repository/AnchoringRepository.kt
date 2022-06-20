@@ -18,8 +18,8 @@ class AnchoringRepository(
     private var databaseReference: DatabaseReference =
         FirebaseDatabase.getInstance().getReference("Anchoring")
 
-    fun addMemory(uid: String, memoryText: String){
-        val add = databaseReference.child(uid).child("Memory")
+    fun addMemory(uidUser: String, memoryText: String){
+        val add = databaseReference.child(uidUser).child("Memory")
         val id = databaseReference.push().key
         val memoryAdd = Memory(id, memoryText)
         add.child(id!!).setValue(memoryAdd).addOnCompleteListener {
@@ -31,8 +31,8 @@ class AnchoringRepository(
         }
     }
 
-    fun addResourceful(uid: String, resourcefulText: String){
-        val add = databaseReference.child(uid).child("Resourceful")
+    fun addResourceful(uidUser: String, resourcefulText: String){
+        val add = databaseReference.child(uidUser).child("Resourceful")
         val id = databaseReference.push().key
         val resourcefulAdd = Resourceful(id, resourcefulText)
         add.child(id!!).setValue(resourcefulAdd).addOnCompleteListener {
@@ -44,8 +44,8 @@ class AnchoringRepository(
         }
     }
 
-    fun addAnchoring(uid: String, resourceful: String, memory: String, note: String, currentDateTime: String){
-        val add = databaseReference.child(uid).child("Result")
+    fun addAnchoring(uidUser: String, resourceful: String, memory: String, note: String, currentDateTime: String){
+        val add = databaseReference.child(uidUser).child("Result")
         val idAnchoring = databaseReference.push().key
         val anchoringAdd = Anchoring(idAnchoring, resourceful, memory, note, currentDateTime)
         add.child(idAnchoring!!).setValue(anchoringAdd).addOnCompleteListener {
@@ -57,8 +57,8 @@ class AnchoringRepository(
         }
     }
 
-    fun getResourceful(uid: String){
-        databaseReference.child(uid).child("Resourceful").addValueEventListener(object : ValueEventListener {
+    fun getResourceful(uidUser: String){
+        databaseReference.child(uidUser).child("Resourceful").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val resourceful: MutableList<Resourceful> = ArrayList()
 
@@ -76,8 +76,8 @@ class AnchoringRepository(
         })
     }
 
-    fun getMemory(uid: String){
-        databaseReference.child(uid).child("Memory").addValueEventListener(object : ValueEventListener {
+    fun getMemory(uidUser: String){
+        databaseReference.child(uidUser).child("Memory").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val memory: MutableList<Memory> = ArrayList()
 
@@ -95,8 +95,8 @@ class AnchoringRepository(
         })
     }
 
-    fun getAnchoring(uid: String) {
-        databaseReference.child(uid).child("Result").addValueEventListener(object : ValueEventListener {
+    fun getAnchoring(uidUser: String) {
+        databaseReference.child(uidUser).child("Result").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val anchoring: MutableList<Anchoring> = ArrayList()
 
@@ -114,16 +114,16 @@ class AnchoringRepository(
         })
     }
 
-    fun deleteResourceful(uid: String, id: String){
-        databaseReference.child(uid).child("Resourceful").child(id).removeValue()
+    fun deleteResourceful(uidUser: String, id: String){
+        databaseReference.child(uidUser).child("Resourceful").child(id).removeValue()
     }
 
-    fun deleteMemory(uid: String, id: String){
-        databaseReference.child(uid).child("Memory").child(id).removeValue()
+    fun deleteMemory(uidUser: String, id: String){
+        databaseReference.child(uidUser).child("Memory").child(id).removeValue()
     }
 
-    fun deleteAnchoring(uid: String, id: String){
-        databaseReference.child(uid).child("Result").child(id).removeValue()
+    fun deleteAnchoring(uidUser: String, id: String){
+        databaseReference.child(uidUser).child("Result").child(id).removeValue()
     }
 
     interface OnRealtimeDbAddMemory {

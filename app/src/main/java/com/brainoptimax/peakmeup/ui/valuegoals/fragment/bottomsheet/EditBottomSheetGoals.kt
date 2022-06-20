@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.brainoptimax.peakmeup.viewmodel.valuegoals.ValueGoalsViewModel
 import com.brainoptimax.peakmeup.R
 import com.brainoptimax.peakmeup.databinding.BottomSheetBinding
+import com.brainoptimax.peakmeup.utils.Preferences
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.auth.FirebaseAuth
@@ -28,6 +29,7 @@ class EditBottomSheetGoals: BottomSheetDialogFragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var databaseReference: DatabaseReference
 
+    private lateinit var preference: Preferences
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,6 +50,9 @@ class EditBottomSheetGoals: BottomSheetDialogFragment() {
         behavior.state = BottomSheetBehavior.STATE_EXPANDED
         behavior.peekHeight = 0
 
+        preference = Preferences(requireActivity())
+        val uidUser = preference.getValues("uid")!!
+
         // Disable Draggable behavior
         behavior.isDraggable = false
         // TODO: mengambil data yg dikirim dari addgoalsfragment
@@ -58,8 +63,8 @@ class EditBottomSheetGoals: BottomSheetDialogFragment() {
         viewModel = ViewModelProviders.of(this)[ValueGoalsViewModel::class.java]
 
         // TODO: menginisiasi firebase
-        auth = FirebaseAuth.getInstance()
-        databaseReference = FirebaseDatabase.getInstance().reference.child("Users").child(auth.currentUser!!.uid).child("ValueGoals").child(myValue!!)
+//        auth = FirebaseAuth.getInstance()
+//        databaseReference = FirebaseDatabase.getInstance().reference.child("Users").child(auth.currentUser!!.uid).child("ValueGoals").child(myValue!!)
 
         //TODO: tambah todo list
         binding.ivAdd.setOnClickListener {
@@ -70,14 +75,26 @@ class EditBottomSheetGoals: BottomSheetDialogFragment() {
                 Toast.makeText(requireActivity(), resources.getString(R.string.todoblank), Toast.LENGTH_SHORT).show()
             }else{
                 // TODO: menambahakan todo list ke firebase menggunakan viewmodel
-                val idTodo = databaseReference.child("ToDo").push().key
+//                val idTodo = databaseReference.child("ToDo").push().key
+//
+//                viewModel.addToDoList(databaseReference.child("ToDo").child(idTodo!!), view, idTodo, txtToDo, "false")
 
-                viewModel.addToDoList(databaseReference.child("ToDo").child(idTodo!!), view, idTodo, txtToDo, "false")
-                Toast.makeText(requireActivity(), resources.getString(R.string.success_add) + " $txtToDo", Toast.LENGTH_SHORT).show()
-                binding.btnSetGoals.visibility = View.VISIBLE
+                viewModel.addToDoList(uidUser, myValue!!, txtToDo)
+                viewModel.addTodoMutableLiveData.observe(requireActivity()) { status ->
+                    if(status.equals("success")){
+                        Toast.makeText(requireActivity(), resources.getString(R.string.success_add) + " $txtToDo", Toast.LENGTH_SHORT).show()
+                        binding.btnSetGoals.visibility = View.VISIBLE
 
-                binding.editText.setText("")
-                dialog?.dismiss()
+                        binding.editText.setText("")
+                        dialog?.dismiss()
+                    }
+                }
+
+                viewModel.databaseErrorAddTodo.observe(requireActivity()
+                ) { error ->
+                    Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT).show()
+                }
+
             }
         }
     }

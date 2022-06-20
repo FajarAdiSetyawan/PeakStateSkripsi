@@ -18,7 +18,7 @@ class EmotionRepository(
         FirebaseDatabase.getInstance().getReference("Emotion")
 
     fun addAllEmotion(
-        uid: String,
+        uidUser: String,
         totalAllEmotion: Int,
         totalPerEmotion: Int,
         condition: String,
@@ -28,10 +28,10 @@ class EmotionRepository(
         dateFormat: String,
         timeFormat: String
     ) {
-        databaseReference.child(uid).child("totalAllEmotion").setValue(totalAllEmotion)
-        databaseReference.child(uid).child(condition).child(emotionSelected)
+        databaseReference.child(uidUser).child("totalAllEmotion").setValue(totalAllEmotion)
+        databaseReference.child(uidUser).child(condition).child(emotionSelected)
             .setValue(Emotion(emotionSelected, totalAllEmotion, totalPerEmotion))
-        databaseReference.child(uid).child("daily").child(dateFormat).child(timeFormat)
+        databaseReference.child(uidUser).child("daily").child(dateFormat).child(timeFormat)
             .setValue(Emotion(emotionSelected, emotionNote, currentDateTime)).addOnCompleteListener {
                 if (it.isSuccessful){
                     onRealtimeAddDbEmotion.onSuccessAddEmotion("success")
@@ -41,8 +41,8 @@ class EmotionRepository(
             }
     }
 
-    fun getAllEmotion(uid: String, day: String) {
-        databaseReference.child(uid).child("daily").child(day)
+    fun getAllEmotion(uidUser: String, day: String) {
+        databaseReference.child(uidUser).child("daily").child(day)
             .addListenerForSingleValueEvent(object :
                 ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -63,8 +63,8 @@ class EmotionRepository(
             })
     }
 
-    fun getTotalAllEmotions(uid: String) {
-        databaseReference.child(uid).child("totalAllEmotion")
+    fun getTotalAllEmotions(uidUser: String) {
+        databaseReference.child(uidUser).child("totalAllEmotion")
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     onRealtimeDbTotalAllEmotion.onSuccessEmotionTotalAllEmotion(snapshot.value.toString())
@@ -76,8 +76,8 @@ class EmotionRepository(
             })
     }
 
-    fun getTotalPerEmotions(uid: String, condition: String, emotion: String) {
-        databaseReference.child(uid).child(condition).child(emotion)
+    fun getTotalPerEmotions(uidUser: String, condition: String, emotion: String) {
+        databaseReference.child(uidUser).child(condition).child(emotion)
             .child("totalPerEmotion").addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     onRealtimeDbTotalPerEmotion.onSuccessEmotionTotalPerEmotion(snapshot.value.toString())
@@ -89,8 +89,8 @@ class EmotionRepository(
             })
     }
 
-    fun getEmotionPositive(uid: String) {
-        databaseReference.child(uid).child("Positive").get()
+    fun getEmotionPositive(uidUser: String) {
+        databaseReference.child(uidUser).child("Positive").get()
             .addOnCompleteListener { task ->
                 val emotion: MutableList<Emotion> = ArrayList()
 
@@ -111,8 +111,8 @@ class EmotionRepository(
             }
     }
 
-    fun getEmotionNegative(uid: String) {
-        databaseReference.child(uid).child("Negative").get()
+    fun getEmotionNegative(uidUser: String) {
+        databaseReference.child(uidUser).child("Negative").get()
             .addOnCompleteListener { task ->
                 val emotion: MutableList<Emotion> = ArrayList()
 

@@ -1,56 +1,63 @@
-package com.brainoptimax.peakmeup.ui.reminders
+package com.brainoptimax.peakmeup.ui.reminders.fragment
 
 import android.annotation.SuppressLint
 import android.app.*
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.KeyEvent
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.brainoptimax.peakmeup.model.Reminders
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import com.brainoptimax.peakmeup.R
+import com.brainoptimax.peakmeup.databinding.FragmentAddReminderBinding
+import com.brainoptimax.peakmeup.model.Reminder
 import com.brainoptimax.peakmeup.services.AlarmReceiverReminder
+import com.brainoptimax.peakmeup.ui.reminders.ReminderActivity
 import com.brainoptimax.peakmeup.utils.Animatoo
+import com.brainoptimax.peakmeup.utils.Preferences
 import com.brainoptimax.peakmeup.utils.ReminderUtils
 import com.brainoptimax.peakmeup.viewmodel.reminder.ReminderViewModel
-import com.brainoptimax.peakmeup.R
-import com.brainoptimax.peakmeup.databinding.ActivityAddRemindersBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
-import java.text.SimpleDateFormat
 import java.util.*
 
+class AddReminderFragment : Fragment() {
+    private var fragmentAddReminderBinding: FragmentAddReminderBinding? = null
+    private val binding get() = fragmentAddReminderBinding!!
 
-class AddRemindersActivity : AppCompatActivity() {
-
-    // view binding
-    private var activityAddRemindersBinding: ActivityAddRemindersBinding? = null
-    private val binding get() = activityAddRemindersBinding!!
-
-    var viewModel: ReminderViewModel? = null
-    private var oldReminders = true
-    private var reminders: Reminders? = null
-    var status = false
+    private lateinit var preference: Preferences
+    private lateinit var viewModel: ReminderViewModel
+    private lateinit var nav : NavController
     private var calendar = Calendar.getInstance()
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        // Inflate the layout for this fragment
+        fragmentAddReminderBinding = FragmentAddReminderBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        activityAddRemindersBinding = ActivityAddRemindersBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
-
-        createNotificationChannel()
+        nav = Navigation.findNavController(requireView())
 
         viewModel = ViewModelProviders.of(this)[ReminderViewModel::class.java]
-        try {
-            updateReminders()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+
+        preference = Preferences(requireActivity())
+        val uidUser = preference.getValues("uid")
+
+        createNotificationChannel()
 
         binding.cardTitle.setOnClickListener {
             val item1 = arrayOf(
@@ -60,7 +67,7 @@ class AddRemindersActivity : AppCompatActivity() {
                 resources.getString(R.string.fresh_air)
             )
 
-            val builder = AlertDialog.Builder(this, R.style.MaterialAlertDialogRounded)
+            val builder = AlertDialog.Builder(requireActivity(), R.style.MaterialAlertDialogRounded)
             builder.setTitle(resources.getString(R.string.title_reminder))
             // set the custom layout
             // set the custom layout
@@ -111,7 +118,7 @@ class AddRemindersActivity : AppCompatActivity() {
                 resources.getString(R.string.values_and_goals),
             )
 
-            val builder = AlertDialog.Builder(this, R.style.MaterialAlertDialogRounded)
+            val builder = AlertDialog.Builder(requireActivity(), R.style.MaterialAlertDialogRounded)
             builder.setTitle(resources.getString(R.string.sub_title_reminder))
             // set the custom layout
             // set the custom layout
@@ -171,25 +178,39 @@ class AddRemindersActivity : AppCompatActivity() {
             val getNote: String = binding.etNote.text.toString().trim()
 
             if (getTitle.isEmpty() || getTitle == resources.getString(R.string.title_reminder)) {
-                Toast.makeText(applicationContext, resources.getString(R.string.title_blank), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), resources.getString(R.string.title_blank), Toast.LENGTH_SHORT).show()
             } else if (getSubtitle.isEmpty() || getSubtitle == resources.getString(R.string.sub_title_reminder)) {
-                Toast.makeText(applicationContext, resources.getString(R.string.sub_title_blank), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), resources.getString(R.string.sub_title_blank), Toast.LENGTH_SHORT).show()
             } else if (getDate.isEmpty()) {
-                Toast.makeText(applicationContext, resources.getString(R.string.date_blank), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), resources.getString(R.string.date_blank), Toast.LENGTH_SHORT).show()
             } else if (getTime.isEmpty() || getTime == resources.getString(R.string.time)) {
-                Toast.makeText(applicationContext, resources.getString(R.string.blank), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), resources.getString(R.string.blank), Toast.LENGTH_SHORT).show()
             } else if (getNote.isEmpty()) {
-                Toast.makeText(applicationContext, resources.getString(R.string.note_blank), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), resources.getString(R.string.note_blank), Toast.LENGTH_SHORT).show()
                 binding.etNote.error = resources.getString(R.string.note_blank)
                 binding.etNote.requestFocus()
             } else {
                 binding.etNote.error = null
 
-                MaterialAlertDialogBuilder(this, R.style.MaterialAlertDialogRounded)
+                MaterialAlertDialogBuilder(requireActivity(), R.style.MaterialAlertDialogRounded)
                     .setTitle(resources.getString(R.string.confirm_action))
                     .setMessage(resources.getString(R.string.dialog_reminder_add_msg))
                     .setPositiveButton("Ok") { _, _ ->
-                        setReminders(getTitle, getSubtitle, getNote, getDate, getTime)
+                        viewModel.openLoadingSaveDialog(requireActivity())
+                        viewModel.addReminder(uidUser!!, getTitle, getSubtitle, getNote, getDate, getTime)
+                        viewModel.addReminderMutableLiveData.observe(viewLifecycleOwner){ status ->
+                            if (status.equals("success")){
+                                setNotification(getTitle, getSubtitle, getNote)
+                                startActivity(Intent(context, ReminderActivity::class.java)) // pindah ke login
+                                Animatoo.animateSlideUp(requireContext())
+                                viewModel.closeLoadingDialog()
+                            }
+                        }
+
+                        viewModel.databaseErrorAddReminder.observe(viewLifecycleOwner
+                        ) { error ->
+                            Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT).show()
+                        }
                     }
                     .setNegativeButton(
                         resources.getString(R.string.cancel)
@@ -199,69 +220,33 @@ class AddRemindersActivity : AppCompatActivity() {
         }
 
         binding.btnBackMenu.setOnClickListener {
-            super.onBackPressed()
-            Animatoo.animateSwipeLeft(this)
-            finish()
+            nav.navigate(R.id.action_addReminderFragment_to_listReminderFragment)
         }
 
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        Animatoo.animateSwipeLeft(this)
-        finish()
-    }
-
-    private fun setReminders(title: String, subTitle: String, description: String, dates: String, time: String) {
-        @SuppressLint("SimpleDateFormat") val fmt = SimpleDateFormat("E, d MMMM yyyy - H:mm")
-        val date = Date()
-        if (oldReminders) {
-            reminders = Reminders()
-            reminders!!.title = title
-            reminders!!.subtitle = subTitle
-            reminders!!.description = description
-            reminders!!.date = dates
-            reminders!!.time = time
-            reminders!!.datetime = fmt.format(date)
-            viewModel!!.insertReminders(reminders)
-            setNotification(title, subTitle, description)
-            Toast.makeText(this, resources.getString(R.string.added_success), Toast.LENGTH_SHORT).show()
-        } else {
-            reminders!!.title = title
-            reminders!!.subtitle = subTitle
-            reminders!!.description = description
-            reminders!!.date = dates
-            reminders!!.time = time
-            reminders!!.datetime = fmt.format(date)
-            viewModel!!.updateReminders(reminders)
-            setNotification(title, subTitle, description)
-            Toast.makeText(this, resources.getString(R.string.update_success), Toast.LENGTH_SHORT).show()
-        }
-        finish()
-    }
-
-    private fun updateReminders() {
-        val intent = intent
-        reminders = intent.getSerializableExtra("updateReminders") as Reminders?
-        binding.tvTitleRemainder.text = reminders!!.title
-        binding.tvSubtitleRemainder.text = reminders!!.subtitle
-        binding.tvDateReminder.text = reminders!!.date
-        binding.tvTimeReminder.text = reminders!!.time
-        binding.etNote.setText(reminders!!.description)
-        oldReminders = false
-
-        binding.btnSaveRemainder.text = getString(R.string.update)
+        requireView().setOnKeyListener(object : View.OnKeyListener {
+            override fun onKey(v: View?, keyCode: Int, event: KeyEvent): Boolean {
+                if (event.action === KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                        startActivity(Intent(context, ReminderActivity::class.java)) // pindah ke login
+                        Animatoo.animateSlideUp(requireContext())
+                        return true
+                    }
+                }
+                return false
+            }
+        })
     }
 
     private fun setDate() {
         val Year = calendar[Calendar.YEAR]
         val Month = calendar[Calendar.MONTH]
         val date = calendar[Calendar.DATE]
-        val datePickerDialog = DatePickerDialog(this, { view, YEAR, MONTH, DATE ->
+        val datePickerDialog = DatePickerDialog(requireActivity(), { view, YEAR, MONTH, DATE ->
             calendar[Calendar.YEAR] = YEAR
             calendar[Calendar.MONTH] = MONTH
             calendar[Calendar.DATE] = DATE
         }, Year, Month, date)
+        datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
         datePickerDialog.show()
         updateDate()
     }
@@ -275,7 +260,7 @@ class AddRemindersActivity : AppCompatActivity() {
     private fun setTime() {
         val Hour = calendar[Calendar.HOUR_OF_DAY]
         val Minute = calendar[Calendar.MINUTE]
-        val timePickerDialog = TimePickerDialog(this, { view, hour, minute ->
+        val timePickerDialog = TimePickerDialog(requireActivity(), { view, hour, minute ->
             calendar[Calendar.HOUR_OF_DAY] = hour
             calendar[Calendar.MINUTE] = minute
             calendar[Calendar.SECOND] = 0
@@ -292,15 +277,15 @@ class AddRemindersActivity : AppCompatActivity() {
 
     @SuppressLint("MissingPermission")
     private fun setNotification(title: String, subTitle: String, desc: String) {
-        val intent = Intent(this, AlarmReceiverReminder::class.java)
-        intent.action = "com.brainoptimax.peakstate.reminder"
+        val intent = Intent(requireActivity(), AlarmReceiverReminder::class.java)
+        intent.action = "com.brainoptimax.peakstate.reminders"
         intent.putExtra("ReminderTitle", title)
         intent.putExtra("ReminderSubTitle", subTitle)
         intent.putExtra("ReminderDesc", desc)
 
-        val pendingIntent = PendingIntent.getBroadcast(this, 101, intent,
+        val pendingIntent = PendingIntent.getBroadcast(requireActivity(), 101, intent,
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
-        val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        val alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
     }
 
@@ -311,10 +296,11 @@ class AddRemindersActivity : AppCompatActivity() {
             val importance = NotificationManager.IMPORTANCE_HIGH
             val channel = NotificationChannel("reminder_notify", name, importance)
             channel.description = description
-            val notificationManager = getSystemService(
-                NotificationManager::class.java
-            )
-            notificationManager.createNotificationChannel(channel)
+            val notificationManager = requireActivity().getSystemService(
+                NotificationManager::class.java)
+            notificationManager!!.createNotificationChannel(channel)
         }
     }
+
+
 }

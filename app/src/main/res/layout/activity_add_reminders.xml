@@ -51,10 +51,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/intro_title"
+                    android:fontFamily="@font/poppins"
                     android:gravity="center"
                     android:text="@string/set_reminders_for_routines_exercises_and_nactivities_that_help_you_thrive"
                     android:textSize="14sp"
-                    android:fontFamily="@font/poppins"
                     android:textStyle="normal" />
 
 

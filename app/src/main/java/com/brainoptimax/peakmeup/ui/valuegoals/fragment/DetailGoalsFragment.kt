@@ -12,17 +12,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.brainoptimax.peakmeup.adapter.valuegoals.DetailValueGoalsAdapter
-import com.brainoptimax.peakmeup.model.valuegoals.ToDo
 import com.brainoptimax.peakmeup.ui.valuegoals.ValueGoalsActivity
 import com.brainoptimax.peakmeup.utils.Animatoo
 import com.brainoptimax.peakmeup.viewmodel.valuegoals.ValueGoalsViewModel
 import com.brainoptimax.peakmeup.R
 import com.brainoptimax.peakmeup.databinding.FragmentDetailGoalsBinding
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.brainoptimax.peakmeup.utils.Preferences
 import com.squareup.picasso.Picasso
-import java.util.ArrayList
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -36,7 +32,7 @@ private const val DATETIME = "datetime"
 
 class DetailGoalsFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var id: String? = null
+    private var idGoals: String? = null
     private var value: String? = null
     private var statement: String? = null
     private var desc: String? = null
@@ -46,8 +42,7 @@ class DetailGoalsFragment : Fragment() {
     private var fragmentDetailGoalsBinding: FragmentDetailGoalsBinding? = null
     private val binding get() = fragmentDetailGoalsBinding!!
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var databaseReference: DatabaseReference
+    private lateinit var preference: Preferences
 
     private lateinit var viewModel: ValueGoalsViewModel
 
@@ -56,7 +51,7 @@ class DetailGoalsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            id = it.getString(ID)
+            idGoals = it.getString(ID)
             value = it.getString(VALUE)
             statement = it.getString(STATEMENT)
             desc = it.getString(DESC)
@@ -105,42 +100,76 @@ class DetailGoalsFragment : Fragment() {
         // TODO: memanggil viewmodel
         viewModel = ViewModelProviders.of(this)[ValueGoalsViewModel::class.java]
 
-        auth = FirebaseAuth.getInstance()
-        databaseReference = FirebaseDatabase.getInstance().reference.child("Users").child(auth.currentUser!!.uid).child("ValueGoals").child(
-            id!!
-        )
+        // TODO: mengambil data preference
+        preference = Preferences(requireActivity())
+        val uidUser = preference.getValues("uid")
 
+        // TODO: set text dari data yang dikirim
         binding.tvValue.text = value
         binding.tvDatetime.text = datetime
         binding.tvDesc.text = desc
         binding.tvStatement.text = statement
 
+        // TODO: cek data image kosong
         if (img == ""){
             binding.ivIconValue.setImageResource(R.drawable.ic_family_placeholder)
         }else{
+            // TODO: kalau tidak kosong
             Picasso.get().load(img).into(binding.ivIconValue)
         }
 
+        // TODO: klik button back
         binding.backMain.setOnClickListener {
             startActivity(Intent(context, ValueGoalsActivity::class.java)) // pindah ke login
             Animatoo.animateSlideUp(requireContext())
         }
 
+        // TODO: mengambil semua data todo dan ditamilkan dengan menggunakan recyclerview
         binding.rvGoals.hasFixedSize()
         val linearLayoutManager = LinearLayoutManager(activity)
         binding.rvGoals.layoutManager = linearLayoutManager
-        detailValueGoalsAdapter = DetailValueGoalsAdapter(id)
+        // TODO: memanggil adapter dan mengirimkan data idgoals ke adapter
+        detailValueGoalsAdapter = DetailValueGoalsAdapter(idGoals)
         binding.rvGoals.adapter = detailValueGoalsAdapter
 
-        viewModel.allToDo(id!!)
+        // TODO: memanggil semua data todo dari firebase
+        viewModel.allToDo(uidUser!!, idGoals!!)
+        // TODO: cek data
         viewModel.todoMutableLiveData.observe(requireActivity()){ toDo ->
             detailValueGoalsAdapter!!.setTodo(toDo)
             detailValueGoalsAdapter!!.notifyDataSetChanged()
         }
-
+        // TODO: kalau terjadi error
         viewModel.databaseErrorToDo.observe(requireActivity()
         ) { error ->
             Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT).show()
+        }
+
+        // TODO: memanggil fungsi dari adapter
+        detailValueGoalsAdapter!!.setOnItemDoneClickListener { todo ->
+            viewModel.doneTodo(uidUser, idGoals!!, todo.idTodo!!)
+            viewModel.doneTodoMutableLiveData.observe(requireActivity()) { status ->
+                if (status.equals("success")){
+                    Toast.makeText(requireActivity(), "Done ${todo.todo}", Toast.LENGTH_SHORT).show()
+                }
+            }
+            viewModel.databaseErrorDoneTodo.observe(requireActivity()
+            ) { error ->
+                Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        detailValueGoalsAdapter!!.setOnItemNotDoneClickListener { toDo ->
+            viewModel.notDoneTodo(uidUser, idGoals!!, toDo.idTodo!!)
+            viewModel.notDoneTodoMutableLiveData.observe(requireActivity()) { status ->
+                if (status.equals("success")){
+                    Toast.makeText(requireActivity(), "Not Done ${toDo.todo}", Toast.LENGTH_SHORT).show()
+                }
+            }
+            viewModel.databaseErrorNotDoneTodo.observe(requireActivity()
+            ) { error ->
+                Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT).show()
+            }
         }
 
         requireView().isFocusableInTouchMode = true

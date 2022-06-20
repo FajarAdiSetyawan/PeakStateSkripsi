@@ -13,7 +13,7 @@ package com.brainoptimax.peakmeup.model.valuegoals
 //): Serializable
 
 class ValueGoals {
-    var id: String? = null
+    var idGoals: String? = null
     var value: String? = null
     var statement: String? = null
     var time: String? = null
@@ -29,8 +29,8 @@ class ValueGoals {
         this.goals = goals
     }
 
-    constructor(id: String?, value: String?, statement: String?, time: String?, date: String?, descValue: String?, img: String?){
-        this.id = id
+    constructor(idGoals: String?, value: String?, statement: String?, time: String?, date: String?, descValue: String?, img: String?){
+        this.idGoals = idGoals
         this.value = value
         this.statement = statement
         this.time = time

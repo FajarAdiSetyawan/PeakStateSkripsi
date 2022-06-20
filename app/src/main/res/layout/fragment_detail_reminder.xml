@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/bg_layout"
+    tools:context=".ui.reminders.fragment.DetailReminderFragment">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_layout"
+        android:visibility="visible"
+        android:id="@+id/detailMovie">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:contentScrim="@color/color_primary"
+                app:expandedTitleTextAppearance="@android:color/transparent"
+                android:fitsSystemWindows="true">
+
+                <ImageView
+                    android:id="@+id/img_backdrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:fitsSystemWindows="true"
+                    android:scaleType="centerCrop"
+                    app:layout_collapseMode="parallax"
+                    app:srcCompat="@android:color/darker_gray"
+                    tools:srcCompat="@android:color/darker_gray" />
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:popupTheme="@style/Theme.AppCompat.Light"
+                    app:title="@string/title_reminder"
+                    app:layout_collapseMode="pin"/>
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/tv_subtitle_remainder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="@string/sub_title_reminder"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textSize="28sp"/>
+
+                <TextView
+                    android:id="@+id/tv_decs_detail_remainder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_subtitle_remainder"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:justificationMode="inter_word"
+                    android:text="Pellentesque sed magna placerat, placerat ligula ut, tincidunt mi. Cras vitae rhoncus erat. Quisque posuere magna dictum orci fermentum faucibus. Maecenas rhoncus mi id mauris fermentum, at elementum justo molestie. Nulla mollis, lacus eu consequat accumsan, augue mauris mollis nisl, a porttitor lacus massa et odio. Nunc ornare pharetra ante, non tincidunt diam porta eu. Aliquam ullamcorper ligula vel eros viverra, id rutrum tortor pretium. Cras sodales fringilla eros, a condimentum ipsum aliquam ut. Maecenas semper quam quam, sit amet feugiat massa congue sed. Aenean lacinia, erat molestie dapibus blandit, justo neque varius odio, sed fringilla tortor sem in felis. Nullam at nunc sem. Morbi ut ornare odio, vel consectetur lacus."
+                    android:fontFamily="@font/poppins"
+                    android:textSize="16sp"
+                    />
+                <LinearLayout
+                    android:id="@+id/ll_datetime_detail_remainder"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_decs_detail_remainder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_clock"/>
+
+                    <TextView
+                        android:id="@+id/tv_datetime_remainder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Monday, 27 January 2020 - 08.00am"
+                        android:textSize="12sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="3dp"
+                        android:textColor="#A5A5A5" />
+
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</FrameLayout>

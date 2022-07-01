@@ -3,6 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakMeUp/app/src/main/res/layout/activity_blank_dummy.xml" value="0.27239583333333334" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakMeUp/app/src/main/res/layout/activity_intro_value_goals.xml" value="0.27239583333333334" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakMeUp/app/src/main/res/layout/activity_recommendation_emotion.xml" value="0.27239583333333334" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakMeUp/app/src/main/res/layout/activity_reminder.xml" value="0.27239583333333334" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakMeUp/app/src/main/res/layout/bottom_sheet.xml" value="0.27239583333333334" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakMeUp/app/src/main/res/layout/fragment_home.xml" value="0.27239583333333334" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakMeUp/app/src/main/res/layout/fragment_login.xml" value="0.2682051282051282" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakMeUp/app/src/main/res/layout/fragment_negative_emotion.xml" value="0.27239583333333334" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakMeUp/app/src/main/res/layout/fragment_positive_emotion.xml" value="0.27239583333333334" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakMeUp/app/src/main/res/layout/fragment_result_negative.xml" value="0.27239583333333334" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakMeUp/app/src/main/res/layout/include_loading_reminders.xml" value="0.27239583333333334" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakMeUp/app/src/main/res/layout/item_reminders_home.xml" value="0.27239583333333334" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakMeUp/app/src/main/res/layout/item_value_goals.xml" value="0.2682051282051282" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakMeUp/app/src/main/res/layout/language_dialog.xml" value="0.27239583333333334" />
+        <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakMeUp/app/src/main/res/xml/pref_main.xml" value="0.12447916666666667" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/drawable/bg_bottom_sheet.xml" value="0.2841025641025641" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/drawable/bg_breathing_circle_1.xml" value="0.28489583333333335" />
         <entry key="..\:/Source Code/Android/Kotlin/Skripsi/PeakState/app/src/main/res/drawable/bg_breathing_circle_2.xml" value="0.28489583333333335" />

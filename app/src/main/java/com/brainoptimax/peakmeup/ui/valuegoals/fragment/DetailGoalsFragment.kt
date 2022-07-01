@@ -135,12 +135,12 @@ class DetailGoalsFragment : Fragment() {
         // TODO: memanggil semua data todo dari firebase
         viewModel.allToDo(uidUser!!, idGoals!!)
         // TODO: cek data
-        viewModel.todoMutableLiveData.observe(requireActivity()){ toDo ->
+        viewModel.todoMutableLiveData.observe(viewLifecycleOwner){ toDo ->
             detailValueGoalsAdapter!!.setTodo(toDo)
             detailValueGoalsAdapter!!.notifyDataSetChanged()
         }
         // TODO: kalau terjadi error
-        viewModel.databaseErrorToDo.observe(requireActivity()
+        viewModel.databaseErrorToDo.observe(viewLifecycleOwner
         ) { error ->
             Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT).show()
         }
@@ -153,7 +153,7 @@ class DetailGoalsFragment : Fragment() {
                     Toast.makeText(requireActivity(), "Done ${todo.todo}", Toast.LENGTH_SHORT).show()
                 }
             }
-            viewModel.databaseErrorDoneTodo.observe(requireActivity()
+            viewModel.databaseErrorDoneTodo.observe(viewLifecycleOwner
             ) { error ->
                 Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT).show()
             }
@@ -161,12 +161,12 @@ class DetailGoalsFragment : Fragment() {
 
         detailValueGoalsAdapter!!.setOnItemNotDoneClickListener { toDo ->
             viewModel.notDoneTodo(uidUser, idGoals!!, toDo.idTodo!!)
-            viewModel.notDoneTodoMutableLiveData.observe(requireActivity()) { status ->
+            viewModel.notDoneTodoMutableLiveData.observe(viewLifecycleOwner) { status ->
                 if (status.equals("success")){
                     Toast.makeText(requireActivity(), "Not Done ${toDo.todo}", Toast.LENGTH_SHORT).show()
                 }
             }
-            viewModel.databaseErrorNotDoneTodo.observe(requireActivity()
+            viewModel.databaseErrorNotDoneTodo.observe(viewLifecycleOwner
             ) { error ->
                 Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT).show()
             }

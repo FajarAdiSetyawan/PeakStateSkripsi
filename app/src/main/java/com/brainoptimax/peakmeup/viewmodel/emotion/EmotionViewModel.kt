@@ -13,10 +13,13 @@ class EmotionViewModel : ViewModel(),
     EmotionRepository.OnRealtimeDbPositive,
     EmotionRepository.OnRealtimeDbNegative,
     EmotionRepository.OnRealtimeDbTotalAllEmotion,
-    EmotionRepository.OnRealtimeDbTotalPerEmotion {
+    EmotionRepository.OnRealtimeDbTotalPerEmotion,
+        EmotionRepository.OnRealtimeDbCurrentDate,
+        EmotionRepository.OnRealtimeDbDeleteEmotion
+{
 
     private val emotionRepository: EmotionRepository =
-        EmotionRepository(this, this, this, this, this, this)
+        EmotionRepository(this, this,this, this, this, this, this, this)
 
     val emotionAddMutableLiveData = MutableLiveData<String?>()
     val databaseErrorAddEmotions = MutableLiveData<String?>()
@@ -33,8 +36,14 @@ class EmotionViewModel : ViewModel(),
     val totalAllEmotionMutableLiveData = MutableLiveData<String?>()
     private val databaseErrorTotalAllEmotion = MutableLiveData<DatabaseError?>()
 
+    val currentDateMutableLiveData = MutableLiveData<String?>()
+    private val databaseErrorCurrentDate = MutableLiveData<DatabaseError?>()
+
     val totalPerEmotionMutableLiveData = MutableLiveData<String?>()
     private val databaseErrorTotalPerEmotion = MutableLiveData<DatabaseError?>()
+
+    val deleteEmotionMutableLiveData = MutableLiveData<String?>()
+    private val databaseErrorDeleteEmotion = MutableLiveData<String?>()
 
     var status = MutableLiveData<Boolean?>()
 
@@ -52,6 +61,10 @@ class EmotionViewModel : ViewModel(),
 
     fun totalAllEmotion(uid: String) {
         emotionRepository.getTotalAllEmotions(uid)
+    }
+
+    fun currentDate(uid: String) {
+        emotionRepository.getCurrentDate(uid)
     }
 
     fun totalPerEmotion(uid: String, condition: String, emotion: String) {
@@ -81,6 +94,10 @@ class EmotionViewModel : ViewModel(),
             dateFormat,
             timeFormat
         )
+    }
+
+    fun deleteEmotion(uid: String) {
+        emotionRepository.deleteEmotion(uid)
     }
 
     override fun onSuccessEmotion(emotion: List<Emotion>?) {
@@ -129,6 +146,22 @@ class EmotionViewModel : ViewModel(),
 
     override fun onFailureAddEmotion(error: String?) {
         databaseErrorAddEmotions.value = error
+    }
+
+    override fun onSuccessCurrentDate(date: String?) {
+        currentDateMutableLiveData.value = date
+    }
+
+    override fun onFailureCurrentDate(error: DatabaseError?) {
+        databaseErrorCurrentDate.value = error
+    }
+
+    override fun onSuccessDelete(status: String?) {
+        deleteEmotionMutableLiveData.value = status
+    }
+
+    override fun onFailureDelete(error: String?) {
+        databaseErrorDeleteEmotion.value = error
     }
 
 }

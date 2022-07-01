@@ -526,13 +526,13 @@ class EditReminderFragment : Fragment() {
         viewModel.openLoadingDialog(requireActivity())
         viewModel.setImageReminder(uidUser, idReminder!!, imgUri)
 
-        viewModel.imageReminderMutableLiveData.observe(requireActivity()) { success ->
+        viewModel.imageReminderMutableLiveData.observe(viewLifecycleOwner) { success ->
             viewModel.closeLoadingDialog()
             if (success.equals("success")){
                 binding.ivIconReminder.setImageURI(imgUri)
             }
         }
-        viewModel.databaseErrorImageReminder.observe(requireActivity()) { error ->
+        viewModel.databaseErrorImageReminder.observe(viewLifecycleOwner) { error ->
             viewModel.closeLoadingDialog()
             Toast.makeText(requireActivity(), error, Toast.LENGTH_SHORT).show()
         }

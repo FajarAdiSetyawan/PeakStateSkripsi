@@ -69,7 +69,7 @@ class Anchoring1Fragment : Fragment() {
             }
         }
         viewModel.databaseErrorResourceful.observe(
-            requireActivity()
+            viewLifecycleOwner
         ) { error ->
             Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT).show()
         }

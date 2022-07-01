@@ -40,6 +40,10 @@ class DetailResultPeakQuizActivity : AppCompatActivity() {
             moveMain()
         }
 
+        if(peak!!.isEmpty() || peak.equals(null) || peak.equals("null")){
+            moveMain()
+        }
+
         binding.btnAgain.setOnClickListener {
             startActivity(Intent(this, IntroPeakStateQuizActivity::class.java))
             Animatoo.animateSwipeRight(this)

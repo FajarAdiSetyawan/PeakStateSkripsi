@@ -55,7 +55,7 @@ class ResultQuizEnergyFragment : Fragment() {
         binding.rvResultEnergy.adapter = resultEnergyQuizAdapter
 
         viewModel.getResultEnergy(uidUser!!)
-        viewModel.energyQuizMutableLiveData.observe(requireActivity()) { energy ->
+        viewModel.energyQuizMutableLiveData.observe(viewLifecycleOwner) { energy ->
             Log.d("TAG", "onDataChangeEnergy: $energy")
             goneLoading()
             if (energy!!.isEmpty()){
@@ -69,7 +69,7 @@ class ResultQuizEnergyFragment : Fragment() {
             resultEnergyQuizAdapter!!.notifyDataSetChanged()
         }
 
-        viewModel.databaseErrorEnergy.observe(requireActivity()) { error ->
+        viewModel.databaseErrorEnergy.observe(viewLifecycleOwner) { error ->
             goneLoading()
             Toast.makeText(requireContext(), error.toString(), Toast.LENGTH_SHORT).show()
         }

@@ -89,7 +89,7 @@ class ValueGoalsAdapter(var context: Context): RecyclerView.Adapter<ValueGoalsAd
                 val ft = fm.beginTransaction()
                 ft.replace(R.id.frameLayoutVG, fragment)
                 ft.commit()
-
+                ft.addToBackStack(null)
                 true
             }
         }

@@ -39,7 +39,7 @@ class ReminderViewModel: ViewModel(),
     val updateReminderMutableLiveData = MutableLiveData<String?>()
     val databaseErrorUpdateReminder = MutableLiveData<String?>()
 
-    val allReminderMutableLiveData = MutableLiveData<List<Reminder>?>()
+    val allReminderMutableLiveData = MutableLiveData<List<Reminder>>()
     val databaseErrorAllReminder = MutableLiveData<String?>()
 
     fun addReminder(
@@ -93,7 +93,7 @@ class ReminderViewModel: ViewModel(),
         databaseErrorImageReminder.value = error
     }
 
-    override fun onSuccessAllReminder(reminder: List<Reminder>?) {
+    override fun onSuccessAllReminder(reminder: List<Reminder>) {
         allReminderMutableLiveData.value = reminder
     }
 

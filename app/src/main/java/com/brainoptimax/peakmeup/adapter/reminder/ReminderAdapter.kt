@@ -96,6 +96,7 @@ class ReminderAdapter(var context: Context) : RecyclerView.Adapter<ReminderAdapt
                 val ft = fm.beginTransaction()
                 ft.replace(R.id.frameLayoutReminder, fragment)
                 ft.commit()
+                ft.addToBackStack(null)
             }
 
             itemView.setOnLongClickListener {
@@ -112,6 +113,7 @@ class ReminderAdapter(var context: Context) : RecyclerView.Adapter<ReminderAdapt
                 val ft = fm.beginTransaction()
                 ft.replace(R.id.frameLayoutReminder, fragment)
                 ft.commit()
+                ft.addToBackStack(null)
 
 
                 true

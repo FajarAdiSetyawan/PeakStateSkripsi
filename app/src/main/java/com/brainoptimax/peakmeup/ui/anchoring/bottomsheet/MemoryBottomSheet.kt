@@ -58,7 +58,7 @@ class MemoryBottomSheet : BottomSheetDialogFragment() {
         behavior.isDraggable = false
 
         binding.tvGoals.text = resources.getString(R.string.add_memory)
-
+        binding.editText.hint = resources.getString(R.string.play_badminton)
         // TODO: memanggil viewmodel
         viewModel = ViewModelProviders.of(this)[AnchoringViewModel::class.java]
 
@@ -81,7 +81,7 @@ class MemoryBottomSheet : BottomSheetDialogFragment() {
                     }
                 }
 
-                viewModel.databaseErrorAddMemory.observe(requireActivity()) { error ->
+                viewModel.databaseErrorAddMemory.observe(viewLifecycleOwner) { error ->
                     Toast.makeText(requireActivity(), error, Toast.LENGTH_SHORT).show()
                 }
 

@@ -83,7 +83,7 @@ class DailyEmotionFragment : Fragment(), DatePickerListener {
 
         binding.progressBarEmotion.visibility = View.VISIBLE
         viewModel.allEmotions(uidUser!!, day)
-        viewModel.emotionMutableLiveData.observe(requireActivity()){ emotions ->
+        viewModel.emotionMutableLiveData.observe(viewLifecycleOwner){ emotions ->
             Log.d("TAG", "onDataChangeGoals: $emotions")
             binding.progressBarEmotion.visibility = View.INVISIBLE
 
@@ -99,7 +99,7 @@ class DailyEmotionFragment : Fragment(), DatePickerListener {
             }
         }
 
-        viewModel.databaseErrorEmotions.observe(requireActivity()
+        viewModel.databaseErrorEmotions.observe(viewLifecycleOwner
         ) { error ->
             binding.progressBarEmotion.visibility = View.INVISIBLE
             Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT).show()

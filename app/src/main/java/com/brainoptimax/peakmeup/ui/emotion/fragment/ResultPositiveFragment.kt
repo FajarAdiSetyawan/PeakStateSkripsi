@@ -49,7 +49,7 @@ class ResultPositiveFragment : Fragment() {
         binding.rvEmotionsPositive.layoutManager = layoutManager
         binding.rvEmotionsPositive.hasFixedSize()
         viewModel.allPositive(uidUser!!)
-        viewModel.positiveMutableLiveData.observe(requireActivity()) { emotions ->
+        viewModel.positiveMutableLiveData.observe(viewLifecycleOwner) { emotions ->
             Log.d("TAG", "onDataChangePositive: $emotions")
             goneLoading()
 
@@ -65,7 +65,7 @@ class ResultPositiveFragment : Fragment() {
             }
         }
 
-        viewModel.databaseErrorPositive.observe(requireActivity()) { error ->
+        viewModel.databaseErrorPositive.observe(viewLifecycleOwner) { error ->
             goneLoading()
             Toast.makeText(requireContext(), error.toString(), Toast.LENGTH_SHORT).show()
         }

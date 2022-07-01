@@ -54,7 +54,7 @@ class ResultQuizPeakFragment : Fragment() {
         binding.rvResultPeak.adapter = resultPeakQuizAdapter
 
         viewModel.getResultPeak(uidUser!!)
-        viewModel.peakQuizMutableLiveData.observe(requireActivity()) { peak ->
+        viewModel.peakQuizMutableLiveData.observe(viewLifecycleOwner) { peak ->
             Log.d("TAG", "onDataChangePeak: $peak")
             goneLoading()
 
@@ -69,7 +69,7 @@ class ResultQuizPeakFragment : Fragment() {
             resultPeakQuizAdapter!!.notifyDataSetChanged()
         }
 
-        viewModel.databaseErrorPeak.observe(requireActivity()) { error ->
+        viewModel.databaseErrorPeak.observe(viewLifecycleOwner) { error ->
             goneLoading()
             Toast.makeText(requireContext(), error.toString(), Toast.LENGTH_SHORT).show()
         }

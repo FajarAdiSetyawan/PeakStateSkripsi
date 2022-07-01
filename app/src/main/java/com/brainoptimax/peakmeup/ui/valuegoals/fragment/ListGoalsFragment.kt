@@ -9,10 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.brainoptimax.peakmeup.adapter.valuegoals.ValueGoalsAdapter
@@ -66,6 +68,14 @@ class ListGoalsFragment : Fragment() {
             nav.navigate(R.id.action_listGoalsFragment_to_addValueFragment)
         }
 
+        requireActivity().onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    startActivity(Intent(context, MainActivity::class.java)) // pindah ke login
+                    Animatoo.animateSlideUp(requireContext())
+                }
+            })
+
         showLoading()
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(requireActivity())
         binding.rvValue.layoutManager = layoutManager
@@ -73,7 +83,7 @@ class ListGoalsFragment : Fragment() {
         binding.rvValue.adapter = valueGoalsAdapter
 
         viewModel.allGoals(uidUser!!)
-        viewModel.goalsMutableLiveData.observe(requireActivity()){ valueGoals ->
+        viewModel.goalsMutableLiveData.observe(viewLifecycleOwner){ valueGoals ->
             Log.d("TAG", "onDataChangeGoals: $valueGoals")
             goneLoading()
             if (valueGoals!!.isEmpty()){
@@ -93,18 +103,6 @@ class ListGoalsFragment : Fragment() {
             Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT).show()
         }
 
-        requireView().setOnKeyListener(object : View.OnKeyListener {
-            override fun onKey(v: View?, keyCode: Int, event: KeyEvent): Boolean {
-                if (event.action === KeyEvent.ACTION_DOWN) {
-                    if (keyCode == KeyEvent.KEYCODE_BACK) {
-                        startActivity(Intent(context, MainActivity::class.java)) // pindah ke login
-                        Animatoo.animateSlideUp(requireContext())
-                        return true
-                    }
-                }
-                return false
-            }
-        })
     }
     private fun showLoading() {
         binding.shimmerValueGoals.startShimmer()
@@ -127,5 +125,6 @@ class ListGoalsFragment : Fragment() {
         super.onDestroyView()
         fragmentListGoalsBinding = null
     }
+
 
 }

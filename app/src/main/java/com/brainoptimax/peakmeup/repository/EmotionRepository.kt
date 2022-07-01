@@ -9,8 +9,10 @@ class EmotionRepository(
     private val onRealtimeDbEmotion: OnRealtimeDbEmotion,
     private val onRealtimeDbPositive: OnRealtimeDbPositive,
     private val onRealtimeDbNegative: OnRealtimeDbNegative,
+    private val onRealtimeDbCurrentDate: OnRealtimeDbCurrentDate,
     private val onRealtimeDbTotalAllEmotion: OnRealtimeDbTotalAllEmotion,
     private val onRealtimeDbTotalPerEmotion: OnRealtimeDbTotalPerEmotion,
+    private val onRealtimeDbDeleteEmotion: OnRealtimeDbDeleteEmotion,
 
     ) {
 
@@ -76,6 +78,19 @@ class EmotionRepository(
             })
     }
 
+    fun getCurrentDate(uidUser: String) {
+        databaseReference.child(uidUser).child("timestamp")
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    onRealtimeDbCurrentDate.onSuccessCurrentDate(snapshot.value.toString())
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    onRealtimeDbCurrentDate.onFailureCurrentDate(error)
+                }
+            })
+    }
+
     fun getTotalPerEmotions(uidUser: String, condition: String, emotion: String) {
         databaseReference.child(uidUser).child(condition).child(emotion)
             .child("totalPerEmotion").addListenerForSingleValueEvent(object : ValueEventListener {
@@ -131,6 +146,26 @@ class EmotionRepository(
                     onRealtimeDbNegative.onFailureEmotionNegative(task.exception!!.message.toString())
                 }
             }
+    }
+
+    fun deleteEmotion(uidUser: String) {
+        databaseReference.child(uidUser).removeValue().addOnCompleteListener {
+            if (it.isSuccessful){
+                onRealtimeDbDeleteEmotion.onSuccessDelete("success")
+            }else{
+                onRealtimeDbDeleteEmotion.onFailureDelete(it.exception!!.message.toString())
+            }
+        }
+    }
+
+    interface OnRealtimeDbCurrentDate {
+        fun onSuccessCurrentDate(date: String?)
+        fun onFailureCurrentDate(error: DatabaseError?)
+    }
+
+    interface OnRealtimeDbDeleteEmotion {
+        fun onSuccessDelete(status: String?)
+        fun onFailureDelete(error: String?)
     }
 
     interface OnRealtimeAddDbEmotion {

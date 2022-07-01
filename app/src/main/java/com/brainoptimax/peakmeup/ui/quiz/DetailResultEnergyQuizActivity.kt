@@ -55,6 +55,10 @@ class DetailResultEnergyQuizActivity : AppCompatActivity() {
         val tension = intent.getStringExtra(EXTRA_TENSION)
         val datetime = intent.getStringExtra(EXTRA_DATE)
 
+        if(energy!!.isEmpty() || energy.equals(null) || energy.equals("null")){
+            moveBack()
+        }
+
         binding.tvDateTime.text = datetime
 
         binding.btnDone.setOnClickListener {

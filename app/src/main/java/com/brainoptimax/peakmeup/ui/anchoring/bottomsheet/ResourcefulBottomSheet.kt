@@ -25,8 +25,6 @@ class ResourcefulBottomSheet : BottomSheetDialogFragment() {
 
     private lateinit var viewModel: AnchoringViewModel
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var databaseReference: DatabaseReference
 
     private lateinit var preference: Preferences
 
@@ -56,6 +54,7 @@ class ResourcefulBottomSheet : BottomSheetDialogFragment() {
         behavior.isDraggable = false
 
         binding.tvGoals.text = resources.getString(R.string.add_resourceful)
+        binding.editText.hint = resources.getString(R.string.happy)
 
         // TODO: memanggil viewmodel
         viewModel = ViewModelProviders.of(this)[AnchoringViewModel::class.java]
@@ -80,7 +79,7 @@ class ResourcefulBottomSheet : BottomSheetDialogFragment() {
                     }
                 }
 
-                viewModel.databaseErrorAddResourceful.observe(requireActivity()) { error ->
+                viewModel.databaseErrorAddResourceful.observe(viewLifecycleOwner) { error ->
                     Toast.makeText(requireActivity(), error, Toast.LENGTH_SHORT).show()
                 }
 

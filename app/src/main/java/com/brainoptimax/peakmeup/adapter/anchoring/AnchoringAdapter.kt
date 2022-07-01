@@ -58,6 +58,7 @@ class AnchoringAdapter(var context: Context): RecyclerView.Adapter<AnchoringAdap
                 val ft = fm.beginTransaction()
                 ft.replace(R.id.frameLayoutAnchoring, fragment)
                 ft.commit()
+                ft.addToBackStack(null)
             }
 
         }

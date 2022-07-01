@@ -30,16 +30,24 @@
         android:theme="@style/Theme.PeakState">
         <activity
             android:name=".ui.reminders.ReminderActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="locale"/>
         <activity
             android:name=".ui.quiz.ResultQuizListActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="locale"/>
+
+        <activity android:name=".utils.FlashActivity"
+            android:exported="false"/>
+
         <activity
             android:name="com.brainoptimax.peakmeup.ui.dashboard.profile.AboutActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="locale"/>
         <activity
             android:name="com.brainoptimax.peakmeup.ui.dashboard.profile.FeedbackActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="locale"/>
         <activity
             android:name=".ui.quiz.RecommendEnergyQuizActivity"
             android:configChanges="locale"

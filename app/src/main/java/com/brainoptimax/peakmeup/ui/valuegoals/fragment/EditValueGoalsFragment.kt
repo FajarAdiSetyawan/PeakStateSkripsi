@@ -328,7 +328,7 @@ class EditValueGoalsFragment : Fragment() {
                 .setMessage(resources.getString(R.string.are_sure_delete) +" $value ?")
                 .setPositiveButton("Ok") { _, _ ->
                     viewModel.deleteGoal(uidUser, idGoals!!, img!!)
-                    viewModel.deleteGoalsMutableLiveData.observe(requireActivity()) { status ->
+                    viewModel.deleteGoalsMutableLiveData.observe(viewLifecycleOwner) { status ->
                         if (status.equals("success")){
                             setNotification(value!!, statement!!)
                             Toast.makeText(requireActivity(), resources.getString(R.string.success_delete) + " $value", Toast.LENGTH_SHORT).show()
@@ -336,7 +336,7 @@ class EditValueGoalsFragment : Fragment() {
                             Animatoo.animateSlideUp(requireContext())
                         }
                     }
-                    viewModel.databaseErrorDeleteGoals.observe(requireActivity()
+                    viewModel.databaseErrorDeleteGoals.observe(viewLifecycleOwner
                     ) { error ->
                         Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT).show()
                     }
@@ -353,12 +353,12 @@ class EditValueGoalsFragment : Fragment() {
                 .setMessage(resources.getString(R.string.are_sure_delete) +" ${toDo.todo} ?")
                 .setPositiveButton("Ok") { _, _ ->
                     viewModel.deleteTodo(uidUser, idGoals!!, toDo.idTodo!!)
-                    viewModel.deleteTodoMutableLiveData.observe(requireActivity()) { status ->
+                    viewModel.deleteTodoMutableLiveData.observe(viewLifecycleOwner) { status ->
                         if (status.equals("success")){
                             Toast.makeText(requireActivity(), resources.getString(R.string.success_delete) + " ${toDo.todo}", Toast.LENGTH_SHORT).show()
                         }
                     }
-                    viewModel.databaseErrorDeleteTodo.observe(requireActivity()
+                    viewModel.databaseErrorDeleteTodo.observe(viewLifecycleOwner
                     ) { error ->
                         Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT).show()
                     }
@@ -538,13 +538,13 @@ class EditValueGoalsFragment : Fragment() {
         viewModel.openLoadingDialog(requireActivity())
         viewModel.setImageGoals(uidUser, idGoals!!, imgUri)
 
-        viewModel.imageGoalsMutableLiveData.observe(requireActivity()) { success ->
+        viewModel.imageGoalsMutableLiveData.observe(viewLifecycleOwner) { success ->
             viewModel.closeLoadingDialog()
             if (success.equals("success")){
                 binding.ivIconValue.setImageURI(imgUri)
             }
         }
-        viewModel.databaseErrorImageGoals.observe(requireActivity()) { error ->
+        viewModel.databaseErrorImageGoals.observe(viewLifecycleOwner) { error ->
             viewModel.closeLoadingDialog()
             Toast.makeText(requireActivity(), error, Toast.LENGTH_SHORT).show()
         }

@@ -71,6 +71,8 @@ class AddValueFragment : Fragment() {
         }
     }
 
+
+
     override fun onDestroy() {
         super.onDestroy()
         fragmentAddValueBinding=  null

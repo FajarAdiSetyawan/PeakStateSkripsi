@@ -49,7 +49,7 @@ class WeeklyEmotionFragment : Fragment() {
         binding.tvMonthEmotion.text = currentDateAndTime
 
         viewModel.totalAllEmotion(uidUser!!)
-        viewModel.totalAllEmotionMutableLiveData.observe(requireActivity()) { totalAllEmotion ->
+        viewModel.totalAllEmotionMutableLiveData.observe(viewLifecycleOwner) { totalAllEmotion ->
             Log.d("TAG", "totalAllEmotion: $totalAllEmotion")
 
             if (totalAllEmotion!!.isEmpty() || totalAllEmotion.equals(null) || totalAllEmotion == "null") {

@@ -52,7 +52,6 @@ class ResultPositiveAdapter(
             val totalPerEmotion = emotion.totalPerEmotion
 
             binding.tvCountEmotions.text = totalPerEmotion.toString()
-            binding.tvEmotion.text = emotionName
 
             viewModel.totalAllEmotion(uidUser!!)
             viewModel.totalAllEmotionMutableLiveData.observe(activity) { totalAllEmotion ->
@@ -70,52 +69,66 @@ class ResultPositiveAdapter(
             binding.pbEmotions.progress = totalPerEmotion!!
 
 
-
             when (emotionName) {
                 "Excited" -> {
                     binding.ivEmotion.setImageResource(R.drawable.ic_exited)
+                    binding.tvEmotion.text = itemView.context.getString(R.string.excited)
                 }
                 "Enthusiastic" -> {
                     binding.ivEmotion.setImageResource(R.drawable.ic_enthusiastic)
+                    binding.tvEmotion.text = itemView.context.getString(R.string.enthusiastic)
                 }
                 "Happy" -> {
                     binding.ivEmotion.setImageResource(R.drawable.ic_happy)
+                    binding.tvEmotion.text = itemView.context.getString(R.string.happy)
                 }
                 "Grateful" -> {
                     binding.ivEmotion.setImageResource(R.drawable.ic_grateful)
+                    binding.tvEmotion.text = itemView.context.getString(R.string.grateful)
                 }
                 "Passionate" -> {
                     binding.ivEmotion.setImageResource(R.drawable.ic_passionate)
+                    binding.tvEmotion.text = itemView.context.getString(R.string.passionate)
                 }
                 "Joyful" -> {
                     binding.ivEmotion.setImageResource(R.drawable.ic_joyful)
+                    binding.tvEmotion.text = itemView.context.getString(R.string.joyful)
                 }
                 "Brave" -> {
                     binding.ivEmotion.setImageResource(R.drawable.ic_brave)
+                    binding.tvEmotion.text = itemView.context.getString(R.string.brave)
                 }
                 "Confident" -> {
                     binding.ivEmotion.setImageResource(R.drawable.ic_confident)
+                    binding.tvEmotion.text = itemView.context.getString(R.string.confident)
                 }
                 "Proud" -> {
                     binding.ivEmotion.setImageResource(R.drawable.ic_proud)
+                    binding.tvEmotion.text = itemView.context.getString(R.string.proud)
                 }
                 "Hopeful" -> {
                     binding.ivEmotion.setImageResource(R.drawable.ic_hopeful)
+                    binding.tvEmotion.text = itemView.context.getString(R.string.hopeful)
                 }
                 "Optimistic" -> {
                     binding.ivEmotion.setImageResource(R.drawable.ic_optimistic)
+                    binding.tvEmotion.text = itemView.context.getString(R.string.optimistic)
                 }
                 "Calm" -> {
                     binding.ivEmotion.setImageResource(R.drawable.ic_calm)
+                    binding.tvEmotion.text = itemView.context.getString(R.string.calm)
                 }
                 "Fun" -> {
                     binding.ivEmotion.setImageResource(R.drawable.ic_fun)
+                    binding.tvEmotion.text = itemView.context.getString(R.string.`fun`)
                 }
                 "Awful" -> {
                     binding.ivEmotion.setImageResource(R.drawable.ic_awful)
+                    binding.tvEmotion.text = itemView.context.getString(R.string.awful)
                 }
                 "Good" -> {
                     binding.ivEmotion.setImageResource(R.drawable.ic_good)
+                    binding.tvEmotion.text = itemView.context.getString(R.string.good)
                 }
             }
         }

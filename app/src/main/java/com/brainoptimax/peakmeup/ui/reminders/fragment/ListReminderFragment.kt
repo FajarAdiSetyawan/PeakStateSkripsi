@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
@@ -94,18 +95,15 @@ class ListReminderFragment : Fragment() {
             Animatoo.animateSlideUp(requireContext())
         }
 
-        requireView().setOnKeyListener(object : View.OnKeyListener {
-            override fun onKey(v: View?, keyCode: Int, event: KeyEvent): Boolean {
-                if (event.action === KeyEvent.ACTION_DOWN) {
-                    if (keyCode == KeyEvent.KEYCODE_BACK) {
-                        startActivity(Intent(context, MainActivity::class.java)) // pindah ke login
-                        Animatoo.animateSlideUp(requireContext())
-                        return true
-                    }
+
+
+        requireActivity().onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    startActivity(Intent(context, MainActivity::class.java)) // pindah ke login
+                    Animatoo.animateSlideUp(requireContext())
                 }
-                return false
-            }
-        })
+            })
     }
 
 

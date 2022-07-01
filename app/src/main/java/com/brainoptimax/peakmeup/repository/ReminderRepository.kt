@@ -52,7 +52,6 @@ class ReminderRepository(
         databaseReference.child(uidUser).get()
             .addOnCompleteListener { task ->
                 val reminder: MutableList<Reminder> = ArrayList()
-
                 if (task.isSuccessful) {
                     for (ds in task.result.children) {
                         val reminderList = ds.getValue(Reminder::class.java)
@@ -155,7 +154,7 @@ class ReminderRepository(
 
 
     interface OnRealtimeDbAllReminder {
-        fun onSuccessAllReminder(reminder: List<Reminder>?)
+        fun onSuccessAllReminder(reminder: List<Reminder>)
         fun onFailureAllReminder(error: String?)
     }
 

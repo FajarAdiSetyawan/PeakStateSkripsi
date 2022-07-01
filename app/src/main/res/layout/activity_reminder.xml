@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.reminders.ReminderActivity"
-    android:background="@color/bg_layout">
+    android:background="@color/bg_layout"
+    android:configChanges="keyboardHidden|orientation|screenSize">
 
     <fragment
         android:id="@+id/frameLayoutReminder"

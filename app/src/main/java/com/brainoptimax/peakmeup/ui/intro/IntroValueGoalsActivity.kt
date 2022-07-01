@@ -25,6 +25,12 @@ class IntroValueGoalsActivity : AppCompatActivity() {
             startActivity(intent)
             Animatoo.animateSlideLeft(this)
         }
+
+        binding.ivBack.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            Animatoo.animateSlideRight(this)
+        }
     }
 
     override fun onBackPressed() {

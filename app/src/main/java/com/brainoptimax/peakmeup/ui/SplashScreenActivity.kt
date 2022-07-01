@@ -13,18 +13,21 @@ import com.brainoptimax.peakmeup.ui.auth.AuthActivity
 import com.brainoptimax.peakmeup.utils.Animatoo
 import com.brainoptimax.peakmeup.R
 import com.brainoptimax.peakmeup.databinding.ActivitySplashScreenBinding
+import com.brainoptimax.peakmeup.utils.LocalizationAgent
+import com.brainoptimax.peakmeup.utils.OnLocaleChangedListener
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.firebase.auth.FirebaseAuth
 import render.animations.Render
 import render.animations.Zoom
 
-class SplashScreenActivity : AppCompatActivity() {
+class SplashScreenActivity : AppCompatActivity(), OnLocaleChangedListener {
     private var binding: ActivitySplashScreenBinding? = null
     private val activitySplashScreenBinding get() = binding!!
 
     private lateinit var auth: FirebaseAuth
 
     private val animation = Render(this)
+    private var localizationAgent: LocalizationAgent? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +42,9 @@ class SplashScreenActivity : AppCompatActivity() {
         animation.setAnimation(Zoom.In(activitySplashScreenBinding.ivSplash))
         animation.start()
 
+        localizationAgent = LocalizationAgent(this)
+        localizationAgent?.addOnLocaleChangedListener(this@SplashScreenActivity)
+        localizationAgent?.onCreate()
     }
 
 
@@ -109,4 +115,7 @@ class SplashScreenActivity : AppCompatActivity() {
         }, 2000)
 
     }
+
+    override fun beforeLocaleChanged() = Unit
+    override fun afterLocaleChanged() = Unit
 }

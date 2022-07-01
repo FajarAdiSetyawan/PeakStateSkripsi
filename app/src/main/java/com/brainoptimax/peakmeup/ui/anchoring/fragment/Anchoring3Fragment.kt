@@ -72,7 +72,7 @@ class Anchoring3Fragment : Fragment() {
             }
         }
         viewModel.databaseErrorMemory.observe(
-            requireActivity()
+            viewLifecycleOwner
         ) { error ->
             binding.progressBar.visibility = View.GONE
             Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT).show()
@@ -86,9 +86,9 @@ class Anchoring3Fragment : Fragment() {
             bundle.putString("memory", memory.memory) // use as per your need
 
             fragment.arguments = bundle
-            fragmentTransaction.addToBackStack(null)
             fragmentTransaction.replace(R.id.frameLayoutAnchoring, fragment)
             fragmentTransaction.commit()
+            fragmentTransaction.addToBackStack(null)
         }
 
 

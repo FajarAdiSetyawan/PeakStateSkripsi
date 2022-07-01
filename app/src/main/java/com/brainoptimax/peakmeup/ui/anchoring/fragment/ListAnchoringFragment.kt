@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
@@ -17,6 +18,7 @@ import com.brainoptimax.peakmeup.R
 import com.brainoptimax.peakmeup.adapter.anchoring.AnchoringAdapter
 import com.brainoptimax.peakmeup.viewmodel.anchoring.AnchoringViewModel
 import com.brainoptimax.peakmeup.databinding.FragmentListAnchoringBinding
+import com.brainoptimax.peakmeup.ui.MainActivity
 import com.brainoptimax.peakmeup.ui.anchoring.AnchoringActivity
 import com.brainoptimax.peakmeup.utils.Animatoo
 import com.brainoptimax.peakmeup.utils.Preferences
@@ -82,6 +84,8 @@ class ListAnchoringFragment : Fragment() {
             startActivity(Intent(requireActivity(), AnchoringActivity::class.java)) // pindah ke login
             Animatoo.animateSlideRight(requireContext())
         }
+
+
     }
 
     private fun showLoading(){

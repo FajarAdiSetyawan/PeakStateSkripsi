@@ -1,37 +1,7 @@
-<resources xmlns:tools="http://schemas.android.com/tools"
-    tools:locale="in">
+<resources>
     <string name="app_name">Peak Up Me</string>
-    <string name="app_maker">App developer</string>
-    <string name="copyright_app" translatable="false">Copyright \u00a9 2022, Brain Optimax</string>
-    <string name="web_client_id" translatable="false">175191691077-ugjndbtbjvp9joh36aub8d6gn13u9r2b.apps.googleusercontent.com</string>
-    <string name="error" translatable="false">Error</string>
-    <string name="bug" translatable="false">Bug</string>
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
-    <string name="blank" translatable="false"></string>
-    <string name="activator" translatable="false">Activator</string>
-    <string name="values_and_goals" translatable="false">Values and Goals</string>
-    <string name="edit_values_and_goals" translatable="false">Edit Values and Goals</string>
-    <string name="emotion__gauge" translatable="false">Emotion Gauge</string>
-    <string-array name="pref_themes_entry">
-        <item>@string/pref_theme_entry_auto</item>
-        <item>@string/pref_theme_entry_dark</item>
-        <item>@string/pref_theme_entry_light</item>
-    </string-array>
+    <string name="app_maker">Pengembang Aplikasi</string>
 
-    <string-array name="pref_lang_label">
-        <item>@string/pref_lang_label_en</item>
-        <item>@string/pref_lang_label_in</item>
-    </string-array>
-    <string-array name="pref_themes_label">
-        <item>@string/pref_theme_label_auto</item>
-        <item>@string/pref_theme_label_dark</item>
-        <item>@string/pref_theme_label_light</item>
-    </string-array>
-
-    <string-array name="pref_lang_entry">
-        <item>@string/pref_lang_entry_en</item>
-        <item>@string/pref_lang_entry_in</item>
-    </string-array>
     <!--  custom text   -->
     <string name="back">Kembali</string>
     <string name="next">Lanjut</string>
@@ -325,7 +295,6 @@
     <string name="delete">Menghapus</string>
 
 
-
     <string name="anchoring_empty">Anchoring tidak boleh kosong</string>
     <string name="resourceful_empty">Resourceful tidak boleh kosong</string>
     <string name="goals_empty">Tujuan tidak boleh kosong</string>
@@ -606,5 +575,4 @@
     <string name="write_a_grattitude_journal">Tulis jurnal rasa terima kasih</string>
     <string name="recommend_emotion_6">Penelitian menunjukkan bahwa mengungkapkan rasa syukur meningkatkan tingkat kebahagiaan kita setidaknya 25 persen dan berkontribusi pada kesehatan secara keseluruhan. Peringatan penting adalah bahwa pendekatan yang teratur bisa melelahkan dan tidak berkelanjutan. Coba kembangkan kesegaran dengan mempersonalisasi frekuensi jurnal rasa syukur Anda.</string>
     <string name="recommend_emotion_7">Perubahan dan penguasaan adalah produk dari keterampilan sederhana yang dipelajari dan dipraktikkan dengan baik setiap hari. Jadikan rutinitas kebahagiaan Anda sebagai kebiasaan dengan menjadikannya sebagai praktik sehari-hari. Manfaatkan fungsi pengingat untuk menyiapkan rutinitas yang membawa Anda pada perjalanan menuju perubahan positif sekarang.</string>
-
 </resources>
